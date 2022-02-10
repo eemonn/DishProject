@@ -2,11 +2,9 @@
 
 ## Summary Sentence: 
 
-*"Your recipe book, at your fingertips!"*  
+The dish project system(DP system) is an application which will allow users to find and dissect their favourite dishes simply by searching the name of the dish. The DP system is focused around letting users find the dish they want to cook and then adding the ingredients they don't have to a shopping list to make the shopping process easier. 
 
 ## Description
-
-The dish project system(DP system) is an application which will allow users to find and dissect their favourite dishes simply by searching the name of the dish. The DP system is focused around letting users find the dish they want to cook and then adding the ingredients they don't have to a shopping list to make the shopping process easier. 
 
 The system will have a wide range of recipes available for users to look through and find. Once the user finds the dish, it will show a list of all the ingredients that are required along with the quantity that will be needed. Users will have the option to select for how many people they are cooking, and the recipe will dynamically calculate and update the quantity of the ingredients to reflect the changes.  Users will have the option to choose which items or ingredients from the list they want to purchase, and those will be added to a shopping cart. Users can go through many recipes and add the wanted items to the shopping list. The shopping cart will show the items categorized for each recipe to make it easier for users to understand which item is for which dish. 
 
