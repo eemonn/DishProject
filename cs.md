@@ -10,7 +10,7 @@
 - Classes and interfaces should be camelcase, but start with a captial
 - Avoid acronyms
 - Booleans should be two words, starting with is or has
-- 
+
 
 ### Comments
 ---
