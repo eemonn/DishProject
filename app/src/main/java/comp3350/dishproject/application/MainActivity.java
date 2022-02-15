@@ -1,4 +1,4 @@
-package comp3350.dishproject.presentation;
+package comp3350.dishproject.application;
 
 import androidx.appcompat.app.AppCompatActivity;
 
