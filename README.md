@@ -8,6 +8,7 @@ The dish project system(DP system) is an application which will allow users to f
 - [Vision Statement](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/blob/main/VisionStatment.md)
 - [Coding Standards](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/blob/main/CodingStandards.md)
 - [Branching Strategy and Contributing Guidelines](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/blob/main/ContributingGuidelines.md)
+- [Architecture](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/blob/main/ARCHITECTURE.md)
 
 
 ### Milestones
