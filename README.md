@@ -11,6 +11,11 @@ The dish project system(DP system) is an application which will allow users to f
 - [Architecture](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/blob/main/ARCHITECTURE.md)
 
 
+### Worksheets:
+---
+
+- [Worksheet for Iteration 1](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/blob/main/i1_worksheet.md)
+
 ### Milestones
 ---
 - Iteration 1
