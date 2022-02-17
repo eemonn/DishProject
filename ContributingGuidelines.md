@@ -9,6 +9,11 @@ Guidelines for contributing to the project. This project will follow a Git flow 
 -  When working on a feature, you must create a new branch `feature-*` and work with that branch.
 -  Once you are done with the feature, make a merge request to `develop`. All code committed must work and include tests.
 
+### Branch Naming Conventions
+---
+- Feature followed by name separated by hypens
+- `tim-home-page`
+
 ### Commit messages
 --- 
 - Correct spelling and proper grammar
