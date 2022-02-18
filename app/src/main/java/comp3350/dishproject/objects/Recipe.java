@@ -4,18 +4,44 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Recipe {
-    private String name,id;
-    private float calorie;
+    private String name,id,direction;
+    private double calorie;
     private ArrayList<Ingredient>ingredientArrayList;
-    public Recipe(String name,String id, float calorie, ArrayList<Ingredient> ingredientArrayList){
+    private int rating;
+    public Recipe(String name,String id, double calorie, ArrayList<Ingredient> ingredientArrayList){
         this.name=name;
         this.id=id;
         this.calorie=calorie;
         this.ingredientArrayList=ingredientArrayList;
+        this.rating=0;
+        this.direction="";
+    }
+    public void setDirectionMethod(String s){
+        this.direction=s;
+    }
+
+    public String getDirection() {
+        return direction;
     }
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public void setCalorie(double calorie) {
+        this.calorie = calorie;
+    }
+
+    public void setIngredientArrayList(ArrayList<Ingredient> ingredientArrayList) {
+        this.ingredientArrayList = ingredientArrayList;
     }
 
     @Override
@@ -23,7 +49,7 @@ public class Recipe {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Recipe recipe = (Recipe) o;
-        return Float.compare(recipe.calorie, calorie) == 0 && Objects.equals(name, recipe.name) && Objects.equals(id, recipe.id) && Objects.equals(ingredientArrayList, recipe.ingredientArrayList);
+        return Double.compare(recipe.calorie, calorie) == 0 && Objects.equals(name, recipe.name) && Objects.equals(id, recipe.id) && Objects.equals(ingredientArrayList, recipe.ingredientArrayList);
     }
     public void removeIngredientFromRecipe(Ingredient ingredient){
         for(int i=0;i<this.ingredientArrayList.size();i++){
@@ -48,19 +74,19 @@ public class Recipe {
     public void setCalorie(float calorie){
         this.calorie=calorie;
     }
-    public void increaseCalorie(float x){
+    public void increaseCalorie(double x){
         this.calorie+=calorie;
     }
     public void addIngredient(Ingredient i){
         this.ingredientArrayList.add(i);
-        increaseCalorie(i.getCalorie());
+        increaseCalorie((i.getCalorie()));
     }
 
     public ArrayList<Ingredient> getIngredientArrayList() {
         return ingredientArrayList;
     }
 
-    public float getCalorie() {
+    public double getCalorie() {
         return calorie;
     }
 
