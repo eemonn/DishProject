@@ -13,27 +13,27 @@ import comp3350.dishproject.objects.Recipe;
 
 
 public class RecipeTest {
-    private static ArrayList<Ingredient>list=new ArrayList<Ingredient>();
-    private static Ingredient i1,i2,i3;
-    private static Recipe recipe;
-    @BeforeClass
-    public static void beforeClass(){
-        Ingredient i1=new Ingredient("Orange", "1", 1, 250.0,30.0);
-        Ingredient i2=new Ingredient("Banana", "2", 2, 200.0,60.0);
-        Ingredient i3=new Ingredient("Kiwi", "3", 3, 500.0,25.0);
-        recipe=new Recipe("Fruit salad","1", 600.0,450, new ArrayList<Ingredient>());
-        recipe.addIngredient(i2);
-        recipe.addIngredient(i2);
-        recipe.addIngredient(i3);
-        //System.out.println(recipe.getIngredientArrayList());
-//        list=new ArrayList<Ingredient>();
-//        list.add(i1);
-//        list.add(i2);
-//        list.add(i3);
-    }
+//    private static final ArrayList<Ingredient>list=new ArrayList<Ingredient>();
+//    private static Ingredient i1,i2,i3;
+//    private static Recipe recipe;
+//    @BeforeClass
+//    public static void beforeClass(){
+//        Ingredient i1=new Ingredient("Orange", "1", 1, 250.0,30.0);
+//        Ingredient i2=new Ingredient("Banana", "2", 2, 200.0,60.0);
+//        Ingredient i3=new Ingredient("Kiwi", "3", 3, 500.0,25.0);
+//        recipe=new Recipe("Fruit salad","1", 600.0,450, new ArrayList<Ingredient>());
+//        recipe.addIngredient(i2);
+//        recipe.addIngredient(i2);
+//        recipe.addIngredient(i3);
+//        //System.out.println(recipe.getIngredientArrayList());
+////        list=new ArrayList<Ingredient>();
+////        list.add(i1);
+////        list.add(i2);
+////        list.add(i3);
+//    }
     @Test
     public void testHasIngredient(){
-        //Recipe r=new Recipe("Fruit salad","1", 600.0,450, list);
+        //Recipe r=new Recipe("Fruit salad","1", 600.0,450, new ArrayList<Ingredient>());
         //System.out.println(recipe.hasIngredient(i3));
         //r.hasIngredient(i1);
         //assert(r.hasIngredient(i2));
