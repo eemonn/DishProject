@@ -69,6 +69,7 @@ public class Recipe {
     public void setCalorie(double calorie) {
         this.calorie = calorie;
     }
+
     public boolean hasIngredient(Ingredient ingredient){
         for(int i=0;i<this.getIngredientArrayList().size();i++){
             System.out.println(this.getIngredientArrayList().size());//this.getIngredientArrayList().get(i).getName()
