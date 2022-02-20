@@ -72,6 +72,7 @@ public class RecipeTest {
         Ingredient i3=new Ingredient("kiwi", "2", 2, 200.0,2.0);
         Ingredient i4=new Ingredient("melon", "1", 1, 200.0,1.0);
         r.setIngredientArrayList(list);
+        System.out.println("2");
         r.addIngredient(i3);
         assert(r.getCalorie()==627.0);
         assert(r.toString().equals("Recipe{name='Pizza', id='1', calorie=627.0, weight=627.0, ingredientArrayList=[Ingredient{name='kiwi', id='2', quantity=2, weight=200.0}]}"));
