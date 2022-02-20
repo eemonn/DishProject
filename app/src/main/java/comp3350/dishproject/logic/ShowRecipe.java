@@ -21,4 +21,6 @@ public class ShowRecipe {
     public void showDescription(TextView t, String s){
         t.setText(s);
     }
+
+    public void showDirection(TextView t){ t.setText(rec.getDirection());}
 }
