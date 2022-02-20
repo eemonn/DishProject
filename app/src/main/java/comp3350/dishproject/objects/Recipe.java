@@ -69,27 +69,36 @@ public class Recipe {
     public void setCalorie(double calorie) {
         this.calorie = calorie;
     }
-
+    /*
+    method to check if ingredient present in list of ingredients
+     */
     public boolean hasIngredient(Ingredient ingredient){
         for(int i=0;i<this.getIngredientArrayList().size();i++){
-            System.out.println(this.getIngredientArrayList().size());//this.getIngredientArrayList().get(i).getName()
-            System.out.println(this.getIngredientArrayList().get(i).getName());
-            System.out.println(this.getIngredientArrayList().get(i)!=null);
             if(ingredient.getName().equals(this.getIngredientArrayList().get(i).getName()) && ingredient.getId().equals(this.getIngredientArrayList().get(i).getId())){
                 return true;
             }
         }
         return false;
     }
+    /*
+    make a new list pointer
+     */
     public void setIngredientArrayList(ArrayList<Ingredient> ingredientArrayList) {
         this.ingredientArrayList = ingredientArrayList;
     }
+    /*
+    method to check 2 recipe object
+     */
     public boolean isEquals(Recipe o) {
         return this.name.equals(o.name) && this.id.equals(o.id);
     }
+    /*
+    method to remove ingredient
+     */
     public void removeIngredientFromRecipe(Ingredient ingredient){
         for(int i=0;i<this.ingredientArrayList.size();i++){
             if(ingredient.getName().equals(ingredientArrayList.get(i).getName()) && ingredient.getId().equals(ingredientArrayList.get(i).getId())){
+                increaseCalorie((-ingredient.getCalorie()));
                 ingredientArrayList.get(i).incrementQuantity(-1);
                 if(ingredientArrayList.get(i).getQuantity()<1){
                     ingredientArrayList.remove(i);
@@ -104,15 +113,34 @@ public class Recipe {
     public void setName(String name) {
         this.name = name;
     }
-
+    /*
+    method to change calorie
+     */
     public void increaseCalorie(double x){
-        this.calorie+=calorie;
+        this.calorie+=x;
     }
+    /*
+    method to add recipe. if ingredient already present, only update amount
+     */
     public void addIngredient(Ingredient i){
-        this.ingredientArrayList.add(i);
-        increaseCalorie((i.getCalorie()));
-    }
+        int counter=i.getQuantity();double counter2=i.getCalorie();
+        if(hasIngredient(i)){
+            for(int j=0;j<this.ingredientArrayList.size();j++){
+                if(i.getName().equals(ingredientArrayList.get(j).getName()) && i.getId().equals(ingredientArrayList.get(j).getId())){
+                    increaseCalorie((i.getQuantity()*i.getCalorie()));
 
+                    ingredientArrayList.get(j).incrementQuantity(i.getQuantity());
+                    break;
+                }
+            }
+        }else{
+            increaseCalorie((i.getQuantity()*i.getCalorie()));
+            this.ingredientArrayList.add(i);
+        }
+    }
+    /*
+    method to get array list
+     */
     public ArrayList<Ingredient> getIngredientArrayList() {
         return ingredientArrayList;
     }

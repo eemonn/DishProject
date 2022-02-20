@@ -34,9 +34,64 @@ public class RecipeTest {
     @Test
     public void testHasIngredient(){
         Recipe r=new Recipe("Pizza","1", 600.0,450, new ArrayList<Ingredient>());
-        Ingredient i=new Ingredient("Apple", "2", 1, 200.0,180.0);
+        Ingredient i=new Ingredient("Apple", "2", 2, 200.0,2.0);
+        Ingredient i1=new Ingredient("Banana", "1", 1, 200.0,1.0);
+        Ingredient i2=new Ingredient("Orange", "3", 3, 200.0,3.0);
+        System.out.println("Calorie "+r.getCalorie());
+        assert(r.getCalorie()==600.0);
         r.addIngredient(i);
-        assertTrue(r.hasIngredient(i));
+        r.addIngredient(i1);
+
+        r.addIngredient(i2);
+        assert(r.getCalorie()==614.0);
+        assertTrue(r.hasIngredient(i2));
+        assert(r.getIngredientArrayList().get(2).getQuantity()==3);
+        r.addIngredient(i2);
+        assert(r.getCalorie()==623.0);
+        assert(r.getIngredientArrayList().get(2).getQuantity()==6);
+        assert(r.getIngredientArrayList().size()==3);
+
+    }
+    @Test
+    public void testSetArrayList(){
+        Recipe r=new Recipe("Pizza","1", 600.0,450, new ArrayList<Ingredient>());
+        Ingredient i=new Ingredient("Apple", "2", 2, 200.0,2.0);
+        Ingredient i1=new Ingredient("Banana", "1", 1, 200.0,1.0);
+        Ingredient i2=new Ingredient("Orange", "3", 3, 200.0,3.0);
+        System.out.println("Calorie "+r.getCalorie());
+        assert(r.getCalorie()==600.0);
+        r.addIngredient(i);
+        r.addIngredient(i1);
+
+        r.addIngredient(i2);
+        assert(r.getCalorie()==614.0);
+        assertTrue(r.hasIngredient(i2));
+        assert(r.getIngredientArrayList().get(2).getQuantity()==3);
+        r.addIngredient(i2);
+        ArrayList<Ingredient>list=new ArrayList<Ingredient>();
+        Ingredient i3=new Ingredient("kiwi", "2", 2, 200.0,2.0);
+        Ingredient i4=new Ingredient("melon", "1", 1, 200.0,1.0);
+        r.setIngredientArrayList(list);
+        r.addIngredient(i3);
+        assert(r.getCalorie()==627.0);
+        assert(r.toString().equals("Recipe{name='Pizza', id='1', calorie=627.0, weight=627.0, ingredientArrayList=[Ingredient{name='kiwi', id='2', quantity=2, weight=200.0}]}"));
+        r.addIngredient(i4);
+        r.removeIngredientFromRecipe(i3);
+        assert(r.getCalorie()==626.0);
+        r.removeIngredientFromRecipe(i3);
+        r.removeIngredientFromRecipe(i4);
+        assert(r.getCalorie()==623.0);
+        assert(r.toString().equals("Recipe{name='Pizza', id='1', calorie=623.0, weight=623.0, ingredientArrayList=[]}"));
+
+
+    }
+    @Test
+    public void testIsEqual(){
+        Recipe r=new Recipe("Pizza","1", 600.0,450, new ArrayList<Ingredient>());
+        assert(r.isEquals(new Recipe("Pizza","1", 600.0,450, new ArrayList<Ingredient>())));
+        assert(r.isEquals(new Recipe("Pizza","1", 600.0,420, new ArrayList<Ingredient>())));
+        assert(!r.isEquals(new Recipe("Burger","1", 600.0,450, new ArrayList<Ingredient>())));
+
     }
     @Test
     public void testConstructor(){
