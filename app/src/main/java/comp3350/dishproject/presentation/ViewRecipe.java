@@ -2,7 +2,10 @@ package comp3350.dishproject.presentation;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
+import android.widget.RatingBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -22,6 +25,7 @@ public class ViewRecipe extends AppCompatActivity {
     }
 
     protected void showIngredient(){
+
         Recipe r=new Recipe("Pizza","1", 600.0,450, new ArrayList<Ingredient>());
         Ingredient i=new Ingredient("Apple", "2", 2, 200.0,2.0);
         Ingredient i1=new Ingredient("Banana", "1", 1, 200.0,1.0);
@@ -30,6 +34,7 @@ public class ViewRecipe extends AppCompatActivity {
         r.addIngredient(i1);
         TextView t= (TextView) findViewById(R.id.ing_list);
         TextView t2= (TextView) findViewById(R.id.des_text);
+        TextView t3= (TextView) findViewById(R.id.direction_text);
         ShowRecipe s= new ShowRecipe(r);
         s.showIngredient(t);
         String ss="Step 1\n" +
@@ -44,5 +49,6 @@ public class ViewRecipe extends AppCompatActivity {
                 "Step 4\n" +
                 "Spread mayonnaise and ketchup on bun bottoms. Add lettuce, tomato, burger, onion, and salt and pepper to taste. Set bun tops in place.";
         s.showDescription(t2,ss);
+        s.showDescription(t3,ss);
     }
 }
