@@ -35,7 +35,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Description"
-                android:textColor="#673AB7"
                 android:textSize="34sp"
                 android:textStyle="bold" />
 
@@ -52,7 +51,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ingredients"
-                android:textColor="#673AB7"
                 android:textSize="34sp"
                 android:textStyle="bold" />
 
@@ -68,7 +66,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Direction"
-                android:textColor="#673AB7"
                 android:textSize="34sp"
                 android:textStyle="bold" />
 
@@ -84,7 +81,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Rate The Dish"
-                android:textColor="#673AB7"
                 android:textSize="30sp" />
 
             <RatingBar
