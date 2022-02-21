@@ -16,9 +16,12 @@ import comp3350.dishproject.objects.Ingredient;
 import comp3350.dishproject.objects.Recipe;
 
 public class ViewRecipe extends AppCompatActivity {
-
+    RatingBar rating;
+    float rate;
+    TextView t2;
+    ShowRecipe s;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_recipe);
         //you must pass a recipe from data class which has a list of recipes
@@ -29,23 +32,6 @@ public class ViewRecipe extends AppCompatActivity {
         r.addIngredient(i);
         r.addIngredient(i1);
         r.addIngredient(i2);
-        showIngredient(r);
-
-    }
-//    {
-//        Dataview=new dta();
-//        view
-//    }
-    protected void showIngredient(Recipe r){
-
-
-        TextView t= (TextView) findViewById(R.id.ing_list);
-        TextView t1= (TextView) findViewById(R.id.des_title);
-        RatingBar rating=(RatingBar) findViewById(R.id.ratingBar2);
-        TextView t2= (TextView) findViewById(R.id.des_text);
-        TextView t3= (TextView) findViewById(R.id.direction_text);
-        ShowRecipe s= new ShowRecipe(r);
-        s.showIngredient(t);
         String ss="Step 1\n" +
                 "In a bowl, mix ground beef, egg, onion, bread crumbs, Worcestershire, garlic, 1/2 teaspoon salt, and 1/4 teaspoon pepper until well blended. Divide mixture into four equal portions and shape each into a patty about 4 inches wide.\n" +
                 "\n" +
@@ -57,8 +43,39 @@ public class ViewRecipe extends AppCompatActivity {
                 "\n" +
                 "Step 4\n" +
                 "Spread mayonnaise and ketchup on bun bottoms. Add lettuce, tomato, burger, onion, and salt and pepper to taste. Set bun tops in place.";
-        s.showTitleDescription(t2,rating);
-        s.showDescription(t3,ss);
-        s.showTitle(t1);
+
+        r.setDirectionMethod(ss);
+        showRecipeDetaills(r);
+        getRatingInput();
+
+    }
+//    {
+//        Dataview=new dta();
+//        view
+//    }
+    public void showRecipeDetaills(Recipe r){
+
+
+        TextView t= (TextView) findViewById(R.id.ing_list);
+        TextView t1= (TextView) findViewById(R.id.des_title);
+        rating=(RatingBar) findViewById(R.id.ratingBar2);
+         t2= (TextView) findViewById(R.id.des_text);
+        TextView t3= (TextView) findViewById(R.id.direction_text);
+         s= new ShowRecipe(r);
+        t.setText(s.showIngredient());
+        t2.setText(s.showTitleDescription()+"Rating: "+rate);
+        t3.setText(s.showDirection());
+        t1.setText(s.showTitle());
+    }
+
+    public void getRatingInput(){
+        rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                rate=ratingBar.getRating();
+                t2.setText(s.showTitleDescription()+"Rating: "+rate);
+            }
+        });
     }
 }
