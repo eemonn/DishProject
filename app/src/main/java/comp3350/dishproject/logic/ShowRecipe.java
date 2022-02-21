@@ -18,7 +18,7 @@ public class ShowRecipe {
     public void showIngredient(TextView t){
         StringBuilder m= new StringBuilder();
         for(int i=0;i<rec.getIngredientArrayList().size();i++){
-            m.append(i+1).append(". ").append(rec.getIngredientArrayList().get(i).getName()).append("  Amount: ").append(rec.getIngredientArrayList().get(i).getQuantity()).append("  Calorie: +").append(rec.getIngredientArrayList().get(i).getCalorie()).append("cal  Weight: ").append(rec.getIngredientArrayList().get(i).getWeight()).append("g\n");
+            m.append(i+1).append(". ").append(rec.getIngredientArrayList().get(i).getName()).append("  Amount: ").append(rec.getIngredientArrayList().get(i).getQuantity()).append("  Calorie: ").append(rec.getIngredientArrayList().get(i).getCalorie()).append("cal  Weight: ").append(rec.getIngredientArrayList().get(i).getWeight()).append("g\n");
 
         }
         t.setText(m);
