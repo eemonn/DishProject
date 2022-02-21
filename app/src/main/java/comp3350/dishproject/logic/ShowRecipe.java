@@ -15,27 +15,31 @@ public class ShowRecipe {
         this.rec= r;
     }
 
-    public void showIngredient(TextView t){
+    public String showIngredient(){
         StringBuilder m= new StringBuilder();
         for(int i=0;i<rec.getIngredientArrayList().size();i++){
-            m.append(i+1).append(". ").append(rec.getIngredientArrayList().get(i).getName()).append("  Amount: ").append(rec.getIngredientArrayList().get(i).getQuantity()).append("  Calorie: +").append(rec.getIngredientArrayList().get(i).getCalorie()).append("cal  Weight: ").append(rec.getIngredientArrayList().get(i).getWeight()).append("g\n");
+            m.append(i+1).append(". ").append(rec.getIngredientArrayList().get(i).getName()).append("  Amount: ").append(rec.getIngredientArrayList().get(i).getQuantity()).append("  Calorie: ").append(rec.getIngredientArrayList().get(i).getCalorie()).append("cal  Weight: ").append(rec.getIngredientArrayList().get(i).getWeight()).append("g\n");
 
         }
-        t.setText(m);
+        String s=m.toString();
+        return s;
     }
-    public void showTitle(TextView t){
-        t.setText("\n"+rec.getName());
+    public String showTitle(){
+        return rec.getName();
     }
 
-    public void showDescription(TextView t, String s){
-        t.setText("\n"+s+"\n");
-    }
-    public void showTitleDescription(TextView t, RatingBar r){
+
+    public String showTitleDescription(){
         String m="";
-        m+="Calorie: "+rec.getCalorie()+"cal Weight: "+rec.getWeight()+"g\nRating: "+r.getOnRatingBarChangeListener();
-        t.setText(m);
+        m+="Calorie: "+rec.getCalorie()+"cal Weight: "+rec.getWeight()+"g\nRating: ";
+        return m;
     }
     public void showRatingTitle(TextView r){
         //r.setText();
     }
+
+    public String showDirection(){
+        return rec.getDirection();
+    }
+
 }
