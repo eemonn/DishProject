@@ -21,18 +21,27 @@ public class ViewRecipe extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_recipe);
-        showIngredient();
-    }
-
-    protected void showIngredient(){
-
+        //you must pass a recipe from data class which has a list of recipes
         Recipe r=new Recipe("Pizza","1", 600.0,450, new ArrayList<Ingredient>());
         Ingredient i=new Ingredient("Apple", "2", 2, 200.0,2.0);
         Ingredient i1=new Ingredient("Banana", "1", 1, 200.0,1.0);
         Ingredient i2=new Ingredient("Orange", "3", 3, 200.0,3.0);
         r.addIngredient(i);
         r.addIngredient(i1);
+        r.addIngredient(i2);
+        showIngredient(r);
+
+    }
+//    {
+//        Dataview=new dta();
+//        view
+//    }
+    protected void showIngredient(Recipe r){
+
+
         TextView t= (TextView) findViewById(R.id.ing_list);
+        TextView t1= (TextView) findViewById(R.id.des_title);
+        RatingBar rating=(RatingBar) findViewById(R.id.ratingBar2);
         TextView t2= (TextView) findViewById(R.id.des_text);
         TextView t3= (TextView) findViewById(R.id.direction_text);
         ShowRecipe s= new ShowRecipe(r);
@@ -48,7 +57,8 @@ public class ViewRecipe extends AppCompatActivity {
                 "\n" +
                 "Step 4\n" +
                 "Spread mayonnaise and ketchup on bun bottoms. Add lettuce, tomato, burger, onion, and salt and pepper to taste. Set bun tops in place.";
-        s.showDescription(t2,ss);
+        s.showTitleDescription(t2,rating);
         s.showDescription(t3,ss);
+        s.showTitle(t1);
     }
 }
