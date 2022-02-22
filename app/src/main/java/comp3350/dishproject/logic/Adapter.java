@@ -1,6 +1,8 @@
 package comp3350.dishproject.logic;
 
+
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import comp3350.dishproject.R;
+import comp3350.dishproject.application.MainActivity;
+import comp3350.dishproject.presentation.ViewRecipe;
 import comp3350.dishproject.presentation.item;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.myViewHolder> {
@@ -42,8 +46,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.myViewHolder> {
         holder.btn_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String log = "This is a button with title " + mData.get(position).getRecipeName();
-                Log.i("MyApp", log);
+                //String log = "This is a button with title " + mData.get(position).getRecipeName();
+                Intent intent= new Intent(mContext,ViewRecipe.class);
+                mContext.startActivity(intent);
             }
         });
     }

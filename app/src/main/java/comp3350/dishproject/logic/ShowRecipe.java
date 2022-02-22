@@ -24,6 +24,11 @@ public class ShowRecipe {
         String s=m.toString();
         return s;
     }
+    public String updateIngredients(int num){
+        rec.updateIngredientList(num);
+        return showIngredient();
+    }
+
     public String showTitle(){
         return rec.getName();
     }

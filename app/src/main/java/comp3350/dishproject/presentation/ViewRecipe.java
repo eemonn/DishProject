@@ -1,11 +1,17 @@
 package comp3350.dishproject.presentation;
 
+import static android.widget.AdapterView.*;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.RatingBar;
 import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -20,6 +26,7 @@ public class ViewRecipe extends AppCompatActivity {
     float rate;
     TextView t2;
     ShowRecipe s;
+    TextView t;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,24 +52,25 @@ public class ViewRecipe extends AppCompatActivity {
                 "Spread mayonnaise and ketchup on bun bottoms. Add lettuce, tomato, burger, onion, and salt and pepper to taste. Set bun tops in place.";
 
         r.setDirectionMethod(ss);
-        showRecipeDetaills(r);
+        s= new ShowRecipe(r);
+        showRecipeDetaills();
         getRatingInput();
+        setDropDownMenu(r);
 
     }
 //    {
 //        Dataview=new dta();
 //        view
 //    }
-    public void showRecipeDetaills(Recipe r){
+    public void showRecipeDetaills(){
 
 
-        TextView t= (TextView) findViewById(R.id.ing_list);
+         t= (TextView) findViewById(R.id.ing_list);
         TextView t1= (TextView) findViewById(R.id.des_title);
         rating=(RatingBar) findViewById(R.id.ratingBar2);
          t2= (TextView) findViewById(R.id.des_text);
         TextView t3= (TextView) findViewById(R.id.direction_text);
-         s= new ShowRecipe(r);
-        t.setText(s.showIngredient());
+        //t.setText(s.showIngredient());
         t2.setText(s.showTitleDescription()+"Rating: "+rate);
         t3.setText(s.showDirection());
         t1.setText(s.showTitle());
@@ -77,5 +85,29 @@ public class ViewRecipe extends AppCompatActivity {
                 t2.setText(s.showTitleDescription()+"Rating: "+rate);
             }
         });
+    }
+
+    public void setDropDownMenu(Recipe r){
+        Spinner dropdown = findViewById(R.id.spinner);
+//create a list of items for the spinner.
+        String [] items = new String[]{"1","2","3","4","5","6"};
+//create an adapter to describe how the items are displayed, adapters are used in several places in android.
+//There are multiple variations of this, but this is the basic variant.
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+//set the spinners adapter to the previously created one.
+        dropdown.setAdapter(adapter);
+        dropdown.setOnItemSelectedListener(new OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                Object item = parent.getItemAtPosition(pos);
+                int num= Integer.parseInt(String.valueOf(item));
+                updateIngredient(num);
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+    }
+
+    public void updateIngredient(int num){
+        t.setText(s.updateIngredients(num));
     }
 }

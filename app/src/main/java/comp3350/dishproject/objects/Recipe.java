@@ -107,6 +107,11 @@ public class Recipe {
             }
         }
     }
+    public void updateIngredientList(int num){
+        for(int i=0;i<this.ingredientArrayList.size();i++){
+            ingredientArrayList.get(i).setQuantity(ingredientArrayList.get(i).getQuantity()*num);
+        }
+    }
     /*
     method to set name
      */
