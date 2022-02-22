@@ -1,9 +1,11 @@
 package comp3350.dishproject.logic;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,6 +39,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.myViewHolder> {
     public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
         holder.background_img.setImageResource(mData.get(position).getBackground());
         holder.tv_title.setText(mData.get(position).getRecipeName());
+        holder.btn_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String log = "This is a button with title " + mData.get(position).getRecipeName();
+                Log.i("MyApp", log);
+            }
+        });
     }
 
     @Override
@@ -48,11 +57,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.myViewHolder> {
 
         ImageView background_img;
         TextView tv_title;
+        Button btn_view;
 
         public myViewHolder (View itemView) {
             super(itemView);
             background_img = itemView.findViewById(R.id.card_background);
             tv_title = itemView.findViewById(R.id.card_title);
+            btn_view = itemView.findViewById(R.id.btn_view);
         }
     }
 }
