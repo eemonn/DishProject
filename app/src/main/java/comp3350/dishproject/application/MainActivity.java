@@ -28,25 +28,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent intent= new Intent(MainActivity.this, ViewRecipe.class);
-        startActivity(intent);
-//
-//        //Setup recycler view with the adapter (shows cards on main screen)
-//        RecyclerView recyclerView = findViewById(R.id.rv_list);
-//        List<item> mlist = new ArrayList<>();
-//        //Hard code the data for now
-//        mlist.add(new item(R.drawable.burger, "Bobby's Burger"));
-//        mlist.add(new item(R.drawable.pizza, "Paul's Pizza"));
-//        mlist.add(new item(R.drawable.taco, "Timmy's Taco"));
-//        mlist.add(new item(R.drawable.pancake, "Patricia's Pancake"));
-//        mlist.add(new item(R.drawable.fish, "Freddy's Fish"));
-//
-//        Adapter adapter = new Adapter (this, mlist);
-//        recyclerView.setAdapter(adapter);
-//        recyclerView.setLayoutManager((new LinearLayoutManager(this)));
-//
-//        viewRec=(Button) findViewById(R.id.btn_view);
-//
+//        Intent intent= new Intent(MainActivity.this, ViewRecipe.class);
+//        startActivity(intent);
+
+        //Setup recycler view with the adapter (shows cards on main screen)
+        RecyclerView recyclerView = findViewById(R.id.rv_list);
+        List<item> mlist = new ArrayList<>();
+        //Hard code the data for now
+        mlist.add(new item(R.drawable.burger, "Bobby's Burger"));
+        mlist.add(new item(R.drawable.pizza, "Paul's Pizza"));
+        mlist.add(new item(R.drawable.taco, "Timmy's Taco"));
+        mlist.add(new item(R.drawable.pancake, "Patricia's Pancake"));
+        mlist.add(new item(R.drawable.fish, "Freddy's Fish"));
+
+        Adapter adapter = new Adapter (this, mlist);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager((new LinearLayoutManager(this)));
+
+
+
 //        viewRec.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
