@@ -10,13 +10,16 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import comp3350.dishproject.R;
 import comp3350.dishproject.logic.Adapter;
@@ -26,13 +29,16 @@ public class MainActivity extends AppCompatActivity {
 
     private ListView listSearchSuggestions; //listview used for displaying the search suggestions(AKA autocomplete)
     private ArrayAdapter<String> searchSuggestions;//used for taking a string array of dishes and inserting them into the listview
-    String[] dishes = {"Burger","Pizza","Tacos","Pancake","Fish","Pickles","Parm","Chicken Parm"};
+    String[] dishes = {"Burger","Pizza","Tacos","Pancake","Fish","Pickles","Parm","Chicken Parm",
+    "Paella","Panfish","Papaw","Pecan Pie","Persimmon", "Pheasant"};
+    private static final int SCROLLING_SPEED_FRICTION = 350;//modifies scrolling speed for search suggestion box
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         //Setup recycler view with the adapter (shows cards on main screen)
         RecyclerView recyclerView = findViewById(R.id.rv_list);
@@ -47,14 +53,24 @@ public class MainActivity extends AppCompatActivity {
         Adapter adapter = new Adapter(this, mlist);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager((new LinearLayoutManager(this)));
-        Log.d("TAG", "onCreate: ");
+        initializeSearchSuggestionBox();
 
+    }
+
+    /*
+    Input: No input
+    Output: void function
+    Description: This method will be called from OnCreate(). In this method, the listview that is used as a search suggestion box will be initialized.
+     */
+    public void initializeSearchSuggestionBox() {
         listSearchSuggestions = findViewById(R.id.listview);
-        searchSuggestions = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,dishes);// returns a view
+        List<String> dishNames = new ArrayList<String>(Arrays.asList(dishes));
+        searchSuggestions = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,dishNames);// returns a view
         // for each dish in dishes and used in the listview interface
         listSearchSuggestions.setAdapter(searchSuggestions);
         listSearchSuggestions.setVisibility(View.INVISIBLE);//on startup, we need to disable the visibility for the search suggestions box
         listSearchSuggestions.bringToFront();
+        listSearchSuggestions.setFriction(ViewConfiguration.getScrollFriction() * SCROLLING_SPEED_FRICTION);
     }
 
     public boolean onCreateOptionsMenu(Menu menu){
@@ -93,37 +109,19 @@ public class MainActivity extends AppCompatActivity {
              */
             @Override
             public boolean onQueryTextChange(String newCharacterString) {//every change of character
-
-                searchSuggestions.getFilter().filter(newCharacterString);//Filters the dishes we have based on current input in text field
-                //note: does startsWith comparison first on entire s, then does startsWith on s-1,... so on
-                //Thus we need this filter to get a baseline filter, which is filtered more using user defined methods
-
-                //User defined filtering - no cleaning besides toLowerCase
-                //uses startsWith on entire string s
-                ArrayList<String> filtered = new ArrayList<>();
-                for (String dish : dishes) {
-                    if (dish.toLowerCase().startsWith(newCharacterString.toLowerCase())) {
-                        filtered.add(dish);
-                    }
-                }
+                ArrayList<String> filtered = filterSearchSuggestions(newCharacterString);
+                //Clearing search suggestions and adding everything found in user filtering
+                searchSuggestions.clear();
+                searchSuggestions.addAll(filtered);
 
                 //Dynamically Adjusts the height of the search suggestions box based on the number of suggestions
                 if(filtered.size()>=1 && searchSuggestions.getCount()>=1){
-                    View item = searchSuggestions.getView(0,null,listSearchSuggestions);
-                    item.measure(0,0);//size of one search suggestion box
-                    ViewGroup.LayoutParams params = listSearchSuggestions.getLayoutParams();
-                    params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-                    int scalingFactor = filtered.size();
-                    if(filtered.size() >= 3){
-                        scalingFactor = 3; //if more than 3 elements, restrict the listview box to hold only 3 elements and then force user to scroll for more
-                    }
-                    params.height = scalingFactor * item.getMeasuredHeight();//height of listview search suggestion box is either 1 element tall, 2 elements tall, or 3 element tall and
-                    //makes the user scroll down for more suggestions
+                    changeSearchSuggestionBoxSize(filtered);
                 }
 
-                if(newCharacterString.length() > 0 && filtered.size()>0) {
+                if(newCharacterString.length() > 1 && filtered.size()>0) {
                     listSearchSuggestions.setVisibility(View.VISIBLE);//only show the search suggestions when theres actual suggestions and something has been typed in
-                } else{
+                } else {
                     listSearchSuggestions.setVisibility(View.INVISIBLE);
                 }
 
@@ -161,4 +159,40 @@ public class MainActivity extends AppCompatActivity {
         });
         return true;
     }//end of onCreateMenuOptions function
+
+    /*
+    Input: Takes in a string of the search query in the search bar
+    Output: Returns an array List of type string that contains all dishes that match the search query
+    Description: Filters the dishes based on search Query to return all relevant dishes to be shown in the search suggestion box
+     */
+    public ArrayList<String> filterSearchSuggestions(String searchQuery) {
+        ArrayList<String> filtered = new ArrayList<>();
+        for (String dish : dishes) {
+            String[] stringsToCheck = dish.split(" ");//Example: For dish of Chicken Parm, a search query of "Parm" will return Chicken Parm
+            for (String s : stringsToCheck) {
+                if (s.toLowerCase().startsWith(searchQuery.toLowerCase()) || s.toLowerCase().indexOf(searchQuery.toLowerCase()) != -1) {//only lowercase cleaning
+                    filtered.add(dish);
+                }
+            }
+        }
+        return filtered;
+    }
+
+    /*
+    Input: Takes in an array list of type string that contains all relevant search suggestions to be displayed
+    Output: void function, but does change some parameters of the listview layout
+    Description: Dynamically changes the size of the search suggestion box based on how many items are in the search suggestion box
+     */
+    public void changeSearchSuggestionBoxSize(ArrayList<String> relevantSearchSuggestions ) {
+        View item = searchSuggestions.getView(0,null,listSearchSuggestions);
+        item.measure(0,0);//size of one search suggestion box(one search dis)
+        ViewGroup.LayoutParams params = listSearchSuggestions.getLayoutParams();
+        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        int scalingFactor = relevantSearchSuggestions.size();
+        if(relevantSearchSuggestions.size() >= 3){
+            scalingFactor = 3; //if more than 3 elements, restrict the listview box to hold only 3 elements and then force user to scroll for more
+        }
+        params.height = scalingFactor * item.getMeasuredHeight();//height of listview search suggestion box is either 1 element tall, 2 elements tall, or 3 element tall and
+        //makes the user scroll down for more suggestions
+    }
 }
