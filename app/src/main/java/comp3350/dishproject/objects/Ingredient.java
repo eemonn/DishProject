@@ -5,7 +5,12 @@ import java.util.Objects;
 public class Ingredient {
     private String name, id;
     private int quantity;
-    private double weight,calorie;
+    private double weight;
+    private double calorie;
+    private final double originalWeight;
+    private final double originalCalorie;
+    private final int originalCount;
+
     /*
     ingredient class will have a name, id, quantity, weight and calorie
      */
@@ -15,10 +20,26 @@ public class Ingredient {
         this.quantity=quantity;
         this.weight=weight;
         this.calorie=calorie;
+        this.originalCount=quantity;
+        this.originalCalorie=calorie;
+        this.originalWeight=weight;
     }
+
+    public int getOriginalCount() {
+        return originalCount;
+    }
+
+    public double getOriginalCalorie() {
+        return originalCalorie;
+    }
+
+    public double getOriginalWeight() {
+        return originalWeight;
+    }
+
     /*
-    method to get calorie
-     */
+                method to get calorie
+                 */
     public double getCalorie() {
         return calorie;
     }

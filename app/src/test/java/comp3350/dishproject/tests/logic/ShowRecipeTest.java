@@ -1,19 +1,11 @@
 package comp3350.dishproject.tests.logic;
 
-import android.widget.TextView;
-
 import junit.framework.TestCase;
 
 import java.util.ArrayList;
-import android.animation.ObjectAnimator;
-import android.os.Bundle;
-import android.widget.RatingBar;
-import android.widget.ScrollView;
-import android.widget.TextView;
 
 import org.junit.Test;
 
-import comp3350.dishproject.R;
 import comp3350.dishproject.logic.ShowRecipe;
 import comp3350.dishproject.objects.Ingredient;
 import comp3350.dishproject.objects.Recipe;
@@ -22,65 +14,70 @@ public class ShowRecipeTest extends TestCase {
 
     @Test
     public void testShowIngredient() {
-        Recipe r=new Recipe("Pizza","1", 600.0,450, new ArrayList<Ingredient>());
-        Ingredient i=new Ingredient("Apple", "2", 2, 200.0,2.0);
-        //Ingredient i1=new Ingredient("Banana", "1", 1, 200.0,1.0);
-        //Ingredient i2=new Ingredient("Orange", "3", 3, 200.0,3.0);
-        r.addIngredient(i);
-//        r.addIngredient(i1);
-//        r.addIngredient(i2);
-
-        ShowRecipe s=new ShowRecipe(r);
-        assert(s.showIngredient().equals("1. Apple  Amount: 2  Calorie: 2.0cal  Weight: 200.0g\n"));
+        Recipe recipe=new Recipe("Pizza","1", 600.0,450, new ArrayList<Ingredient>());
+        Ingredient ingredient=new Ingredient("Apple", "2", 2, 200.0,2.0);
+        recipe.addIngredient(ingredient);
+        ShowRecipe showRecipe=new ShowRecipe(recipe);
+        assert(showRecipe.showIngredient().equals("1. Apple  Amount: 2  Calorie: 2.0cal  Weight: 200.0g\n"));
     }
     @Test
     public void testShowTitle() {
-        Recipe r=new Recipe("Pizza","1", 600.0,450, new ArrayList<Ingredient>());
-        Ingredient i=new Ingredient("Apple", "2", 2, 200.0,2.0);
-        Ingredient i1=new Ingredient("Banana", "1", 1, 200.0,1.0);
-        Ingredient i2=new Ingredient("Orange", "3", 3, 200.0,3.0);
-        r.addIngredient(i);
-        r.addIngredient(i1);
-        r.addIngredient(i2);
-        ShowRecipe s=new ShowRecipe(r);
-        assert(s.showTitle().equals(r.getName()));
+        Recipe recipe=new Recipe("Pizza","1", 600.0,450, new ArrayList<Ingredient>());
+        Ingredient apple=new Ingredient("Apple", "2", 2, 200.0,2.0);
+        Ingredient banana=new Ingredient("Banana", "1", 1, 200.0,1.0);
+        Ingredient orange=new Ingredient("Orange", "3", 3, 200.0,3.0);
+        recipe.addIngredient(apple);
+        recipe.addIngredient(banana);
+        recipe.addIngredient(orange);
+        ShowRecipe showRecipe=new ShowRecipe(recipe);
+        assert(showRecipe.showTitle().equals("Pizza"));
     }
-
-    public void testShowDescription() {
-        Recipe r=new Recipe("Pizza","1", 600.0,450, new ArrayList<Ingredient>());
-        Ingredient i=new Ingredient("Apple", "2", 2, 200.0,2.0);
-        Ingredient i1=new Ingredient("Banana", "1", 1, 200.0,1.0);
-        Ingredient i2=new Ingredient("Orange", "3", 3, 200.0,3.0);
-        r.addIngredient(i);
-        r.addIngredient(i1);
-        r.addIngredient(i2);
-    }
-
+    @Test
     public void testShowTitleDescription() {
-        Recipe r=new Recipe("Pizza","1", 600.0,450, new ArrayList<Ingredient>());
-        Ingredient i=new Ingredient("Apple", "2", 2, 200.0,2.0);
-        Ingredient i1=new Ingredient("Banana", "1", 1, 200.0,1.0);
-        Ingredient i2=new Ingredient("Orange", "3", 3, 200.0,3.0);
-        r.addIngredient(i);
-        r.addIngredient(i1);
-        r.addIngredient(i2);
+        Recipe recipe=new Recipe("Pizza","1", 600.0,450, new ArrayList<Ingredient>());
+        Ingredient apple=new Ingredient("Apple", "2", 2, 200.0,2.0);
+        Ingredient banana=new Ingredient("Banana", "1", 1, 200.0,1.0);
+        Ingredient orange=new Ingredient("Orange", "3", 3, 200.0,3.0);
+        recipe.addIngredient(apple);
+        recipe.addIngredient(banana);
+        recipe.addIngredient(orange);
+        ShowRecipe showRecipe=new ShowRecipe(recipe);
+        assert(showRecipe.showTitleDescription().equals("Calorie: "+showRecipe.getRec().getCalorie()+"cal Weight: "+showRecipe.getRec().getWeight()+"g\n"));
+    }
+    @Test
+    public void testUpdateIngredients(){
+        Recipe recipe=new Recipe("Pizza","1", 600.0,450, new ArrayList<Ingredient>());
+        Ingredient apple=new Ingredient("Apple", "2", 2, 200.0,2.0);
+        Ingredient banana=new Ingredient("Banana", "1", 1, 100.0,1.0);
+        Ingredient orange=new Ingredient("Orange", "3", 3, 300.0,3.0);
+        recipe.addIngredient(apple);
+        recipe.addIngredient(banana);
+        recipe.addIngredient(orange);
+        ShowRecipe showRecipe=new ShowRecipe(recipe);
+        showRecipe.updateIngredients(2);
+        assert(showRecipe.getRec().getIngredientArrayList().get(0).getQuantity()==4);
+        assert(showRecipe.getRec().getIngredientArrayList().get(1).getQuantity()==2);
+        assert(showRecipe.getRec().getIngredientArrayList().get(2).getQuantity()==6);
+        assert(showRecipe.getRec().getIngredientArrayList().get(0).getCalorie()==4.0);
+        assert(showRecipe.getRec().getIngredientArrayList().get(1).getCalorie()==2.0);
+        assert(showRecipe.getRec().getIngredientArrayList().get(2).getCalorie()==6.0);
+        assert(showRecipe.getRec().getIngredientArrayList().get(0).getWeight()==400.0);
+        assert(showRecipe.getRec().getIngredientArrayList().get(1).getWeight()==200.0);
+        assert(showRecipe.getRec().getIngredientArrayList().get(2).getWeight()==600.0);
+    }
+    @Test
+    public void testGetRec(){
+        Recipe recipe=new Recipe("Pizza","1", 600.0,450, new ArrayList<Ingredient>());
+        ShowRecipe showRecipe=new ShowRecipe(recipe);
+        assert(showRecipe.getRec().isEquals(new Recipe("Pizza","1", 600.0,450, new ArrayList<Ingredient>())));
     }
 
-    public void testShowRatingTitle() {
-        Recipe r=new Recipe("Pizza","1", 600.0,450, new ArrayList<Ingredient>());
-        Ingredient i=new Ingredient("Apple", "2", 2, 200.0,2.0);
-        Ingredient i1=new Ingredient("Banana", "1", 1, 200.0,1.0);
-        Ingredient i2=new Ingredient("Orange", "3", 3, 200.0,3.0);
-        r.addIngredient(i);
-        r.addIngredient(i1);
-        r.addIngredient(i2);
-    }
-
+    @Test
     public void testShowDirection() {
-        Recipe r=new Recipe("Pizza","1", 600.0,450, new ArrayList<Ingredient>());
-        Ingredient i=new Ingredient("Apple", "2", 2, 200.0,2.0);
-        Ingredient i1=new Ingredient("Banana", "1", 1, 200.0,1.0);
-        Ingredient i2=new Ingredient("Orange", "3", 3, 200.0,3.0);
+        Recipe recipe=new Recipe("Pizza","1", 600.0,450, new ArrayList<Ingredient>());
+        Ingredient apple=new Ingredient("Apple", "2", 2, 200.0,2.0);
+        Ingredient banana=new Ingredient("Banana", "1", 1, 200.0,1.0);
+        Ingredient orange =new Ingredient("Orange", "3", 3, 200.0,3.0);
         String ss="Step 1\n" +
                 "In a bowl, mix ground beef, egg, onion, bread crumbs, Worcestershire, garlic, 1/2 teaspoon salt, and 1/4 teaspoon pepper until well blended. Divide mixture into four equal portions and shape each into a patty about 4 inches wide.\n" +
                 "\n" +
@@ -92,12 +89,12 @@ public class ShowRecipeTest extends TestCase {
                 "\n" +
                 "Step 4\n" +
                 "Spread mayonnaise and ketchup on bun bottoms. Add lettuce, tomato, burger, onion, and salt and pepper to taste. Set bun tops in place.";
-        r.setDirectionMethod(ss);
-        r.addIngredient(i);
-        r.addIngredient(i1);
-        r.addIngredient(i2);
-        ShowRecipe s=new ShowRecipe(r);
-        assert(s.showDirection().equals(r.getDirection()));
+        recipe.setDirectionMethod(ss);
+        recipe.addIngredient(apple);
+        recipe.addIngredient(banana);
+        recipe.addIngredient(orange);
+        ShowRecipe showRecipe=new ShowRecipe(recipe);
+        assert(showRecipe.showDirection().equals(recipe.getDirection()));
 
     }
 }

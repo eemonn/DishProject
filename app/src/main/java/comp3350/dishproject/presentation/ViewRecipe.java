@@ -4,13 +4,11 @@ import static android.widget.AdapterView.*;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.RatingBar;
-import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -24,21 +22,21 @@ import comp3350.dishproject.objects.Recipe;
 public class ViewRecipe extends AppCompatActivity {
     RatingBar rating;
     float rate;
-    TextView t2;
-    ShowRecipe s;
-    TextView t;
+    TextView ratingText;
+    ShowRecipe showRecipe;
+    TextView ingredientListText;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_recipe);
         //you must pass a recipe from data class which has a list of recipes
-        Recipe r=new Recipe("Pizza","1", 600.0,450, new ArrayList<Ingredient>());
+        Recipe recipe=new Recipe("Pizza","1", 600.0,450, new ArrayList<Ingredient>());
         Ingredient i=new Ingredient("Apple", "2", 2, 200.0,2.0);
-        Ingredient i1=new Ingredient("Banana", "1", 1, 200.0,1.0);
-        Ingredient i2=new Ingredient("Orange", "3", 3, 200.0,3.0);
-        r.addIngredient(i);
-        r.addIngredient(i1);
-        r.addIngredient(i2);
+        Ingredient i1=new Ingredient("Banana", "1", 1, 100.0,1.0);
+        Ingredient i2=new Ingredient("Orange", "3", 3, 300.0,3.0);
+        recipe.addIngredient(i);
+        recipe.addIngredient(i1);
+        recipe.addIngredient(i2);
         String ss="Step 1\n" +
                 "In a bowl, mix ground beef, egg, onion, bread crumbs, Worcestershire, garlic, 1/2 teaspoon salt, and 1/4 teaspoon pepper until well blended. Divide mixture into four equal portions and shape each into a patty about 4 inches wide.\n" +
                 "\n" +
@@ -51,11 +49,11 @@ public class ViewRecipe extends AppCompatActivity {
                 "Step 4\n" +
                 "Spread mayonnaise and ketchup on bun bottoms. Add lettuce, tomato, burger, onion, and salt and pepper to taste. Set bun tops in place.";
 
-        r.setDirectionMethod(ss);
-        s= new ShowRecipe(r);
+        recipe.setDirectionMethod(ss);
+        showRecipe = new ShowRecipe(recipe);
         showRecipeDetaills();
         getRatingInput();
-        setDropDownMenu(r);
+        setDropDownMenu(recipe);
 
     }
 //    {
@@ -65,15 +63,15 @@ public class ViewRecipe extends AppCompatActivity {
     public void showRecipeDetaills(){
 
 
-         t= (TextView) findViewById(R.id.ing_list);
-        TextView t1= (TextView) findViewById(R.id.des_title);
+         ingredientListText = (TextView) findViewById(R.id.ing_list);
+        TextView descriptionTextbox= (TextView) findViewById(R.id.des_title);
         rating=(RatingBar) findViewById(R.id.ratingBar2);
-         t2= (TextView) findViewById(R.id.des_text);
-        TextView t3= (TextView) findViewById(R.id.direction_text);
+         ratingText = (TextView) findViewById(R.id.des_text);
+        TextView directionText= (TextView) findViewById(R.id.direction_text);
         //t.setText(s.showIngredient());
-        t2.setText(s.showTitleDescription()+"Rating: "+rate);
-        t3.setText(s.showDirection());
-        t1.setText(s.showTitle());
+        ratingText.setText(showRecipe.showTitleDescription()+"Rating: "+rate);
+        directionText.setText(showRecipe.showDirection());
+        descriptionTextbox.setText(showRecipe.showTitle());
     }
 
     public void getRatingInput(){
@@ -82,7 +80,8 @@ public class ViewRecipe extends AppCompatActivity {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 rate=ratingBar.getRating();
-                t2.setText(s.showTitleDescription()+"Rating: "+rate);
+                ratingText.setText(showRecipe.showTitleDescription()+"Rating: "+rate);
+                showRecipe.getRec().setRating((int)rate);
             }
         });
     }
@@ -108,6 +107,6 @@ public class ViewRecipe extends AppCompatActivity {
     }
 
     public void updateIngredient(int num){
-        t.setText(s.updateIngredients(num));
+        ingredientListText.setText(showRecipe.updateIngredients(num));
     }
 }

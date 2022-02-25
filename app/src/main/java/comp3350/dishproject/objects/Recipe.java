@@ -7,7 +7,8 @@ public class Recipe {
     private String name,id,direction;
     private double calorie,weight;
     private ArrayList<Ingredient>ingredientArrayList;
-    private int rating;
+    private float rating;
+    //
     /*
     recipe class will have a name, id, calorie, weight, arraylist of Ingredients
     it also has rating which is set to 0 and direction which is empty
@@ -54,13 +55,13 @@ public class Recipe {
     /*
     method to get rating
      */
-    public int getRating() {
+    public float getRating() {
         return rating;
     }
     /*
     method to set rating
      */
-    public void setRating(int rating) {
+    public void setRating(float rating) {
         this.rating = rating;
     }
     /*
@@ -107,9 +108,15 @@ public class Recipe {
             }
         }
     }
+    /*
+    method to update information of ingredient list
+     */
     public void updateIngredientList(int num){
         for(int i=0;i<this.ingredientArrayList.size();i++){
-            ingredientArrayList.get(i).setQuantity(ingredientArrayList.get(i).getQuantity()*num);
+            ingredientArrayList.get(i).setQuantity(ingredientArrayList.get(i).getOriginalCount()*num);
+            ingredientArrayList.get(i).setCalorie(ingredientArrayList.get(i).getOriginalCalorie()*num);
+            ingredientArrayList.get(i).setWeight(ingredientArrayList.get(i).getOriginalWeight()*num);
+
         }
     }
     /*

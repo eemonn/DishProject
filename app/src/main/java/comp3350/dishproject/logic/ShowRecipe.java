@@ -10,41 +10,57 @@ import android.os.Bundle;
 import comp3350.dishproject.objects.Recipe;
 
 public class ShowRecipe {
-    Recipe rec;
+    //test this
+    Recipe recipe;
+    /*
+    constructor to pass a recipe
+     */
     public ShowRecipe(Recipe r){
-        this.rec= r;
+        this.recipe= r;
     }
-
+    /*
+    return the details of ingredient list
+    */
     public String showIngredient(){
         StringBuilder m= new StringBuilder();
-        for(int i=0;i<rec.getIngredientArrayList().size();i++){
-            m.append(i+1).append(". ").append(rec.getIngredientArrayList().get(i).getName()).append("  Amount: ").append(rec.getIngredientArrayList().get(i).getQuantity()).append("  Calorie: ").append(rec.getIngredientArrayList().get(i).getCalorie()).append("cal  Weight: ").append(rec.getIngredientArrayList().get(i).getWeight()).append("g\n");
-
+        for(int i=0;i<recipe.getIngredientArrayList().size();i++){
+            m.append(i+1).append(". ").append(recipe.getIngredientArrayList().get(i).getName()).append("  Amount: ").append(recipe.getIngredientArrayList().get(i).getQuantity()).append("  Calorie: ").append(recipe.getIngredientArrayList().get(i).getCalorie()).append("cal  Weight: ").append(recipe.getIngredientArrayList().get(i).getWeight()).append("g\n");
         }
-        String s=m.toString();
-        return s;
+        return m.toString();
     }
+    /*
+    method to update the ingredient
+     */
     public String updateIngredients(int num){
-        rec.updateIngredientList(num);
+        recipe.updateIngredientList(num);
         return showIngredient();
     }
-
+    /*
+    method to return title of recipe
+     */
     public String showTitle(){
-        return rec.getName();
+        return recipe.getName();
     }
-
+    /*
+    return the description of recipe
+     */
 
     public String showTitleDescription(){
         String m="";
-        m+="Calorie: "+rec.getCalorie()+"cal Weight: "+rec.getWeight()+"g\nRating: ";
+        m+="Calorie: "+recipe.getCalorie()+"cal Weight: "+recipe.getWeight()+"g\n";
         return m;
     }
-    public void showRatingTitle(TextView r){
-        //r.setText();
-    }
 
+    /*
+    method to return direction
+     */
     public String showDirection(){
-        return rec.getDirection();
+        return recipe.getDirection();
     }
-
+    /*
+    method to return the recipe
+     */
+    public Recipe getRec() {
+        return recipe;
+    }
 }
