@@ -98,17 +98,17 @@ public class MainActivity extends AppCompatActivity {
              */
             @Override
             public boolean onQueryTextSubmit(String enteredString) {
-                /*
-                if(dish found in array){
-                    Go to dish page
+
+                if(checkIfDish(enteredString)){
+                    Intent intent=new Intent(MainActivity.this,ViewRecipe.class);
+                    startActivity(intent);
                     return true;
                 } else {
                     searchView.setQuery("Not Found",false);
                     searchView.clearFocus();
                     return false;
                 }
-                 */
-                return false;
+
             }
 
             /*
@@ -139,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
                     Object listItem = listSearchSuggestions.getItemAtPosition(post);//clicked Item
                     searchView.setQuery(listItem.toString(),false);//adjusts the query to make it the clicked item
                     listSearchSuggestions.setVisibility(View.INVISIBLE);
+
                 });
                 return true;
             }
@@ -185,6 +186,18 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return filtered;
+    }
+
+    public boolean checkIfDish(String searchQuery){
+        for (String dish : dishes) {
+            String[] stringsToCheck = dish.split(" ");//Example: For dish of Chicken Parm, a search query of "Parm" will return Chicken Parm
+            for (String s : stringsToCheck) {
+                if (s.toLowerCase().equals(searchQuery.toLowerCase())) {//only lowercase cleaning
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /*

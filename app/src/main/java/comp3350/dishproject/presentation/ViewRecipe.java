@@ -56,10 +56,7 @@ public class ViewRecipe extends AppCompatActivity {
         setDropDownMenu(recipe);
 
     }
-//    {
-//        Dataview=new dta();
-//        view
-//    }
+
     public void showRecipeDetaills(){
 
 
@@ -88,12 +85,12 @@ public class ViewRecipe extends AppCompatActivity {
 
     public void setDropDownMenu(Recipe r){
         Spinner dropdown = findViewById(R.id.spinner);
-//create a list of items for the spinner.
+        //create a list of items for the spinner.
         String [] items = new String[]{"1","2","3","4","5","6"};
-//create an adapter to describe how the items are displayed, adapters are used in several places in android.
-//There are multiple variations of this, but this is the basic variant.
+        //create an adapter to describe how the items are displayed, adapters are used in several places in android.
+        //There are multiple variations of this, but this is the basic variant.
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
-//set the spinners adapter to the previously created one.
+        //set the spinners adapter to the previously created one.
         dropdown.setAdapter(adapter);
         dropdown.setOnItemSelectedListener(new OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
