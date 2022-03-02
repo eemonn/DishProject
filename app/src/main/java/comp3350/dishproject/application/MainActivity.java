@@ -5,7 +5,9 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,6 +16,7 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -23,9 +26,14 @@ import java.util.Locale;
 
 import comp3350.dishproject.R;
 import comp3350.dishproject.logic.Adapter;
+import comp3350.dishproject.logic.ShowRecipe;
+import comp3350.dishproject.objects.Ingredient;
+import comp3350.dishproject.objects.Recipe;
+import comp3350.dishproject.presentation.ViewRecipe;
 import comp3350.dishproject.presentation.item;
 
 public class MainActivity extends AppCompatActivity {
+    Button viewRec;
 
     private ListView listSearchSuggestions; //listview used for displaying the search suggestions(AKA autocomplete)
     private ArrayAdapter<String> searchSuggestions;//used for taking a string array of dishes and inserting them into the listview
@@ -33,12 +41,13 @@ public class MainActivity extends AppCompatActivity {
     "Paella","Panfish","Papaw","Pecan Pie","Persimmon", "Pheasant"};
     private static final int SCROLLING_SPEED_FRICTION = 350;//modifies scrolling speed for search suggestion box
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        Intent intent= new Intent(MainActivity.this, ViewRecipe.class);
+//        startActivity(intent);
 
         //Setup recycler view with the adapter (shows cards on main screen)
         RecyclerView recyclerView = findViewById(R.id.rv_list);
@@ -50,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         mlist.add(new item(R.drawable.pancake, "Patricia's Pancake"));
         mlist.add(new item(R.drawable.fish, "Freddy's Fish"));
 
-        Adapter adapter = new Adapter(this, mlist);
+        Adapter adapter = new Adapter (this, mlist);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager((new LinearLayoutManager(this)));
         initializeSearchSuggestionBox();
@@ -195,4 +204,6 @@ public class MainActivity extends AppCompatActivity {
         params.height = scalingFactor * item.getMeasuredHeight();//height of listview search suggestion box is either 1 element tall, 2 elements tall, or 3 element tall and
         //makes the user scroll down for more suggestions
     }
+
+
 }
