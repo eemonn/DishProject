@@ -3,13 +3,12 @@ import comp3350.dishproject.objects.Recipe;
 import comp3350.dishproject.presentation.HomeCard;
 import java.util.ArrayList;
 
-
 public interface DBInterface {
-    public void addRecipe(HomeCard name);
-    public ArrayList<HomeCard> getRecipe(String name);
-    public ArrayList<HomeCard> getAllRecipe();
-    public int removeRecipe(String name);
-    public int getSizeofRecipe();
-    public String[] getDishes();
-    public Recipe getRecipe();
+    void addRecipe(HomeCard name);
+    ArrayList<HomeCard> getRecipe(String name);
+    ArrayList<HomeCard> getAllRecipe();
+    int removeRecipe(String name);
+    int getSizeofRecipe();
+    String[] getDishes();
+    Recipe getRecipe();
 }

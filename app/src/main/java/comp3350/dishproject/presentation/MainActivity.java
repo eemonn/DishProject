@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -22,8 +21,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import comp3350.dishproject.R;
-import comp3350.dishproject.logic.Adapter;
-import comp3350.dishproject.persistence.DataAcess;
+import comp3350.dishproject.logic.AccessRecipes;
 
 public class MainActivity extends AppCompatActivity {
     private static final int SCROLLING_SPEED_FRICTION = 350;//modifies scrolling speed for search suggestion box
@@ -31,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<String> searchSuggestions;//used for taking a string array of dishes and inserting them into the listview
     private String[] dishes;
 
+    //Android Specific Creator
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +37,8 @@ public class MainActivity extends AppCompatActivity {
 
         //Setup recycler view with the adapter (shows cards on main screen)
         RecyclerView recyclerView = findViewById(R.id.rv_list);
-        DataAcess db = new DataAcess();
+
+        AccessRecipes db = new AccessRecipes();
         List<HomeCard> mlist = db.getAllRecipe();
         dishes = db.getDishes();
 
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void initializeSearchSuggestionBox() {
         listSearchSuggestions = findViewById(R.id.listview);
-        List<String> dishNames = new ArrayList<String>(Arrays.asList(dishes));
+        List<String> dishNames = new ArrayList<>(Arrays.asList(dishes));
         searchSuggestions = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, dishNames);// returns a view
         // for each dish in dishes and used in the listview interface
         listSearchSuggestions.setAdapter(searchSuggestions);
@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         listSearchSuggestions.setFriction(ViewConfiguration.getScrollFriction() * SCROLLING_SPEED_FRICTION);
     }
 
+    //Android Specific Creator
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);//instantiate menu XML files into a menu object, this menu will be
         //a search menu as defined in the XML file menu.xml
@@ -163,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
         for (String dish : dishes) {
             String[] stringsToCheck = dish.split(" ");//Example: For dish of Chicken Parm, a search query of "Parm" will return Chicken Parm
             for (String s : stringsToCheck) {
-                if (s.toLowerCase().startsWith(searchQuery.toLowerCase()) || s.toLowerCase().indexOf(searchQuery.toLowerCase()) != -1) {//only lowercase cleaning
+                if (s.toLowerCase().contains(searchQuery.toLowerCase())) {//only lowercase cleaning
                     filtered.add(dish);
                 }
             }
@@ -172,16 +173,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /*
-    Check if the dish the user is searching is in the list
+    Input: string of recipe to search for
+    Output: boolean true if found
+    Description: Check if the dish the user is searching is in the list of recipes
      */
     public boolean checkIfDish(String searchQuery) {
         for (String dish : dishes) {
-            String[] stringsToCheck = dish.split(" ");//Example: For dish of Chicken Parm, a search query of "Parm" will return Chicken Parm
-            for (String s : stringsToCheck) {
-                if (s.toLowerCase().equals(searchQuery.toLowerCase())) {//only lowercase cleaning
-                    return true;
-                }
-            }
+            if (dish.toLowerCase().contains(searchQuery.toLowerCase()))
+                return true;
         }
         return false;
     }

@@ -8,19 +8,20 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 
 import comp3350.dishproject.R;
-import comp3350.dishproject.persistence.DataAcess;
+import comp3350.dishproject.persistence.DataAccess;
 import comp3350.dishproject.presentation.HomeCard;
 
 public class dbTest {
+
     @Test
     public void emptyOrnot(){
-        DataAcess db=new DataAcess();
+        DataAccess db=new DataAccess();
         assertNotNull(db); //initially there are 5 recipes.
     }
 
     @Test
     public void addRecipe(){
-        DataAcess db=new DataAcess();
+        DataAccess db=new DataAccess();
         db.addRecipe(new HomeCard(R.drawable.fish, "newFish"));
         assert(db.getSizeofRecipe()==6); //adding to 1 make 6
 
@@ -28,7 +29,7 @@ public class dbTest {
 
     @Test
     public void  removeRecipe(){
-        DataAcess db=new DataAcess();
+        DataAccess db=new DataAccess();
         int removeNumber=db.removeRecipe("Bobby's Burger");
         assert(removeNumber==1);
 
@@ -50,7 +51,7 @@ public class dbTest {
     public ExpectedException thrown = ExpectedException.none();
     @Test
     public void ExceptionTest(){
-        DataAcess db=new DataAcess();
+        DataAccess db=new DataAccess();
         ArrayList<HomeCard>x=new ArrayList();
         x=db.getAllRecipe();
         HomeCard s=x.get(5);

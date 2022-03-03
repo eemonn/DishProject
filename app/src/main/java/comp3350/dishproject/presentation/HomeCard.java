@@ -2,38 +2,43 @@ package comp3350.dishproject.presentation;
 
 public class HomeCard {
 
-    int background;
-    String recipeName;
+    private int background;
+    private String recipeName;
 
-    public HomeCard() {
-
-    }
-
-    //Constructor for item object, which will be displayed on home page cards
+    /*
+    Input: Takes in a int for background and string of the recipe name
+    Output: Constructor
+    Description: Constructor for item object, which will be displayed on home page cards
+    */
     public HomeCard(int background, String recipeName) {
         this.background = background;
         this.recipeName = recipeName;
     }
 
-    //Getter for background image
+    /*
+    Description: Getter for background image
+     */
     public int getBackground() {
         return background;
     }
 
-    //Setter for background image
+    /*
+    Description: Setter for background image
+    */
     public void setBackground(int background) {
         this.background = background;
     }
-
-    //Getter for recipe title
+    /*
+    Description: Getter for recipe title
+    */
     public String getRecipeName() {
         return recipeName;
     }
 
-    //Setter for Recipe Title
+    /*
+    Description: Setter for Recipe Title
+     */
     public void setRecipeName(String recipeName) {
         this.recipeName = recipeName;
     }
-
-
 }

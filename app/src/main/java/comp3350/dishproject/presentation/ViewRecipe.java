@@ -12,37 +12,37 @@ import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 import comp3350.dishproject.R;
+import comp3350.dishproject.logic.AccessRecipes;
 import comp3350.dishproject.logic.ShowRecipe;
-import comp3350.dishproject.objects.Ingredient;
 import comp3350.dishproject.objects.Recipe;
-import comp3350.dishproject.persistence.DataAcess;
 
 public class ViewRecipe extends AppCompatActivity {
-    RatingBar rating;
-    float rate;
-    TextView ratingText;
-    ShowRecipe showRecipe;
-    TextView ingredientListText;
-    Recipe recipe;
+    private RatingBar rating;
+    private float rate;
+    private TextView ratingText;
+    private ShowRecipe showRecipe;
+    private TextView ingredientListText;
+    private Recipe recipe;
 
+    //Android Specific Creator
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_recipe);
-        DataAcess db = new DataAcess();
+
+        AccessRecipes db = new AccessRecipes();
         recipe = db.getRecipe();
         showRecipe = new ShowRecipe(recipe);
         showRecipeDetaills();
         getRatingInput();
-        setDropDownMenu(recipe);
-
+        setDropDownMenu();
     }
 
     /*
-    Show the details of the recipe such as ingredient list, direction, title
+    Input: No input
+    Output: void
+    Description: Show the details of the recipe such as ingredient list, direction, title
      */
     public void showRecipeDetaills() {
         ingredientListText = (TextView) findViewById(R.id.ing_list);
@@ -56,7 +56,9 @@ public class ViewRecipe extends AppCompatActivity {
     }
 
     /*
-    Give user the option to rate the dish
+    Input: No input
+    Output: void
+    Description:Give user the option to rate the dish
      */
     public void getRatingInput() {
         rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
@@ -70,15 +72,19 @@ public class ViewRecipe extends AppCompatActivity {
     }
 
     /*
-    provide user with a drop down menu to choose the serving size
+    Input: No Input
+    Output: void
+    Description: Provide user with a drop down menu to choose the serving size
      */
-    public void setDropDownMenu(Recipe r) {
+    public void setDropDownMenu() {
         Spinner dropdown = findViewById(R.id.spinner);
         //create a list of items for the spinner.
         String[] items = new String[]{"1", "2", "3", "4", "5", "6"};
-        //create an adapter to describe how the items are displayed, adapters are used in several places in android.
+        //create an adapter to describe how the items are displayed, adapters are used in several
+        // places in android.
         //There are multiple variations of this, but this is the basic variant.
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout
+                .simple_spinner_dropdown_item, items);
         //set the spinners adapter to the previously created one.
         dropdown.setAdapter(adapter);
         dropdown.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -87,17 +93,17 @@ public class ViewRecipe extends AppCompatActivity {
                 int num = Integer.parseInt(String.valueOf(item));
                 updateIngredient(num);
             }
-
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
     }
 
     /*
-    update the quantity of ingredients as the user selects
+    Input: no input
+    Output: void function
+    Description: Update the quantity of ingredients as the user selects
      */
     public void updateIngredient(int num) {
         ingredientListText.setText(showRecipe.updateIngredients(num));
-
     }
 }

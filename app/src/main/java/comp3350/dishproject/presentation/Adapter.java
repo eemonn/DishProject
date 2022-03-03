@@ -1,4 +1,4 @@
-package comp3350.dishproject.logic;
+package comp3350.dishproject.presentation;
 
 
 import android.content.Context;
@@ -16,14 +16,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import comp3350.dishproject.R;
-import comp3350.dishproject.presentation.ViewRecipe;
-import comp3350.dishproject.presentation.HomeCard;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.myViewHolder> {
 
-    Context mContext;
-    List<HomeCard> mData;
+    private Context mContext;
+    private List<HomeCard> mData;
 
+    /*
+    Input: Takes in a context and a list of home cards
+    Output: Constructor
+    Description: Constructor
+    */
     public Adapter(Context mContext, List<HomeCard> mData) {
         this.mContext = mContext;
         this.mData = mData;
@@ -32,7 +35,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.myViewHolder> {
     /*
    Input: ViewGroup parent, Int viewType
    Output: returns View Holder
-   Description: The method creates and initalizes a ViewHolder and its associated view. Does not fill contents
+   Description: The method creates and initializes a ViewHolder and its associated view. Does not
+   fill contents
     */
     @NonNull
     @Override
@@ -45,7 +49,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.myViewHolder> {
     /*
    Input: a viewHolder
    Output: void function
-   Description: This method will asociate a ViewHolder with its data.
+   Description: This method will associate a ViewHolder with its data.
     */
     @Override
     public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
@@ -54,7 +58,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.myViewHolder> {
         holder.btn_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //String log = "This is a button with title " + mData.get(position).getRecipeName();
                 Intent intent = new Intent(mContext, ViewRecipe.class);
                 mContext.startActivity(intent);
             }
@@ -62,8 +65,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.myViewHolder> {
     }
 
     /*
-   Input: No input
-   Output: Returns item count
    Description: This method gets the size of the data set
     */
     @Override
@@ -71,12 +72,19 @@ public class Adapter extends RecyclerView.Adapter<Adapter.myViewHolder> {
         return mData.size();
     }
 
+
+    //Used in conjunction with the home cards to display them
     public class myViewHolder extends RecyclerView.ViewHolder {
 
         ImageView background_img;
         TextView tv_title;
         Button btn_view;
 
+        /*
+          Input: Takes in a View object
+          Output: Constructor
+          Description: Constructor for the view holder
+        */
         public myViewHolder (View itemView) {
             super(itemView);
             background_img = itemView.findViewById(R.id.card_background);
@@ -84,4 +92,4 @@ public class Adapter extends RecyclerView.Adapter<Adapter.myViewHolder> {
             btn_view = itemView.findViewById(R.id.btn_view);
         }
     }
-}
+}//Adapter

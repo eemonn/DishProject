@@ -1,70 +1,71 @@
 package comp3350.dishproject.logic;
 
-
-import android.widget.EditText;
-import android.widget.RatingBar;
-import android.widget.TextView;
-import android.view.View;
-import android.os.Bundle;
-
 import comp3350.dishproject.objects.Recipe;
 
 public class ShowRecipe {
-    //test this
-    Recipe recipe;
+    private Recipe recipe;
 
     /*
-    constructor to pass a recipe
+    Input: a recipe object
+    Output: constructor
+    Description: Constructor for recipe object
      */
     public ShowRecipe(Recipe r) {
         this.recipe = r;
     }
 
     /*
-    return the details of ingredient list
+    Input: no input
+    Output: returns string of ingredient information
+    Description: Will return the details of ingredient list
     */
     public String showIngredient() {
-        StringBuilder m = new StringBuilder();
+        StringBuilder ingredientString = new StringBuilder();
         for (int i = 0; i < recipe.getIngredientArrayList().size(); i++) {
-            m.append(i + 1).append(". ").append(recipe.getIngredientArrayList().get(i).getName()).append("  Amount: ").append(recipe.getIngredientArrayList().get(i).getQuantity()).append("  Calorie: ").append(recipe.getIngredientArrayList().get(i).getCalorie()).append("cal  Weight: ").append(recipe.getIngredientArrayList().get(i).getWeight()).append("g\n");
+            ingredientString.append(i + 1).append(". ").append(recipe.getIngredientArrayList().get(i).
+                    getName()).append("  Amount: ").append(recipe.getIngredientArrayList().get(i).
+                    getQuantity()).append("  Calorie: ").append(recipe.getIngredientArrayList().get(i).
+                    getCalorie()).append("cal  Weight: ").append(recipe.getIngredientArrayList().get(i).
+                    getWeight()).append("g\n");
         }
-        return m.toString();
+        return ingredientString.toString();
     }
 
     /*
-    method to update the ingredient
-     */
+    Description: Will update the specified ingredients
+    */
     public String updateIngredients(int num) {
         recipe.updateIngredientList(num);
         return showIngredient();
     }
 
     /*
-    method to return title of recipe
-     */
+    Description: Will return the title of the recipe
+    */
     public String showTitle() {
         return recipe.getName();
     }
-    /*
-    return the description of recipe
-     */
 
+
+    /*
+    Description: Will return the calorie and weight of the recipe
+    */
     public String showTitleDescription() {
-        String m = "";
-        m += "Calorie: " + recipe.getCalorie() + "cal Weight: " + recipe.getWeight() + "g\n";
-        return m;
+        String ingredientInfo = "";
+        ingredientInfo += "Calorie: " + recipe.getCalorie() + "cal Weight: " + recipe.getWeight() + "g\n";
+        return ingredientInfo;
     }
 
     /*
-    method to return direction
-     */
+   Description: Will return the recipe directions
+   */
     public String showDirection() {
         return recipe.getDirection();
     }
 
     /*
-    method to return the recipe
-     */
+   Description: Will return the recipe object
+   */
     public Recipe getRec() {
         return recipe;
     }
