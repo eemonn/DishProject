@@ -8,4 +8,5 @@ public interface fakeDB {
     public ArrayList<item> getRecipe(String name);
     public ArrayList<item> getAllRecipe();
     public int removeRecipe(String name);
+    public int getSizeofRecipe();
 }
