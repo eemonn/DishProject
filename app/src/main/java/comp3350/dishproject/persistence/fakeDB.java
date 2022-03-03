@@ -9,4 +9,5 @@ public interface fakeDB {
     public ArrayList<item> getAllRecipe();
     public int removeRecipe(String name);
     public int getSizeofRecipe();
+    public String[] getDishes();
 }

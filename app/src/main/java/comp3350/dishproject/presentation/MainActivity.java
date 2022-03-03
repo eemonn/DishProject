@@ -28,11 +28,12 @@ import comp3350.dishproject.persistence.DataAcess;
 public class MainActivity extends AppCompatActivity {
     private static final int SCROLLING_SPEED_FRICTION = 350;//modifies scrolling speed for search suggestion box
     Button viewRec;
-    String[] dishes = {"Burger", "Pizza", "Tacos", "Pancake", "Fish", "Pickles", "Parm", "Chicken Parm",
-            "Paella", "Panfish", "Papaw", "Pecan Pie", "Persimmon", "Pheasant"};
+    /*String[] dishes = {"Burger", "Pizza", "Tacos", "Pancake", "Fish", "Pickles", "Parm", "Chicken Parm",
+
+            "Paella", "Panfish", "Papaw", "Pecan Pie", "Persimmon", "Pheasant"};*/
     private ListView listSearchSuggestions; //listview used for displaying the search suggestions(AKA autocomplete)
     private ArrayAdapter<String> searchSuggestions;//used for taking a string array of dishes and inserting them into the listview
-
+    private String[] dishes;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.rv_list);
         DataAcess db=new DataAcess();
         List<item> mlist = db.getAllRecipe();
+        dishes=db.getDishes();
         //Hard code the data for now
 
 

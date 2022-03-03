@@ -6,9 +6,12 @@ import java.util.ArrayList;
 public class DataAcess implements fakeDB{
     public ArrayList<item> reciPe;
     public int size;
+    public String[] arrDishes;
     //constructor
     public DataAcess(){
-
+        arrDishes=new String[]{"Burger", "Pizza", "Tacos", "Pancake", "Fish", "Pickles", "Parm",
+                "Chicken Parm",
+                "Paella", "Panfish", "Papaw", "Pecan Pie", "Persimmon", "Pheasant"};
         reciPe=new ArrayList<item>();
         reciPe.add(new item(R.drawable.burger, "Bobby's Burger"));
         reciPe.add(new item(R.drawable.pizza, "Paul's Pizza"));
@@ -16,6 +19,8 @@ public class DataAcess implements fakeDB{
         reciPe.add(new item(R.drawable.pancake, "Patricia's Pancake"));
         reciPe.add(new item(R.drawable.fish, "Freddy's Fish"));
         size=5;
+
+
     }
 
     //adding items
@@ -69,4 +74,12 @@ public class DataAcess implements fakeDB{
     public int getSizeofRecipe(){
         return this.size;
     }
+
+    @Override
+    public String[] getDishes() {
+       return this.arrDishes;
+
+    }
+
+
 }
