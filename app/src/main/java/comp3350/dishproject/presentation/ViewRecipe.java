@@ -116,5 +116,6 @@ public class ViewRecipe extends AppCompatActivity {
      */
     public void updateIngredient(int num) {
         ingredientListText.setText(showRecipe.updateIngredients(num));
+
     }
 }
