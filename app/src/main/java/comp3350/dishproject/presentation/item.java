@@ -20,14 +20,14 @@ public class item {
         return background;
     }
 
-    //Getter for recipe title
-    public String getRecipeName() {
-        return recipeName;
-    }
-
     //Setter for background image
     public void setBackground(int background) {
         this.background = background;
+    }
+
+    //Getter for recipe title
+    public String getRecipeName() {
+        return recipeName;
     }
 
     //Setter for Recipe Title
