@@ -25,19 +25,20 @@ public class ViewRecipe extends AppCompatActivity {
     TextView ratingText;
     ShowRecipe showRecipe;
     TextView ingredientListText;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_recipe);
         //you must pass a recipe from data class which has a list of recipes
-        Recipe recipe=new Recipe("Pizza","1", 600.0,450, new ArrayList<Ingredient>());
-        Ingredient i=new Ingredient("Apple", "2", 2, 200.0,2.0);
-        Ingredient i1=new Ingredient("Banana", "1", 1, 100.0,1.0);
-        Ingredient i2=new Ingredient("Orange", "3", 3, 300.0,3.0);
+        Recipe recipe = new Recipe("Bobby's Burger", "1", 600.0, 450, new ArrayList<Ingredient>());
+        Ingredient i = new Ingredient("Apple", "2", 2, 200.0, 2.0);
+        Ingredient i1 = new Ingredient("Banana", "1", 1, 100.0, 1.0);
+        Ingredient i2 = new Ingredient("Orange", "3", 3, 300.0, 3.0);
         recipe.addIngredient(i);
         recipe.addIngredient(i1);
         recipe.addIngredient(i2);
-        String ss="Step 1\n" +
+        String ss = "Step 1\n" +
                 "In a bowl, mix ground beef, egg, onion, bread crumbs, Worcestershire, garlic, 1/2 teaspoon salt, and 1/4 teaspoon pepper until well blended. Divide mixture into four equal portions and shape each into a patty about 4 inches wide.\n" +
                 "\n" +
                 "Step 2\n" +
@@ -57,36 +58,36 @@ public class ViewRecipe extends AppCompatActivity {
 
     }
 
-    public void showRecipeDetaills(){
+    public void showRecipeDetaills() {
 
 
-         ingredientListText = (TextView) findViewById(R.id.ing_list);
-        TextView descriptionTextbox= (TextView) findViewById(R.id.des_title);
-        rating=(RatingBar) findViewById(R.id.ratingBar2);
-         ratingText = (TextView) findViewById(R.id.des_text);
-        TextView directionText= (TextView) findViewById(R.id.direction_text);
+        ingredientListText = (TextView) findViewById(R.id.ing_list);
+        TextView descriptionTextbox = (TextView) findViewById(R.id.des_title);
+        rating = (RatingBar) findViewById(R.id.ratingBar2);
+        ratingText = (TextView) findViewById(R.id.des_text);
+        TextView directionText = (TextView) findViewById(R.id.direction_text);
         //t.setText(s.showIngredient());
-        ratingText.setText(showRecipe.showTitleDescription()+"Rating: "+rate);
+        ratingText.setText(showRecipe.showTitleDescription() + "Rating: " + rate);
         directionText.setText(showRecipe.showDirection());
         descriptionTextbox.setText(showRecipe.showTitle());
     }
 
-    public void getRatingInput(){
+    public void getRatingInput() {
         rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
 
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                rate=ratingBar.getRating();
-                ratingText.setText(showRecipe.showTitleDescription()+"Rating: "+rate);
-                showRecipe.getRec().setRating((int)rate);
+                rate = ratingBar.getRating();
+                ratingText.setText(showRecipe.showTitleDescription() + "Rating: " + rate);
+                showRecipe.getRec().setRating((int) rate);
             }
         });
     }
 
-    public void setDropDownMenu(Recipe r){
+    public void setDropDownMenu(Recipe r) {
         Spinner dropdown = findViewById(R.id.spinner);
         //create a list of items for the spinner.
-        String [] items = new String[]{"1","2","3","4","5","6"};
+        String[] items = new String[]{"1", "2", "3", "4", "5", "6"};
         //create an adapter to describe how the items are displayed, adapters are used in several places in android.
         //There are multiple variations of this, but this is the basic variant.
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
@@ -95,15 +96,16 @@ public class ViewRecipe extends AppCompatActivity {
         dropdown.setOnItemSelectedListener(new OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 Object item = parent.getItemAtPosition(pos);
-                int num= Integer.parseInt(String.valueOf(item));
+                int num = Integer.parseInt(String.valueOf(item));
                 updateIngredient(num);
             }
+
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
     }
 
-    public void updateIngredient(int num){
+    public void updateIngredient(int num) {
         ingredientListText.setText(showRecipe.updateIngredients(num));
     }
 }

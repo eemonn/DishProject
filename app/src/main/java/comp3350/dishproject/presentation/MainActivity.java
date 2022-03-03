@@ -1,4 +1,4 @@
-package comp3350.dishproject.application;
+package comp3350.dishproject.presentation;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,34 +15,22 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 import comp3350.dishproject.R;
 import comp3350.dishproject.logic.Adapter;
 
-import comp3350.dishproject.persistence.DataAcess;
-
-import comp3350.dishproject.logic.ShowRecipe;
-import comp3350.dishproject.objects.Ingredient;
-import comp3350.dishproject.objects.Recipe;
-import comp3350.dishproject.presentation.ViewRecipe;
-
-import comp3350.dishproject.presentation.item;
-
 public class MainActivity extends AppCompatActivity {
+    private static final int SCROLLING_SPEED_FRICTION = 350;//modifies scrolling speed for search suggestion box
     Button viewRec;
-
+    String[] dishes = {"Burger", "Pizza", "Tacos", "Pancake", "Fish", "Pickles", "Parm", "Chicken Parm",
+            "Paella", "Panfish", "Papaw", "Pecan Pie", "Persimmon", "Pheasant"};
     private ListView listSearchSuggestions; //listview used for displaying the search suggestions(AKA autocomplete)
     private ArrayAdapter<String> searchSuggestions;//used for taking a string array of dishes and inserting them into the listview
-    String[] dishes = {"Burger","Pizza","Tacos","Pancake","Fish","Pickles","Parm","Chicken Parm",
-    "Paella","Panfish","Papaw","Pecan Pie","Persimmon", "Pheasant"};
-    private static final int SCROLLING_SPEED_FRICTION = 350;//modifies scrolling speed for search suggestion box
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         //Hard code the data for now
 
 
-        Adapter adapter = new Adapter (this, mlist);
+        Adapter adapter = new Adapter(this, mlist);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager((new LinearLayoutManager(this)));
         initializeSearchSuggestionBox();
@@ -75,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
     public void initializeSearchSuggestionBox() {
         listSearchSuggestions = findViewById(R.id.listview);
         List<String> dishNames = new ArrayList<String>(Arrays.asList(dishes));
-        searchSuggestions = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,dishNames);// returns a view
+        searchSuggestions = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, dishNames);// returns a view
         // for each dish in dishes and used in the listview interface
         listSearchSuggestions.setAdapter(searchSuggestions);
         listSearchSuggestions.setVisibility(View.INVISIBLE);//on startup, we need to disable the visibility for the search suggestions box
@@ -83,8 +70,8 @@ public class MainActivity extends AppCompatActivity {
         listSearchSuggestions.setFriction(ViewConfiguration.getScrollFriction() * SCROLLING_SPEED_FRICTION);
     }
 
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu,menu);//instantiate menu XML files into a menu object, this menu will be
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);//instantiate menu XML files into a menu object, this menu will be
         //a search menu as defined in the XML file menu.xml
         MenuItem menuItem = menu.findItem(R.id.action_search);
 
@@ -100,12 +87,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String enteredString) {
 
-                if(checkIfDish(enteredString)){
-                    Intent intent=new Intent(MainActivity.this,ViewRecipe.class);
+                if (checkIfDish(enteredString)) {
+                    Intent intent = new Intent(MainActivity.this, ViewRecipe.class);
                     startActivity(intent);
                     return true;
                 } else {
-                    searchView.setQuery("Not Found",false);
+                    searchView.setQuery("Not Found", false);
                     searchView.clearFocus();
                     return false;
                 }
@@ -125,11 +112,11 @@ public class MainActivity extends AppCompatActivity {
                 searchSuggestions.addAll(filtered);
 
                 //Dynamically Adjusts the height of the search suggestions box based on the number of suggestions
-                if(filtered.size()>=1 && searchSuggestions.getCount()>=1){
+                if (filtered.size() >= 1 && searchSuggestions.getCount() >= 1) {
                     changeSearchSuggestionBoxSize(filtered);
                 }
 
-                if(newCharacterString.length() > 1 && filtered.size()>0) {
+                if (newCharacterString.length() > 1 && filtered.size() > 0) {
                     listSearchSuggestions.setVisibility(View.VISIBLE);//only show the search suggestions when theres actual suggestions and something has been typed in
                 } else {
                     listSearchSuggestions.setVisibility(View.INVISIBLE);
@@ -138,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                 //event listener for when you click a search suggestion
                 listSearchSuggestions.setOnItemClickListener((adapterView, view, post, id) -> {
                     Object listItem = listSearchSuggestions.getItemAtPosition(post);//clicked Item
-                    searchView.setQuery(listItem.toString(),false);//adjusts the query to make it the clicked item
+                    searchView.setQuery(listItem.toString(), false);//adjusts the query to make it the clicked item
                     listSearchSuggestions.setVisibility(View.INVISIBLE);
 
                 });
@@ -189,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
         return filtered;
     }
 
-    public boolean checkIfDish(String searchQuery){
+    public boolean checkIfDish(String searchQuery) {
         for (String dish : dishes) {
             String[] stringsToCheck = dish.split(" ");//Example: For dish of Chicken Parm, a search query of "Parm" will return Chicken Parm
             for (String s : stringsToCheck) {
@@ -206,13 +193,13 @@ public class MainActivity extends AppCompatActivity {
     Output: void function, but does change some parameters of the listview layout
     Description: Dynamically changes the size of the search suggestion box based on how many items are in the search suggestion box
      */
-    public void changeSearchSuggestionBoxSize(ArrayList<String> relevantSearchSuggestions ) {
-        View item = searchSuggestions.getView(0,null,listSearchSuggestions);
-        item.measure(0,0);//size of one search suggestion box(one search dis)
+    public void changeSearchSuggestionBoxSize(ArrayList<String> relevantSearchSuggestions) {
+        View item = searchSuggestions.getView(0, null, listSearchSuggestions);
+        item.measure(0, 0);//size of one search suggestion box(one search dis)
         ViewGroup.LayoutParams params = listSearchSuggestions.getLayoutParams();
         params.width = ViewGroup.LayoutParams.MATCH_PARENT;
         int scalingFactor = relevantSearchSuggestions.size();
-        if(relevantSearchSuggestions.size() >= 3){
+        if (relevantSearchSuggestions.size() >= 3) {
             scalingFactor = 3; //if more than 3 elements, restrict the listview box to hold only 3 elements and then force user to scroll for more
         }
         params.height = scalingFactor * item.getMeasuredHeight();//height of listview search suggestion box is either 1 element tall, 2 elements tall, or 3 element tall and
