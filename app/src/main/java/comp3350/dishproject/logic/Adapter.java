@@ -17,14 +17,14 @@ import java.util.List;
 
 import comp3350.dishproject.R;
 import comp3350.dishproject.presentation.ViewRecipe;
-import comp3350.dishproject.presentation.item;
+import comp3350.dishproject.presentation.HomeCard;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.myViewHolder> {
 
     Context mContext;
-    List<item> mData;
+    List<HomeCard> mData;
 
-    public Adapter(Context mContext, List<item> mData) {
+    public Adapter(Context mContext, List<HomeCard> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }

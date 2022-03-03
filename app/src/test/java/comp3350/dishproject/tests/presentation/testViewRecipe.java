@@ -18,7 +18,6 @@ public class testViewRecipe {
         Ingredient i=new Ingredient("Apple", "2", 2, 200.0,2.0);
         Ingredient i1=new Ingredient("Banana", "1", 1, 200.0,1.0);
         Ingredient i2=new Ingredient("Orange", "3", 3, 200.0,3.0);
-        //vr.showIngredient(r);
         assert(2+2==4);
     }
 }

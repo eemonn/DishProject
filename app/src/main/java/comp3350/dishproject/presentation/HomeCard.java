@@ -1,16 +1,16 @@
 package comp3350.dishproject.presentation;
 
-public class item {
+public class HomeCard {
 
     int background;
     String recipeName;
 
-    public item() {
+    public HomeCard() {
 
     }
 
     //Constructor for item object, which will be displayed on home page cards
-    public item(int background, String recipeName) {
+    public HomeCard(int background, String recipeName) {
         this.background = background;
         this.recipeName = recipeName;
     }

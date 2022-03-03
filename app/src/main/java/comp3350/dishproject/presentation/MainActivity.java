@@ -27,28 +27,20 @@ import comp3350.dishproject.persistence.DataAcess;
 
 public class MainActivity extends AppCompatActivity {
     private static final int SCROLLING_SPEED_FRICTION = 350;//modifies scrolling speed for search suggestion box
-    Button viewRec;
-    /*String[] dishes = {"Burger", "Pizza", "Tacos", "Pancake", "Fish", "Pickles", "Parm", "Chicken Parm",
-
-            "Paella", "Panfish", "Papaw", "Pecan Pie", "Persimmon", "Pheasant"};*/
     private ListView listSearchSuggestions; //listview used for displaying the search suggestions(AKA autocomplete)
     private ArrayAdapter<String> searchSuggestions;//used for taking a string array of dishes and inserting them into the listview
     private String[] dishes;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        Intent intent= new Intent(MainActivity.this, ViewRecipe.class);
-//        startActivity(intent);
-
         //Setup recycler view with the adapter (shows cards on main screen)
         RecyclerView recyclerView = findViewById(R.id.rv_list);
-        DataAcess db=new DataAcess();
-        List<item> mlist = db.getAllRecipe();
-        dishes=db.getDishes();
-        //Hard code the data for now
-
+        DataAcess db = new DataAcess();
+        List<HomeCard> mlist = db.getAllRecipe();
+        dishes = db.getDishes();
 
         Adapter adapter = new Adapter(this, mlist);
         recyclerView.setAdapter(adapter);
@@ -179,6 +171,9 @@ public class MainActivity extends AppCompatActivity {
         return filtered;
     }
 
+    /*
+    Check if the dish the user is searching is in the list
+     */
     public boolean checkIfDish(String searchQuery) {
         for (String dish : dishes) {
             String[] stringsToCheck = dish.split(" ");//Example: For dish of Chicken Parm, a search query of "Parm" will return Chicken Parm
