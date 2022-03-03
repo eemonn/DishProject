@@ -14,6 +14,7 @@ import java.util.List;
 
 import comp3350.dishproject.R;
 import comp3350.dishproject.logic.Adapter;
+import comp3350.dishproject.persistence.DataAcess;
 import comp3350.dishproject.presentation.item;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,13 +27,10 @@ public class MainActivity extends AppCompatActivity {
 
         //Setup recycler view with the adapter (shows cards on main screen)
         RecyclerView recyclerView = findViewById(R.id.rv_list);
-        List<item> mlist = new ArrayList<>();
+        DataAcess db=new DataAcess();
+        List<item> mlist = db.getAllRecipe();
         //Hard code the data for now
-        mlist.add(new item(R.drawable.burger, "Bobby's Burger"));
-        mlist.add(new item(R.drawable.pizza, "Paul's Pizza"));
-        mlist.add(new item(R.drawable.taco, "Timmy's Taco"));
-        mlist.add(new item(R.drawable.pancake, "Patricia's Pancake"));
-        mlist.add(new item(R.drawable.fish, "Freddy's Fish"));
+
 
         Adapter adapter = new Adapter(this, mlist);
         recyclerView.setAdapter(adapter);
