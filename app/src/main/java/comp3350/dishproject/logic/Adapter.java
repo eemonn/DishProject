@@ -29,6 +29,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.myViewHolder> {
         this.mData = mData;
     }
 
+    /*
+   Input: ViewGroup parent, Int viewType
+   Output: returns View Holder
+   Description: The method creates and initalizes a ViewHolder and its associated view. Does not fill contents
+    */
     @NonNull
     @Override
     public myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -37,6 +42,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.myViewHolder> {
         return new myViewHolder(v);
     }
 
+    /*
+   Input: a viewHolder
+   Output: void function
+   Description: This method will asociate a ViewHolder with its data.
+    */
     @Override
     public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
         holder.background_img.setImageResource(mData.get(position).getBackground());
@@ -51,6 +61,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.myViewHolder> {
         });
     }
 
+    /*
+   Input: No input
+   Output: Returns item count
+   Description: This method gets the size of the data set
+    */
     @Override
     public int getItemCount() {
         return mData.size();
