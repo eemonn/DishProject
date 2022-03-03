@@ -58,9 +58,10 @@ public class ViewRecipe extends AppCompatActivity {
 
     }
 
+    /*
+    Show the details of the recipe such as ingredient list, direction, title
+     */
     public void showRecipeDetaills() {
-
-
         ingredientListText = (TextView) findViewById(R.id.ing_list);
         TextView descriptionTextbox = (TextView) findViewById(R.id.des_title);
         rating = (RatingBar) findViewById(R.id.ratingBar2);
@@ -72,9 +73,11 @@ public class ViewRecipe extends AppCompatActivity {
         descriptionTextbox.setText(showRecipe.showTitle());
     }
 
+    /*
+    Give user the option to rate the dish
+     */
     public void getRatingInput() {
         rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 rate = ratingBar.getRating();
@@ -84,6 +87,9 @@ public class ViewRecipe extends AppCompatActivity {
         });
     }
 
+    /*
+    provide user with a drop down menu to choose the serving size
+     */
     public void setDropDownMenu(Recipe r) {
         Spinner dropdown = findViewById(R.id.spinner);
         //create a list of items for the spinner.
@@ -105,6 +111,9 @@ public class ViewRecipe extends AppCompatActivity {
         });
     }
 
+    /*
+    update the quantity of ingredients as the user selects
+     */
     public void updateIngredient(int num) {
         ingredientListText.setText(showRecipe.updateIngredients(num));
     }
