@@ -23,6 +23,7 @@ import java.util.List;
 
 import comp3350.dishproject.R;
 import comp3350.dishproject.logic.Adapter;
+import comp3350.dishproject.persistence.DataAcess;
 
 public class MainActivity extends AppCompatActivity {
     private static final int SCROLLING_SPEED_FRICTION = 350;//modifies scrolling speed for search suggestion box
