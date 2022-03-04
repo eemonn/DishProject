@@ -38,11 +38,12 @@ in the code you are testing.
 Branching
 ----------
 
-Provide a link to where you describe your branching strategy.
+**Linked to Branching strategy: 
+[SearchBar-Tim](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/blob/main/ContributingGuidelines.md)**
 
-Provide screen shot of a feature being added using your branching strategy
-successfully. The [GitLab Graph tool can do this](https://code.cs.umanitoba.ca/comp3350-summer2019/cook-eBook/-/network/develop),
-as well as using `git log --graph`.
+![Branching Strategy Graph][https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/blob/clean-Dev/branchPhoto.png]
+
+An example of our branching strategy is shown above. Tim first pulled existing Development to his own branch. Then he merged it locally and pushed his branch to Development. 
 
 SOLID
 -----
