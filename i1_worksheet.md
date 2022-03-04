@@ -41,7 +41,7 @@ Branching
 **Linked to Branching strategy: 
 [SearchBar-Tim](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/blob/main/ContributingGuidelines.md)**
 
-[Branching Strategy Graph][https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/blob/clean-Dev/branchPhoto.png]
+[Branching Strategy Graph](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/blob/clean-Dev/branchPhoto.png)
 
 An example of our branching strategy is shown above. Tim first pulled existing Development to his own branch. Then he merged it locally and pushed his branch to Development. 
 
