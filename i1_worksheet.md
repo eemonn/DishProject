@@ -11,6 +11,23 @@ that was used complete the feature.
 
 Use one or two paragraphs which can have point-form within them.
 
+The feature was introduced during our first ideation session as a way for users to search for their favourite dishes by name. As this was a recipe app at the core, we wanted to make sure that we could include as many recipes as possible and have the user be able to access all of them. Without making the UI too clunky, access to all these recipes was to be offered through the search bar. After the ideation period and designing how the search bar would work, the feature was broken down into user stories as a group.
+[Feature Issue](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/issues/3)
+[User Story 1](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/issues/1)
+[User Story 2](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/issues/2)
+
+Once the feature was explained at a high level, the user stories were broken down into developer tasks as a group. These developer tasks were assigned to the person who would be completing this feature. Time estimates within the developer tasks were formulated as a team to ensure the feature would not take too much time for one person.
+[Dev Task 1](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/issues/23)
+[Dev Task 2](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/issues/24)
+[Dev Task 3](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/issues/25)
+[Dev Task 4](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/issues/26)
+[Dev Task 5](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/issues/27)
+
+After the developer tasks were created and a rough deadline assigned, the feature was coded. This feature was heavily focused around UI and thus no unit tests were implemented in Iteration 1. Since it was a UI feature, there were design and feedback sessions held throughout the coding process to make sure the design fit with the other UI components. Once the coding was finished, the feature was merged into the `develop` branch following the approval of another team member. Once merged, the associated issues were closed.
+[Merge request](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/merge_requests/10)
+[Merge Commits](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/merge_requests/10/commits)
+
+
 Exceptional code
 ----------------
 
