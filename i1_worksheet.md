@@ -30,7 +30,7 @@ as well as using `git log --graph`.
 SOLID
 -----
 
-After a through check about SOLID principles in the codebase of Group 5. We did not find any violations so far. The codes were organized. 
+After a thorough check about SOLID principles in the codebase of Group 5. We did not find any violations so far. The codes were organized. 
 
 Link to the issue created: https://code.cs.umanitoba.ca/winter-2022-a02/group-5/nibble-pad/-/issues/27
 
