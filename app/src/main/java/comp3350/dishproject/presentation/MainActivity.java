@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String enteredString) {
 
                 if (checkIfDish(enteredString)) {
+                    searchView.clearFocus();
                     Intent intent = new Intent(MainActivity.this, ViewRecipe.class);
                     startActivity(intent);
                     return true;
