@@ -20,9 +20,14 @@
 - Each method should have a comment block above their signature of the following form:
 ```Java
 /* 
-MethodName
 * Inputs:
 * Outputs:
+* Description:
+*/
+```
+- Getters, Setters and one-line methods will adhere to:
+```Java
+/* 
 * Description:
 */
 ```
@@ -31,12 +36,17 @@ MethodName
 - There should be a space before the opening brace. 
 - The opening brace is on the same line as the method signature.
 - No extra whitespace between the end of code and closing brace and the closing brace should be on its own line.
-- Methods should follow this template.
+- Methods should follow this template. 
  ```Java
 public int methodName(parameters) {
     //code
 }
 ```
+- Getters, Setters and one-line methods can follow the above template or the following:
+ ```Java
+public int methodName(parameters) {//code }
+```
+
 ### Loops
 ---
 - Loops follow same template as methods.
@@ -47,5 +57,3 @@ for (int i = 0; i < 25; i++) {
 
 ```
 
-### Exception Handling
----
