@@ -57,7 +57,12 @@ Provide a link to the issue you created here.
 Agile Planning
 --------------
 
-Write a paragraph about any plans that were changed. Did you
-'push' any features to iteration 2? Did you change the description
-of any Features or User Stories? Have links to any changed or pushed Features
-or User Stories.
+Agile Planning
+--------------
+We were fortunate enough not to have to move any of our features to iteration 2, as we properly planned for iteration 1. However, we actually ended up 
+needing to implement a feature that we had not thought about originally. We had planned all of the main pages and important features for our app and forgotten that 
+we would require a home/landing page. This feature was added to our issues early in iteration 1 and we drew out a simple design prototype. The code for the homepage UI was 
+written and upon seeing it, we made a design change to it and ended up completely overhauling and redisigning the UI. The new UI was written and implemented towards the end of iteration 1. 
+
+**Linked Feature: 
+[Homepage](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/issues/19)**
