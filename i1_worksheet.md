@@ -58,8 +58,6 @@ Provide a link to the issue you created here.
 Agile Planning
 --------------
 
-Agile Planning
---------------
 We were fortunate enough not to have to move any of our features to iteration 2, as we properly planned for iteration 1. However, we actually ended up 
 needing to implement a feature that we had not thought about originally. We had planned all of the main pages and important features for our app and forgotten that 
 we would require a home/landing page. This feature was added to our issues early in iteration 1 and we drew out a simple design prototype. The code for the homepage UI was 
