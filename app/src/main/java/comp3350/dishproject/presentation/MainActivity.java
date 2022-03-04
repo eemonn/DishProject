@@ -118,17 +118,17 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     listSearchSuggestions.setVisibility(View.INVISIBLE);
                 }
+                return true;
+            }
+        });
 
-                //event listener for when you click a search suggestion
+        //event listener for when you click a search suggestion
                 listSearchSuggestions.setOnItemClickListener((adapterView, view, post, id) -> {
                     Object listItem = listSearchSuggestions.getItemAtPosition(post);//clicked Item
                     searchView.setQuery(listItem.toString(), false);//adjusts the query to make it the clicked item
                     listSearchSuggestions.setVisibility(View.INVISIBLE);
 
                 });
-                return true;
-            }
-        });
 
         //event listener for when the search box is closed
         searchView.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
