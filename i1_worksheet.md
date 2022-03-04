@@ -30,12 +30,9 @@ as well as using `git log --graph`.
 SOLID
 -----
 
-Find a SOLID violation in the project of group `(n%16)+1` (group 16 does group 1).
-Open an issue in their project with the violation,
-clearly explaining the SOLID violation - specifying the type, provide a link to that issue. Be sure
-your links in the issues are to **specific commits** (not to `main`, or `develop` as those will be changed).
+After a through check about SOLID principles in the codebase of Group 5. We did not find any violations so far. The codes were organized. 
 
-Provide a link to the issue you created here.
+Link to the issue created: https://code.cs.umanitoba.ca/winter-2022-a02/group-5/nibble-pad/-/issues/27
 
 Agile Planning
 --------------
