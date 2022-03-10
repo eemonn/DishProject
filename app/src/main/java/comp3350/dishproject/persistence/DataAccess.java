@@ -34,6 +34,14 @@ public class DataAccess implements DBInterface {
         Ingredient i = new Ingredient("Apple", "2", 2, 200.0, 2.0);
         Ingredient i1 = new Ingredient("Banana", "1", 1, 100.0, 1.0);
         Ingredient i2 = new Ingredient("Orange", "3", 3, 300.0, 3.0);
+        Ingredient i3 = new Ingredient("Orange2", "3", 3, 300.0, 3.0);
+        burger.addIngredient(i3);
+        Ingredient i33 = new Ingredient("Orange21", "3", 3, 300.0, 3.0);
+        burger.addIngredient(i33);
+        Ingredient i334 = new Ingredient("Orange22", "3", 3, 300.0, 3.0);
+        burger.addIngredient(i334);
+        Ingredient i332 = new Ingredient("Orange222", "3", 3, 300.0, 3.0);
+        burger.addIngredient(i332);
         burger.addIngredient(i);
         burger.addIngredient(i1);
         burger.addIngredient(i2);

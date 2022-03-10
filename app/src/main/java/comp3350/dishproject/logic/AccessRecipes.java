@@ -3,12 +3,13 @@ package comp3350.dishproject.logic;
 import java.util.ArrayList;
 
 import comp3350.dishproject.objects.Recipe;
+import comp3350.dishproject.persistence.DBInterface;
 import comp3350.dishproject.persistence.DataAccess;
 import comp3350.dishproject.presentation.HomeCard;
 
 public class AccessRecipes {
     //Note: Tests for this logic class are included in the persistence testing for iteration 1
-    private DataAccess db;
+    private DBInterface db;
 
     /*
     Input: No input
