@@ -15,10 +15,12 @@ The dish project system(DP system) is an application which will allow users to f
 ---
 
 - [Worksheet for Iteration 1](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/blob/main/i1_worksheet.md)
+- [Worksheet for Iteration 2](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/blob/main/i2_worksheet.md)
 
 ### Milestones
 ---
 - [Iteration 1 Milestone](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/milestones/1#tab-issues)
+- [Iteration 2 Milestone](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/milestones/2#tab-issues)
 
 ### Tags
 ---
