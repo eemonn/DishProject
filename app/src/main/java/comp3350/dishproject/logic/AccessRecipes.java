@@ -20,6 +20,10 @@ public class AccessRecipes {
         this.recipePersistence = recipePersistence;
     }
 
+    public String findRecipeID(final String recipeName) {
+        return recipePersistence.findRecipeID(recipeName);
+    }
+
     public List<Recipe> getAllRecipes() {
         return recipePersistence.getAllRecipes();
     }

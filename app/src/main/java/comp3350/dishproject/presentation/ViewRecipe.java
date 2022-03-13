@@ -5,6 +5,7 @@ import static android.widget.AdapterView.*;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -36,8 +37,16 @@ public class ViewRecipe extends AppCompatActivity {
         AccessRecipes db = new AccessRecipes();
         AccessSteps db1 = new AccessSteps();
 
-        recipe = db.getRecipe("100");
-        Steps step = new Steps(db1.getDirections("100"),recipe);
+        Bundle extras = getIntent().getExtras();
+        String dish = "";
+        if(extras !=null) {
+            dish = getIntent().getStringExtra("search");
+        }
+        Log.d("TAG", "onCreate: " + dish);
+        String recipeID = db.findRecipeID(dish);
+        Log.d("TAG", "id: " + recipeID);
+        recipe = db.getRecipe(recipeID);
+        Steps step = new Steps(db1.getDirections(recipeID),recipe);
         showRecipe = new ShowRecipe(recipe,step);
         showRecipeDetaills();
         getRatingInput();

@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
                 if (checkIfDish(enteredString)) {
                     searchView.clearFocus();
                     Intent intent = new Intent(MainActivity.this, ViewRecipe.class);
+                    intent.putExtra("search",enteredString);
                     startActivity(intent);
                     return true;
                 } else {

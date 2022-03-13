@@ -9,6 +9,7 @@ public interface RecipePersistence {
 
     List<Recipe> getAllRecipes();
     Recipe getRecipe(final String recipeID);
+    String findRecipeID(final String recipeName);
     Recipe insertRecipe(Recipe newRecipe);
     Recipe updateRecipe(Recipe newRecipe);
     void deleteRecipe(Recipe newRecipe);
