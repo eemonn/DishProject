@@ -2,13 +2,16 @@ package comp3350.dishproject.application;
 
 import comp3350.dishproject.persistence.IngredientPersistence;
 import comp3350.dishproject.persistence.RecipePersistence;
+import comp3350.dishproject.persistence.StepsPersistence;
 import comp3350.dishproject.persistence.hsqldb.IngredientPersistenceHSQLDB;
 import comp3350.dishproject.persistence.hsqldb.RecipePersistenceHSQLDB;
+import comp3350.dishproject.persistence.hsqldb.StepsPersistenceHSQLDB;
 
 public class Services {
 
     private static RecipePersistence recipePersistence = null;
     private static IngredientPersistence ingredientPersistence = null;
+    private static StepsPersistence stepsPersistence = null;
 
 
     public static synchronized RecipePersistence getRecipePersistence() {
@@ -21,10 +24,18 @@ public class Services {
 
     public static synchronized IngredientPersistence getIngredientPersistence() {
         if(ingredientPersistence == null) {
-            //recipePersistence = new IngredientPersistenceStub(); //fake database
+            //ingredientPersistence = new IngredientPersistenceStub(); //fake database
             ingredientPersistence = new IngredientPersistenceHSQLDB(Main.getDBPathName());
         }
         return ingredientPersistence;
+    }
+
+    public static synchronized StepsPersistence getStepsPersistence() {
+        if(stepsPersistence == null) {
+            //stepsPersistence = new StepsPersistenceStub(); //fake database
+            stepsPersistence = new StepsPersistenceHSQLDB(Main.getDBPathName());
+        }
+        return stepsPersistence;
     }
 
     public static synchronized void clean() {

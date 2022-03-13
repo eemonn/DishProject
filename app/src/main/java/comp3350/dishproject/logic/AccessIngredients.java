@@ -1,6 +1,9 @@
 package comp3350.dishproject.logic;
 
+import java.util.List;
+
 import comp3350.dishproject.application.Services;
+import comp3350.dishproject.objects.Ingredient;
 import comp3350.dishproject.persistence.IngredientPersistence;
 
 public class AccessIngredients {
@@ -15,4 +18,15 @@ public class AccessIngredients {
         this();
         this.ingredientPersistence = ingredientPersistence;
     }
+
+    public List<Ingredient> getIngredients(String recipeID) {
+        return ingredientPersistence.getIngredients(recipeID);
+    }
+
+    public void modifyIngredients(Ingredient ingredient, final String recipeID) {
+        ingredientPersistence.modifyIngredients(ingredient,recipeID);
+    }
+
+
+
 }

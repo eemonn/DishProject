@@ -3,7 +3,9 @@ package comp3350.dishproject.persistence.hsqldb;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.List;
 
+import comp3350.dishproject.objects.Recipe;
 import comp3350.dishproject.persistence.RecipePersistence;
 
 public class RecipePersistenceHSQLDB implements RecipePersistence {
@@ -12,5 +14,23 @@ public class RecipePersistenceHSQLDB implements RecipePersistence {
 
     private Connection connection() throws SQLException {
         return DriverManager.getConnection("jdbc:hsqldb:file:" + dbPath + ";shutdown=true", "SA", "");
+    }
+
+    @Override
+    public List<Recipe> getAllRecipes() {
+        return null;
+    }
+
+    @Override
+    public Recipe insertRecipe(Recipe newRecipe) {
+        return null;
+    }
+    @Override
+    public Recipe updateRecipe(Recipe newRecipe) {
+        return null;
+    }
+    @Override
+    public void deleteRecipe(Recipe newRecipe) {
+
     }
 }

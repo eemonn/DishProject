@@ -9,6 +9,7 @@ public class Recipe {
     private double calorie, weight;
     private ArrayList<Ingredient> ingredientArrayList;
     private float rating;
+    private String recipeID;
 
     /*
     Input: Takes in a string name, string ID, double calorie, double weight, and an arraylist of
@@ -17,10 +18,10 @@ public class Recipe {
     Description:recipe class will have a name, id, calorie, weight, arraylist of Ingredients
     it also has rating which is set to 0 and direction which is empty
      */
-    public Recipe(String name, String id, double calorie, double weight, ArrayList<Ingredient>
-            ingredientArrayList) {
+    public Recipe(String name, String recipeID) {
         this.name = name;
         this.id = id;
+        this.recipeID = recipeID;
         this.calorie = calorie;
         this.weight = weight;
         this.ingredientArrayList = ingredientArrayList;
@@ -34,6 +35,7 @@ public class Recipe {
     public double getWeight() {
         return weight;
     }
+    public String getRecipeID() {return recipeID;}
 
     /*
     Description: method to set weight
