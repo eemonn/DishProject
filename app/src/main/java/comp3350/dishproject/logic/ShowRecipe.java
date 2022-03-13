@@ -1,24 +1,24 @@
 package comp3350.dishproject.logic;
 
 import comp3350.dishproject.objects.Recipe;
+import comp3350.dishproject.objects.Steps;
+import comp3350.dishproject.persistence.StepsPersistence;
 
 public class ShowRecipe {
     private Recipe recipe;
-
+    private Steps step;
     /*
     Input: a recipe object
     Output: constructor
     Description: Constructor for recipe object
      */
-    public ShowRecipe(Recipe r) {
+    public ShowRecipe(Recipe r,Steps step) {
         this.recipe = r;
+        this.step = step;
+
     }
 
     /*
-    Input: no input
-    Output: returns string of ingredient information
-    Description: Will return the details of ingredient list
-    */
     public String showIngredient() {
         StringBuilder ingredientString = new StringBuilder();
         for (int i = 0; i < recipe.getIngredientArrayList().size(); i++) {
@@ -30,13 +30,16 @@ public class ShowRecipe {
         }
         return ingredientString.toString();
     }
+    */
+
 
     /*
     Description: Will update the specified ingredients
     */
     public String updateIngredients(int num) {
-        recipe.updateIngredientList(num);
-        return showIngredient();
+        //recipe.updateIngredientList(num);
+       // return showIngredient();
+        return "";
     }
 
     /*
@@ -52,7 +55,7 @@ public class ShowRecipe {
     */
     public String showTitleDescription() {
         String ingredientInfo = "";
-        ingredientInfo += "Calorie: " + recipe.getCalorie() + "cal Weight: " + recipe.getWeight() + "g\n";
+        ingredientInfo += "Calorie: " + recipe.getCalories() + "g\n";
         return ingredientInfo;
     }
 
@@ -60,7 +63,7 @@ public class ShowRecipe {
    Description: Will return the recipe directions
    */
     public String showDirection() {
-        return recipe.getDirection();
+        return step.toString();
     }
 
     /*

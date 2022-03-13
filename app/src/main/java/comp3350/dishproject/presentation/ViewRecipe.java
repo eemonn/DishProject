@@ -14,8 +14,10 @@ import android.widget.TextView;
 
 import comp3350.dishproject.R;
 import comp3350.dishproject.logic.AccessRecipes;
+import comp3350.dishproject.logic.AccessSteps;
 import comp3350.dishproject.logic.ShowRecipe;
 import comp3350.dishproject.objects.Recipe;
+import comp3350.dishproject.objects.Steps;
 
 public class ViewRecipe extends AppCompatActivity {
     private RatingBar rating;
@@ -32,8 +34,11 @@ public class ViewRecipe extends AppCompatActivity {
         setContentView(R.layout.activity_view_recipe);
 
         AccessRecipes db = new AccessRecipes();
-        recipe = db.getRecipe();
-        showRecipe = new ShowRecipe(recipe);
+        AccessSteps db1 = new AccessSteps();
+
+        recipe = db.getRecipe("100");
+        Steps step = new Steps(db1.getDirections("100"),recipe);
+        showRecipe = new ShowRecipe(recipe,step);
         showRecipeDetaills();
         getRatingInput();
         setDropDownMenu();
@@ -66,7 +71,7 @@ public class ViewRecipe extends AppCompatActivity {
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 rate = ratingBar.getRating();
                 ratingText.setText(showRecipe.showTitleDescription() + "Rating: " + rate);
-                showRecipe.getRec().setRating((int) rate);
+                //showRecipe.getRec().setRating((int) rate);
             }
         });
     }

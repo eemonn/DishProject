@@ -22,6 +22,11 @@ public class RecipePersistenceHSQLDB implements RecipePersistence {
     }
 
     @Override
+    public Recipe getRecipe(String recipeID){
+        return null;
+    }
+
+    @Override
     public Recipe insertRecipe(Recipe newRecipe) {
         return null;
     }

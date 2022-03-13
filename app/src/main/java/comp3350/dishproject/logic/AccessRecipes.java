@@ -23,8 +23,13 @@ public class AccessRecipes {
     public List<Recipe> getAllRecipes() {
         return recipePersistence.getAllRecipes();
     }
+
     public Recipe insertRecipe(Recipe newRecipe) {
         return recipePersistence.insertRecipe(newRecipe);
+    }
+
+    public Recipe getRecipe(final String recipeID) {
+        return recipePersistence.getRecipe(recipeID);
     }
 
     public Recipe updateRecipe(Recipe newRecipe) {

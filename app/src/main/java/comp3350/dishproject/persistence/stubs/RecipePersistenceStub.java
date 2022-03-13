@@ -13,16 +13,27 @@ public class RecipePersistenceStub implements RecipePersistence {
 
     public RecipePersistenceStub() {
         this.recipes = new ArrayList<>();
-        recipes.add(new Recipe("Burger","100"));
-        recipes.add(new Recipe("Pizza","200"));
-        recipes.add(new Recipe("Tacos","300"));
-        recipes.add(new Recipe("Pancake","400"));
-        recipes.add(new Recipe("Fish","500"));
+        recipes.add(new Recipe("Burger","100",780));
+        recipes.add(new Recipe("Pizza","200",650));
+        recipes.add(new Recipe("Tacos","300",982));
+        recipes.add(new Recipe("Pancake","400",450));
+        recipes.add(new Recipe("Fish","500",200));
     }
 
     @Override
     public List<Recipe> getAllRecipes() {
         return recipes;
+    }
+
+    @Override
+    public Recipe getRecipe(String recipeID) {
+        for(int i=0;i<recipes.size();i++) {
+            Recipe r = recipes.get(i);
+            if(r.getRecipeID().equals(recipeID)){
+                return r;
+            }
+        }
+        return null;
     }
 
 

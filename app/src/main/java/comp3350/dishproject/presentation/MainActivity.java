@@ -6,8 +6,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,12 +24,14 @@ import java.util.List;
 
 import comp3350.dishproject.R;
 import comp3350.dishproject.logic.AccessRecipes;
+import comp3350.dishproject.objects.Recipe;
 
 public class MainActivity extends AppCompatActivity {
     private static final int SCROLLING_SPEED_FRICTION = 350;//modifies scrolling speed for search suggestion box
     private ListView listSearchSuggestions; //listview used for displaying the search suggestions(AKA autocomplete)
     private ArrayAdapter<String> searchSuggestions;//used for taking a string array of dishes and inserting them into the listview
     private String[] dishes;
+
 
     //Android Specific Creator
     @Override
@@ -42,8 +46,22 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.rv_list);
 
         AccessRecipes db = new AccessRecipes();
-        List<HomeCard> mlist = db.getAllRecipe();
-        dishes = db.getDishes();
+        List<Recipe> rr = db.getAllRecipes();
+        dishes = new String[rr.size()];
+
+        for(int i=0;i<rr.size();i++) {
+            Recipe r = rr.get(i);
+            dishes[i] = r.getName();
+        }
+        
+        List<HomeCard> mlist = new ArrayList<>();
+        mlist.add(new HomeCard(R.drawable.burger, "Bobby's Burger"));
+        mlist.add(new HomeCard(R.drawable.pizza, "Paul's Pizza"));
+        mlist.add(new HomeCard(R.drawable.taco, "Timmy's Taco"));
+        mlist.add(new HomeCard(R.drawable.pancake, "Patricia's Pancake"));
+        mlist.add(new HomeCard(R.drawable.fish, "Freddy's Fish"));
+
+
 
         Adapter adapter = new Adapter(this, mlist);
         recyclerView.setAdapter(adapter);
