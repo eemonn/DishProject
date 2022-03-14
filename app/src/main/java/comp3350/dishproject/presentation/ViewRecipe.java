@@ -5,17 +5,22 @@ import static android.widget.AdapterView.*;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import comp3350.dishproject.R;
 import comp3350.dishproject.logic.AccessRecipes;
+import comp3350.dishproject.logic.AccessSteps;
 import comp3350.dishproject.logic.ShowRecipe;
 import comp3350.dishproject.objects.Recipe;
+import comp3350.dishproject.objects.Steps;
 
 public class ViewRecipe extends AppCompatActivity {
     private RatingBar rating;
@@ -32,11 +37,33 @@ public class ViewRecipe extends AppCompatActivity {
         setContentView(R.layout.activity_view_recipe);
 
         AccessRecipes db = new AccessRecipes();
-        recipe = db.getRecipe();
-        showRecipe = new ShowRecipe(recipe);
+        AccessSteps db1 = new AccessSteps();
+
+        Bundle extras = getIntent().getExtras();
+        String dish = "";
+        if(extras !=null) {
+            dish = getIntent().getStringExtra("search");
+        }
+
+        String recipeID = db.findRecipeID(dish);
+        recipe = db.getRecipe(recipeID);
+        Steps step = new Steps(db1.getDirections(recipeID),recipe);
+        showRecipe = new ShowRecipe(recipe,step);
+        changePicture(dish);
         showRecipeDetaills();
         getRatingInput();
         setDropDownMenu();
+    }
+
+
+    public void changePicture(String dish) {
+        String dishPicture = dish.toLowerCase();
+        TypedValue value = new TypedValue();
+        int resID = getResources().getIdentifier(dishPicture, "drawable", getPackageName());
+        Log.d("TAG", "changePicture: " + resID);
+        ImageView image = (ImageView) findViewById(R.id.imageView7);
+        image.setImageResource(resID);
+
     }
 
     /*
@@ -66,7 +93,6 @@ public class ViewRecipe extends AppCompatActivity {
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 rate = ratingBar.getRating();
                 ratingText.setText(showRecipe.showTitleDescription() + "Rating: " + rate);
-                showRecipe.getRec().setRating((int) rate);
             }
         });
     }
