@@ -1,8 +1,10 @@
 package comp3350.dishproject.presentation;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,13 +54,15 @@ public class Adapter extends RecyclerView.Adapter<Adapter.myViewHolder> {
    Description: This method will associate a ViewHolder with its data.
     */
     @Override
-    public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull myViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.background_img.setImageResource(mData.get(position).getBackground());
+
         holder.tv_title.setText(mData.get(position).getRecipeName());
         holder.btn_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, ViewRecipe.class);
+                intent.putExtra("search",mData.get(position).getRecipeName());
                 mContext.startActivity(intent);
             }
         });

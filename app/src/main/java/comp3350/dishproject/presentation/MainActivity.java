@@ -25,6 +25,7 @@ import java.util.List;
 import comp3350.dishproject.R;
 import comp3350.dishproject.logic.AccessRecipes;
 import comp3350.dishproject.objects.Recipe;
+import comp3350.dishproject.persistence.utils.DBHelper;
 
 public class MainActivity extends AppCompatActivity {
     private static final int SCROLLING_SPEED_FRICTION = 350;//modifies scrolling speed for search suggestion box
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        DBHelper.copyDatabaseToDevice(this);
 
         //we need call to db
 
@@ -55,11 +57,11 @@ public class MainActivity extends AppCompatActivity {
         }
         
         List<HomeCard> mlist = new ArrayList<>();
-        mlist.add(new HomeCard(R.drawable.burger, "Bobby's Burger"));
-        mlist.add(new HomeCard(R.drawable.pizza, "Paul's Pizza"));
-        mlist.add(new HomeCard(R.drawable.taco, "Timmy's Taco"));
-        mlist.add(new HomeCard(R.drawable.pancake, "Patricia's Pancake"));
-        mlist.add(new HomeCard(R.drawable.fish, "Freddy's Fish"));
+        mlist.add(new HomeCard(R.drawable.burger, "Burger"));
+        mlist.add(new HomeCard(R.drawable.pizza, "Pizza"));
+        mlist.add(new HomeCard(R.drawable.taco, "Tacos"));
+        mlist.add(new HomeCard(R.drawable.pancake, "Pancake"));
+        mlist.add(new HomeCard(R.drawable.fish, "Fish"));
 
 
 

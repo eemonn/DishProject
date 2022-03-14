@@ -55,7 +55,7 @@ public class ShowRecipe {
     */
     public String showTitleDescription() {
         String ingredientInfo = "";
-        ingredientInfo += "Calorie: " + recipe.getCalories() + "g\n";
+        ingredientInfo += "Calorie: "  + "g\n";
         return ingredientInfo;
     }
 

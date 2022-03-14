@@ -6,16 +6,35 @@ public class Ingredient {
     private String name;
     private double weight;
     private Recipe recipe;
+    private String id;
+    private int quantity;
+    private double calorie;
 
     /*
     Input: Takes in a string name, string ID, int quantity, double weight, and double calorie
     Output: Constructor
     Description:ingredient class will have a name, id, quantity, weight and calorie
      */
-    public Ingredient(String name,double weight, Recipe recipe) {
+
+    public Ingredient(String name,String id, int quantity, double weight, double calorie, Recipe recipe) {
         this.name = name;
+        this.id = id;
+        this.calorie = calorie;
+        this.quantity = quantity;
         this.weight = weight;
         this.recipe = recipe;
+    }
+
+    public String getID() {
+        return this.id;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public double getCalorie() {
+        return this.calorie;
     }
 
     public String getRecipeID(){return recipe.getRecipeID();}

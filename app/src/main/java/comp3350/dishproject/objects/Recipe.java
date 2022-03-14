@@ -8,10 +8,9 @@ public class Recipe {
     private String name,recipeID;
     private int calories;
 
-    public Recipe(String name, String recipeID,int calories) {
+    public Recipe(String name, String recipeID) {
         this.name = name;
         this.recipeID = recipeID;
-        this.calories = calories;
     }
 
     //getters

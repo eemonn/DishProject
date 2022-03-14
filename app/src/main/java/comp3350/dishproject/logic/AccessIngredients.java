@@ -23,8 +23,8 @@ public class AccessIngredients {
         return ingredientPersistence.getIngredients(recipeID);
     }
 
-    public void modifyIngredients(Ingredient ingredient, final String recipeID) {
-        ingredientPersistence.modifyIngredients(ingredient,recipeID);
+    public void addIngredients(Ingredient ingredient, final String recipeID) {
+        ingredientPersistence.addIngredients(ingredient,recipeID);
     }
 
 

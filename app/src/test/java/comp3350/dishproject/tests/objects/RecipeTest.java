@@ -10,6 +10,7 @@ import comp3350.dishproject.objects.Recipe;
 
 
 public class RecipeTest {
+    /*
     @Test
     public void testHasIngredient(){
         Recipe recipe=new Recipe("Pizza","1", 600.0,450, new ArrayList<Ingredient>());
@@ -174,4 +175,6 @@ public class RecipeTest {
         assert(!recipe.getName().equals("Pizza"));
         assert(recipe.getName().equals("Burger"));
     }
+
+     */
 }

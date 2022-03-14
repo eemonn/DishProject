@@ -13,7 +13,7 @@ import comp3350.dishproject.presentation.Messages;
 
 public class DBHelper {
 
-    private void copyDatabaseToDevice(Context context) {
+    public static void copyDatabaseToDevice(Context context) {
         final String DB_PATH = "db";
 
         String[] assetNames;
@@ -35,7 +35,7 @@ public class DBHelper {
         }
     }
 
-    public void copyAssetsToDirectory(Context context, String[] assets, File directory) throws IOException {
+    public static void copyAssetsToDirectory(Context context, String[] assets, File directory) throws IOException {
         AssetManager assetManager = context.getAssets();
 
         for (String asset : assets) {
