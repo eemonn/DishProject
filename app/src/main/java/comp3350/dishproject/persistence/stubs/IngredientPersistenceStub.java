@@ -72,11 +72,9 @@ public class IngredientPersistenceStub implements IngredientPersistence {
     public void addIngredients(Ingredient ing, final String recipeID) {
         for (int i = 0; i < ingredients.size(); i++) {
             List<Ingredient> in = ingredients.get(i);
-            for (int j = 0; j < in.size(); j++) {
-                Ingredient ii = in.get(j);
-                if (ii.getRecipeID().equals(recipeID)) {
+            if (in.get(0).getRecipeID().equals(recipeID)) {
                     in.add(ing);
-                }
+
             }
         }
     }

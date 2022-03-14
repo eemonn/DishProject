@@ -22,10 +22,9 @@ public class StepsPersistenceHSQLDB implements StepsPersistence {
     }
     private Steps fromResultSet(final ResultSet rs) throws SQLException {
         final String directions = rs.getString("STEPS");
-        final String recipeName = rs.getString("name");
         final String recipedID = rs.getString("RECIPEID");
 
-        final Recipe r= new Recipe(recipeName,recipedID);
+        final Recipe r= new Recipe(recipedID);
 
         return new Steps(directions,r);
     }
@@ -33,23 +32,22 @@ public class StepsPersistenceHSQLDB implements StepsPersistence {
     public String getDirections(final String recipeID) {
         final String direction ;
         try (final Connection c = connection()) {
-            final PreparedStatement st = c.prepareStatement("SELECT * FROM STEPS JOIN RECIPES ON STEPS.RECIPEID=RECIPES.RECIPEID WHERE RECIPEID = ?");
+            final PreparedStatement st = c.prepareStatement("SELECT * FROM DIRECTIONS WHERE DIRECTIONS.recipeID=?");
             st.setString(1, recipeID);
 
             final ResultSet rs = st.executeQuery();
+            if(rs.next()) {
+                return fromResultSet(rs).getDirections();
 
-            final Steps step = fromResultSet(rs);
-            direction=step.getDirections();
-
+            }
 
             rs.close();
             st.close();
 
-            return direction;
         } catch (final SQLException e) {
             throw new PersistenceException(e);
         }
-
+    return null;
     }
 
     public void updateDirections(final String recipeID, String newDirections) {

@@ -13,10 +13,10 @@ public class RecipeTest {
     /*
     @Test
     public void testHasIngredient(){
-        Recipe recipe=new Recipe("Pizza","1", 600.0,450, new ArrayList<Ingredient>());
-        Ingredient apple=new Ingredient("Apple", "2", 2, 200.0,2.0);
-        Ingredient banana=new Ingredient("Banana", "1", 1, 200.0,1.0);
-        Ingredient orange=new Ingredient("Orange", "3", 3, 200.0,3.0);
+        Recipe recipe =new Recipe("Pizza","1");
+        Ingredient apple=new Ingredient("Apple", "2", 2, 200.0,2.0,recipe);
+        Ingredient banana=new Ingredient("Banana", "1", 1, 200.0,1.0,recipe);
+        Ingredient orange=new Ingredient("Orange", "3", 3, 200.0,3.0,recipe);
         System.out.println("Calorie "+recipe.getCalorie());
         assert(recipe.getCalorie()==600.0);
         recipe.addIngredient(apple);
@@ -176,5 +176,5 @@ public class RecipeTest {
         assert(recipe.getName().equals("Burger"));
     }
 
-     */
+*/
 }

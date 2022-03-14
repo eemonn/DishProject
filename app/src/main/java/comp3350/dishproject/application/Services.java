@@ -16,27 +16,32 @@ public class Services {
     private static IngredientPersistence ingredientPersistence = null;
     private static StepsPersistence stepsPersistence = null;
 
+    //only change this line
+    private static boolean useRealDatabase = false; //false if you want stub, true if you want real
+
 
     public static synchronized RecipePersistence getRecipePersistence() {
         if(recipePersistence == null) {
-            //recipePersistence = new RecipePersistenceStub(); //fake database
-            recipePersistence = new RecipePersistenceHSQLDB(Main.getDBPathName());
+            if(useRealDatabase)recipePersistence = new RecipePersistenceHSQLDB(Main.getDBPathName());
+            else recipePersistence = new RecipePersistenceStub(); //fake database
         }
         return recipePersistence;
     }
 
     public static synchronized IngredientPersistence getIngredientPersistence() {
         if(ingredientPersistence == null) {
-            ingredientPersistence = new IngredientPersistenceStub(); //fake database
-            //ingredientPersistence = new IngredientPersistenceHSQLDB(Main.getDBPathName());
+            if(useRealDatabase)ingredientPersistence = new IngredientPersistenceHSQLDB(Main.getDBPathName());
+            else ingredientPersistence = new IngredientPersistenceStub(); //fake database
+
         }
         return ingredientPersistence;
     }
 
     public static synchronized StepsPersistence getStepsPersistence() {
         if(stepsPersistence == null) {
-            stepsPersistence = new StepsPersistenceStub(); //fake database
-            //stepsPersistence = new StepsPersistenceHSQLDB(Main.getDBPathName());
+            if(useRealDatabase)  stepsPersistence = new StepsPersistenceHSQLDB(Main.getDBPathName());
+            else stepsPersistence = new StepsPersistenceStub(); //fake database
+
         }
         return stepsPersistence;
     }

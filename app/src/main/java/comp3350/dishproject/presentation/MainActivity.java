@@ -6,10 +6,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -59,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         List<HomeCard> mlist = new ArrayList<>();
         mlist.add(new HomeCard(R.drawable.burger, "Burger"));
         mlist.add(new HomeCard(R.drawable.pizza, "Pizza"));
-        mlist.add(new HomeCard(R.drawable.taco, "Tacos"));
+        mlist.add(new HomeCard(R.drawable.tacos, "Tacos"));
         mlist.add(new HomeCard(R.drawable.pancake, "Pancake"));
         mlist.add(new HomeCard(R.drawable.fish, "Fish"));
 
@@ -93,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu, menu);//instantiate menu XML files into a menu object, this menu will be
         //a search menu as defined in the XML file menu.xml
         MenuItem menuItem = menu.findItem(R.id.action_search);
+        AccessRecipes Ar = new AccessRecipes();
 
         final SearchView searchView = (SearchView) menuItem.getActionView();//returns currently set action view
         searchView.setQueryHint("Search for Dish");
@@ -106,10 +105,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String enteredString) {
 
-                if (checkIfDish(enteredString)) {
+
+                if (Ar.checkIfDishInSystem(enteredString)) {
+                    String dishName = enteredString.substring(0, 1).toUpperCase() + enteredString.substring(1);
                     searchView.clearFocus();
                     Intent intent = new Intent(MainActivity.this, ViewRecipe.class);
-                    intent.putExtra("search",enteredString);
+                    intent.putExtra("search",dishName);
                     startActivity(intent);
                     return true;
                 } else {
@@ -127,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
              */
             @Override
             public boolean onQueryTextChange(String newCharacterString) {//every change of character
-                ArrayList<String> filtered = filterSearchSuggestions(newCharacterString);
+                ArrayList<String> filtered = Ar.filterSearchSuggestions(newCharacterString,dishes);
                 //Clearing search suggestions and adding everything found in user filtering
                 searchSuggestions.clear();
                 searchSuggestions.addAll(filtered);
@@ -179,36 +180,8 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }//end of onCreateMenuOptions function
 
-    /*
-    Input: Takes in a string of the search query in the search bar
-    Output: Returns an array List of type string that contains all dishes that match the search query
-    Description: Filters the dishes based on search Query to return all relevant dishes to be shown in the search suggestion box
-     */
-    public ArrayList<String> filterSearchSuggestions(String searchQuery) {
-        ArrayList<String> filtered = new ArrayList<>();
-        for (String dish : dishes) {
-            String[] stringsToCheck = dish.split(" ");//Example: For dish of Chicken Parm, a search query of "Parm" will return Chicken Parm
-            for (String s : stringsToCheck) {
-                if (s.toLowerCase().contains(searchQuery.toLowerCase())) {//only lowercase cleaning
-                    filtered.add(dish);
-                }
-            }
-        }
-        return filtered;
-    }
 
-    /*
-    Input: string of recipe to search for
-    Output: boolean true if found
-    Description: Check if the dish the user is searching is in the list of recipes
-     */
-    public boolean checkIfDish(String searchQuery) {
-        for (String dish : dishes) {
-            if (dish.toLowerCase().contains(searchQuery.toLowerCase()))
-                return true;
-        }
-        return false;
-    }
+
 
     /*
     Input: Takes in an array list of type string that contains all relevant search suggestions to be displayed

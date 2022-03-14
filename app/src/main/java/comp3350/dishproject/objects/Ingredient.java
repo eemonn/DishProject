@@ -72,4 +72,16 @@ public class Ingredient {
                 ", weight=" + weight +
                 '}';
     }
+
+    public void setId(String s) {
+        this.id = s;
+    }
+
+    public void setQuantity(int i) {
+        this.quantity = i;
+    }
+
+    public void setCalorie(double v) {
+        this.calorie = v;
+    }
 }

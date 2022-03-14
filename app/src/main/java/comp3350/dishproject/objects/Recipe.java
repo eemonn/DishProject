@@ -2,7 +2,7 @@ package comp3350.dishproject.objects;
 
 import androidx.annotation.NonNull;
 
-import java.util.ArrayList;
+import comp3350.dishproject.logic.AccessRecipes;
 
 public class Recipe {
     private String name,recipeID;
@@ -13,15 +13,21 @@ public class Recipe {
         this.recipeID = recipeID;
     }
 
+    public Recipe(String recipeID){
+        AccessRecipes Ar = new AccessRecipes();
+        this.name = Ar.getRecipe(recipeID).getName();
+        this.recipeID = recipeID;
+    }
+
     //getters
     public String getName(){ return name;}
     public String getRecipeID(){return recipeID;}
-    public int getCalories(){return calories;}
+
 
     //setters
     public void setName(String newName) {this.name = newName;}
     public void setRecipeID(String newRecipeID) {this.recipeID = newRecipeID;}
-    public void setCalories(int newCalories) {this.calories = calories;}
+
 
     public boolean isEquals(Recipe recipeObject) {
         return this.name.equals(recipeObject.name) && this.recipeID.equals(recipeObject.recipeID);

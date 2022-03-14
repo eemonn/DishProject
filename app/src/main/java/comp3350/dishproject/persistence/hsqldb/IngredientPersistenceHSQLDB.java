@@ -41,14 +41,16 @@ public class IngredientPersistenceHSQLDB implements IngredientPersistence {
         final List<Ingredient> ingredients= new ArrayList<>();
 
         try(final Connection c=connection()){
-            final Statement query= c.createStatement();
-            final ResultSet results=query.executeQuery("SELECT * FROM INGREDIENTS");
-            while(results.next()){
-                final Ingredient ingredient= fromResultSet(results);
+            final PreparedStatement st = c.prepareStatement("SELECT * FROM INGREDIENTS WHERE INGREDIENTS.recipeID=?");
+            st.setString(1, recipeID);
+
+            final ResultSet rs = st.executeQuery();
+            while(rs.next()){
+                final Ingredient ingredient= fromResultSet(rs);
                 ingredients.add(ingredient);
             }
-            results.close();
-            query.close();
+            rs.close();
+            st.close();
             return ingredients;
         }catch (final SQLException e){
             throw new PersistenceException(e);
