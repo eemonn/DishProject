@@ -22,7 +22,7 @@ public class RecipePersistenceHSQLDB implements RecipePersistence {
         final String recipeID = rs.getString("RECIPEID");
         final String recipeName = rs.getString("NAME");
 
-        return new Recipe(recipeID, recipeName);
+        return new Recipe(recipeName, recipeID);
     }
 
 
@@ -53,45 +53,44 @@ public class RecipePersistenceHSQLDB implements RecipePersistence {
 
     @Override
     public Recipe getRecipe(String recipeID){
-        final Recipe r;
+
         try (final Connection c = connection()) {
-            final PreparedStatement st = c.prepareStatement("SELECT * FROM RECIPES WHERE RECIPEID=?");
+            final PreparedStatement st = c.prepareStatement("SELECT * FROM RECIPES WHERE RECIPES.recipeID=?");
             st.setString(1, recipeID);
             final ResultSet rs = st.executeQuery();
-
-            r = fromResultSet(rs);
-
+            if(rs.next()){
+                return fromResultSet(rs);
+            }
 
             rs.close();
             st.close();
 
-            return r;
+
         } catch (final SQLException e) {
             throw new PersistenceException(e);
         }
+        return null;
     }
 
     @Override
     public String findRecipeID(final String recipeName){
-        final String recipeID ;
+
         try (final Connection c = connection()) {
             final PreparedStatement st = c.prepareStatement("SELECT * FROM RECIPES WHERE NAME=?");
             st.setString(1, recipeName);
 
             final ResultSet rs = st.executeQuery();
-
-            final Recipe recipe = fromResultSet(rs);
-            recipeID=recipe.getRecipeID();
-
+            if(rs.next()){
+                return fromResultSet(rs).getRecipeID();
+            }
 
             rs.close();
             st.close();
 
-            return recipeID;
         } catch (final SQLException e) {
             throw new PersistenceException(e);
         }
-
+    return null;
     }
 
     @Override

@@ -45,6 +45,7 @@ public class ViewRecipe extends AppCompatActivity {
         Log.d("TAG", "onCreate: " + dish);
         String recipeID = db.findRecipeID(dish);
         Log.d("TAG", "id: " + recipeID);
+        //System.out.println("printing"+recipeID);
         recipe = db.getRecipe(recipeID);
         Steps step = new Steps(db1.getDirections(recipeID),recipe);
         showRecipe = new ShowRecipe(recipe,step);

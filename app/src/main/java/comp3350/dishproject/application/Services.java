@@ -19,8 +19,8 @@ public class Services {
 
     public static synchronized RecipePersistence getRecipePersistence() {
         if(recipePersistence == null) {
-            recipePersistence = new RecipePersistenceStub(); //fake database
-            //recipePersistence = new RecipePersistenceHSQLDB(Main.getDBPathName());
+            //recipePersistence = new RecipePersistenceStub(); //fake database
+            recipePersistence = new RecipePersistenceHSQLDB(Main.getDBPathName());
         }
         return recipePersistence;
     }
