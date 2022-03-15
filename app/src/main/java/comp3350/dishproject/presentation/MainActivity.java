@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -65,11 +66,25 @@ public class MainActivity extends AppCompatActivity {
         listSearchSuggestions.setFriction(ViewConfiguration.getScrollFriction() * SCROLLING_SPEED_FRICTION);
     }
 
+    public void openDialog(){
+        AddDialog addDialog = new AddDialog();
+        addDialog.show(getSupportFragmentManager(), "Add a recipe");
+    }
     //Android Specific Creator
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);//instantiate menu XML files into a menu object, this menu will be
         //a search menu as defined in the XML file menu.xml
         MenuItem menuItem = menu.findItem(R.id.action_search);
+        MenuItem AddRecipe = menu.findItem(R.id.add_recipe);
+
+        AddRecipe.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                Log.i("Add Recipe", "button clicked");
+                openDialog();
+                return false;
+            }
+        });
 
         final SearchView searchView = (SearchView) menuItem.getActionView();//returns currently set action view
         searchView.setQueryHint("Search for Dish");
