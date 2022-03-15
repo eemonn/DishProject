@@ -1,71 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:orientation="vertical">
 
     <EditText
         android:id="@+id/add_recipe_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Recipe Name"></EditText>
-
-    <EditText
-        android:id="@+id/ingredient_1"
-        android:layout_width="200dp"
+        android:hint="Recipe Name"
+        ></EditText>
+    <Button
+        android:id="@+id/button_add_ingredient"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="Add Ingredient +"
+        ></Button>
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="170dp">
+    <LinearLayout
+        android:id="@+id/layout_list"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Ingredient 1"
-        android:layout_below="@+id/add_recipe_name"></EditText>
+        android:orientation="vertical">
+        
 
+    </LinearLayout>
+    </ScrollView>
     <EditText
-        android:id="@+id/ingredient_2"
-        android:layout_width="200dp"
+        android:id="@+id/add_recipe_directions"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Ingredient 2"
-        android:layout_below="@+id/ingredient_1"></EditText>
+        android:hint="Cooking Instructions "
+        android:lines="5"
 
-    <EditText
-        android:id="@+id/ingredient_3"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:hint="Ingredient 3"
-        android:layout_below="@+id/ingredient_2"></EditText>
-
-
-    <EditText
-        android:id="@+id/ingredient_quantity_1"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/add_recipe_name"
-        android:layout_toRightOf="@+id/ingredient_1"
-        android:hint="weight"
-        />
-
-    <EditText
-        android:id="@+id/ingredient_quantity_2"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ingredient_1"
-        android:layout_toRightOf="@+id/ingredient_2"
-        android:hint="weight" />
-
-    <EditText
-        android:id="@+id/ingredient_quantity_3"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ingredient_2"
-        android:layout_toRightOf="@+id/ingredient_3"
-        android:hint="weight" />
-
-    <EditText
-        android:id="@+id/ingredient_description"
-        android:layout_width="400dp"
-        android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:lines="10"
-        android:layout_below="@+id/ingredient_3"
-        android:hint="Cooking instructions" />
+        ></EditText>
 
 
 
-</RelativeLayout>
+
+</LinearLayout>
+

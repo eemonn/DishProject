@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
     public void openDialog(){
         AddDialog addDialog = new AddDialog();
         addDialog.show(getSupportFragmentManager(), "Add a recipe");
+
     }
     //Android Specific Creator
     public boolean onCreateOptionsMenu(Menu menu) {

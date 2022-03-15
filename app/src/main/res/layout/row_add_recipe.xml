@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp">
+
+    <EditText
+        android:id="@+id/edit_ingredient_name"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="Ingredient Name">
+
+    </EditText>
+
+    <EditText
+        android:id="@+id/edit_ingredient_weight"
+        android:layout_weight="2"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="weight">
+    </EditText>
+
+    <ImageView
+        android:id="@+id/image_remove"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/ic_close"
+        app:tint="@color/black" />
+
+</LinearLayout>
