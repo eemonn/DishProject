@@ -22,12 +22,18 @@ public class AddDialog extends AppCompatDialogFragment {
     LinearLayout layoutList;
     Button buttonAdd;
 
+    /*
+    Input: instance State
+    Output: Outputs the dialog box after it is created
+    Description: This will instantiate a dialog box and send it back to mainActivity
+     */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.layout_add_dialog, null);
 
+        //Setup the options for the dialog box, including Add and Cancel buttons
         builder.setView(view)
                 .setTitle("Add a new recipe")
                 .setMessage("Enter your recipe information")
@@ -35,6 +41,7 @@ public class AddDialog extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         //Pull text and pass to underlying activity
+                        readData(view);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -44,11 +51,9 @@ public class AddDialog extends AppCompatDialogFragment {
                     }
                 });
 
-        //AlertDialog alert = builder.create();
-        layoutList = view.findViewById(R.id.layout_list);
-        buttonAdd = view.findViewById(R.id.button_add_ingredient);
-
-        //buttonAdd.setOnClickListener((View.OnClickListener) this);
+        //Variables used for the dynamic ingredient list
+        layoutList = view.findViewById(R.id.layout_list);  //Contains the added ingredients
+        buttonAdd = view.findViewById(R.id.button_add_ingredient);  //Adds a new ingredient
 
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +67,40 @@ public class AddDialog extends AppCompatDialogFragment {
         return builder.create();
     }
 
+    private void readData(View view)
+    {
+        //Initialize Variables to hold data
+        String recipeName = "";
+        String cookingInstructions = "";
+        String ingredientNames[] = new String[layoutList.getChildCount()];
+        String ingredientWeights[] = new String[layoutList.getChildCount()];
 
+        EditText recipeNameEdit = view.findViewById(R.id.add_recipe_name);
+        EditText cookingInstructionsEdit = view.findViewById(R.id.add_recipe_directions);
+
+        //Store the recipe name and cooking instructions in a variable
+        recipeName = recipeNameEdit.getText().toString();
+        cookingInstructions = cookingInstructionsEdit.getText().toString();
+
+        Log.i("Testing Recipe Name", recipeName);
+        Log.i("Testing Instructions", cookingInstructions);
+
+        for(int i = 0; i < layoutList.getChildCount(); i++)
+        {
+            //Need a new view here since we are looking at the layoutList not the parent page
+            View ingredientView = layoutList.getChildAt(i);
+            EditText ingredientName = ingredientView.findViewById(R.id.edit_ingredient_name);
+            EditText ingredientWeight = ingredientView.findViewById(R.id.edit_ingredient_weight);
+
+            //Store the ingredient name and weight in variables
+            ingredientNames[i] = ingredientName.getText().toString();
+            ingredientWeights[i] = ingredientWeight.getText().toString();
+            Log.i("Testing Ingredient List", ingredientNames[i]);
+            Log.i("Testing Weight List", ingredientWeights[i]);
+        }
+    }
+
+    //Called to add a new row for ingredients
    private void addView()
    {
        View ingredientView = getLayoutInflater().inflate(R.layout.row_add_recipe, null, false);
@@ -78,8 +116,10 @@ public class AddDialog extends AppCompatDialogFragment {
        });
 
        layoutList.addView(ingredientView);
+
    }
 
+   //Remove a specified row of ingredients
    private void removeView(View view)
    {
         layoutList.removeView(view);
