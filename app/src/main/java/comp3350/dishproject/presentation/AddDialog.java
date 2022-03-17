@@ -73,7 +73,7 @@ public class AddDialog extends AppCompatDialogFragment {
         String recipeName = "";
         String cookingInstructions = "";
         String ingredientNames[] = new String[layoutList.getChildCount()];
-        String ingredientWeights[] = new String[layoutList.getChildCount()];
+        Double ingredientWeights[] = new Double[layoutList.getChildCount()];
 
         EditText recipeNameEdit = view.findViewById(R.id.add_recipe_name);
         EditText cookingInstructionsEdit = view.findViewById(R.id.add_recipe_directions);
@@ -94,9 +94,9 @@ public class AddDialog extends AppCompatDialogFragment {
 
             //Store the ingredient name and weight in variables
             ingredientNames[i] = ingredientName.getText().toString();
-            ingredientWeights[i] = ingredientWeight.getText().toString();
+            ingredientWeights[i] = Double.parseDouble(ingredientWeight.getText().toString());
             Log.i("Testing Ingredient List", ingredientNames[i]);
-            Log.i("Testing Weight List", ingredientWeights[i]);
+            Log.i("Testing Weight List", ingredientWeights[i].toString());
         }
     }
 

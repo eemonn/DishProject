@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         listSearchSuggestions.setFriction(ViewConfiguration.getScrollFriction() * SCROLLING_SPEED_FRICTION);
     }
 
+    //Opens the dialog bog for "Adding a new recipe"
     public void openDialog(){
         AddDialog addDialog = new AddDialog();
         addDialog.show(getSupportFragmentManager(), "Add a recipe");
@@ -78,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         MenuItem menuItem = menu.findItem(R.id.action_search);
         MenuItem AddRecipe = menu.findItem(R.id.add_recipe);
 
+        //Logic for button press on "Add new recipe"
         AddRecipe.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
