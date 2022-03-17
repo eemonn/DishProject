@@ -27,7 +27,9 @@ public class Recipe {
         this.rating = 0;
         this.direction = "";
     }
+    public void setIngredientArrayList(){
 
+    }
     /*
     Description: method to get weight
      */
