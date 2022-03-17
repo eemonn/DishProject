@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
             Recipe r = rr.get(i);
             dishes[i] = r.getName();
         }
-        
+
         List<HomeCard> mlist = new ArrayList<>();
         mlist.add(new HomeCard(R.drawable.burger, "Burger"));
         mlist.add(new HomeCard(R.drawable.pizza, "Pizza"));
@@ -86,11 +87,28 @@ public class MainActivity extends AppCompatActivity {
         listSearchSuggestions.setFriction(ViewConfiguration.getScrollFriction() * SCROLLING_SPEED_FRICTION);
     }
 
+    //Opens the dialog bog for "Adding a new recipe"
+    public void openDialog(){
+        AddDialog addDialog = new AddDialog();
+        addDialog.show(getSupportFragmentManager(), "Add a recipe");
+
+    }
     //Android Specific Creator
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);//instantiate menu XML files into a menu object, this menu will be
         //a search menu as defined in the XML file menu.xml
         MenuItem menuItem = menu.findItem(R.id.action_search);
+        MenuItem AddRecipe = menu.findItem(R.id.add_recipe);
+
+        //Logic for button press on "Add new recipe"
+        AddRecipe.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                Log.i("Add Recipe", "button clicked");
+                openDialog();
+                return false;
+            }
+        });
         AccessRecipes Ar = new AccessRecipes();
 
         final SearchView searchView = (SearchView) menuItem.getActionView();//returns currently set action view

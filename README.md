@@ -18,4 +18,8 @@ The dish project system(DP system) is an application which will allow users to f
 
 ### Milestones
 ---
-- Iteration 1
+- [Iteration 1 Milestone](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/milestones/1#tab-issues)
+
+### Tags
+---
+- [Iteration 1 Release](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/tags/Iteration1)
