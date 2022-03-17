@@ -23,6 +23,8 @@ import java.util.List;
 
 import comp3350.dishproject.R;
 import comp3350.dishproject.logic.AccessRecipes;
+import comp3350.dishproject.objects.Recipe;
+import comp3350.dishproject.persistence.utils.DBHelper;
 
 public class MainActivity extends AppCompatActivity {
     private static final int SCROLLING_SPEED_FRICTION = 350;//modifies scrolling speed for search suggestion box
@@ -30,18 +32,37 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<String> searchSuggestions;//used for taking a string array of dishes and inserting them into the listview
     private String[] dishes;
 
+
     //Android Specific Creator
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        DBHelper.copyDatabaseToDevice(this);
+
+        //we need call to db
+
 
         //Setup recycler view with the adapter (shows cards on main screen)
         RecyclerView recyclerView = findViewById(R.id.rv_list);
 
         AccessRecipes db = new AccessRecipes();
-        List<HomeCard> mlist = db.getAllRecipe();
-        dishes = db.getDishes();
+        List<Recipe> rr = db.getAllRecipes();
+        dishes = new String[rr.size()];
+
+        for(int i=0;i<rr.size();i++) {
+            Recipe r = rr.get(i);
+            dishes[i] = r.getName();
+        }
+
+        List<HomeCard> mlist = new ArrayList<>();
+        mlist.add(new HomeCard(R.drawable.burger, "Burger"));
+        mlist.add(new HomeCard(R.drawable.pizza, "Pizza"));
+        mlist.add(new HomeCard(R.drawable.tacos, "Tacos"));
+        mlist.add(new HomeCard(R.drawable.pancake, "Pancake"));
+        mlist.add(new HomeCard(R.drawable.fish, "Fish"));
+
+
 
         Adapter adapter = new Adapter(this, mlist);
         recyclerView.setAdapter(adapter);
@@ -88,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+        AccessRecipes Ar = new AccessRecipes();
 
         final SearchView searchView = (SearchView) menuItem.getActionView();//returns currently set action view
         searchView.setQueryHint("Search for Dish");
@@ -101,9 +123,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String enteredString) {
 
-                if (checkIfDish(enteredString)) {
+
+                if (Ar.checkIfDishInSystem(enteredString)) {
+                    String dishName = enteredString.substring(0, 1).toUpperCase() + enteredString.substring(1);
                     searchView.clearFocus();
                     Intent intent = new Intent(MainActivity.this, ViewRecipe.class);
+                    intent.putExtra("search",dishName);
                     startActivity(intent);
                     return true;
                 } else {
@@ -121,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
              */
             @Override
             public boolean onQueryTextChange(String newCharacterString) {//every change of character
-                ArrayList<String> filtered = filterSearchSuggestions(newCharacterString);
+                ArrayList<String> filtered = Ar.filterSearchSuggestions(newCharacterString,dishes);
                 //Clearing search suggestions and adding everything found in user filtering
                 searchSuggestions.clear();
                 searchSuggestions.addAll(filtered);
@@ -173,36 +198,8 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }//end of onCreateMenuOptions function
 
-    /*
-    Input: Takes in a string of the search query in the search bar
-    Output: Returns an array List of type string that contains all dishes that match the search query
-    Description: Filters the dishes based on search Query to return all relevant dishes to be shown in the search suggestion box
-     */
-    public ArrayList<String> filterSearchSuggestions(String searchQuery) {
-        ArrayList<String> filtered = new ArrayList<>();
-        for (String dish : dishes) {
-            String[] stringsToCheck = dish.split(" ");//Example: For dish of Chicken Parm, a search query of "Parm" will return Chicken Parm
-            for (String s : stringsToCheck) {
-                if (s.toLowerCase().contains(searchQuery.toLowerCase())) {//only lowercase cleaning
-                    filtered.add(dish);
-                }
-            }
-        }
-        return filtered;
-    }
 
-    /*
-    Input: string of recipe to search for
-    Output: boolean true if found
-    Description: Check if the dish the user is searching is in the list of recipes
-     */
-    public boolean checkIfDish(String searchQuery) {
-        for (String dish : dishes) {
-            if (dish.toLowerCase().contains(searchQuery.toLowerCase()))
-                return true;
-        }
-        return false;
-    }
+
 
     /*
     Input: Takes in an array list of type string that contains all relevant search suggestions to be displayed
