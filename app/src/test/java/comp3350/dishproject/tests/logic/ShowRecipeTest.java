@@ -11,7 +11,7 @@ import comp3350.dishproject.objects.Ingredient;
 import comp3350.dishproject.objects.Recipe;
 
 public class ShowRecipeTest extends TestCase {
-
+/*
     @Test
     public void testShowIngredient() {
         Recipe recipe=new Recipe("Pizza","1", 600.0,450, new ArrayList<Ingredient>());
@@ -97,4 +97,6 @@ public class ShowRecipeTest extends TestCase {
         assert(showRecipe.showDirection().equals(recipe.getDirection()));
 
     }
+
+ */
 }

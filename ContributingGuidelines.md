@@ -12,7 +12,7 @@ Guidelines for contributing to the project. This project will follow a Git flow 
 
 ### Branch Naming Conventions
 ---
-- Feature followed by name separated by hypens
+- Feature followed by name(if working alone) separated by hypens
 
 ### Commit messages
 --- 

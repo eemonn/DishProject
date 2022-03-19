@@ -35,30 +35,32 @@ Provide a link to a test of exceptional code. In a few sentences,
 provide an explanation of why the exception is handled or thrown
 in the code you are testing.
 
+test for exceptional code can be found [here](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/blob/main/app/src/test/java/comp3350/dishproject/tests/persistence/dbTest.java). 
+
+This exception is added to the test class dbTest on the test method exceptionTest() method. In DataAcess class we are adding our items(Homecards) to 
+an arraylist. Initially, we are added 5 items there. Therefore, when we are trying to get out any items more than the arraylist holds then it throws 
+"outOfBoundException" since it get past the array of items where that index in the array does not have any items.
+
 Branching
 ----------
 
-Provide a link to where you describe your branching strategy.
+**Linked to Branching strategy: 
+[Branching Guideline](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/blob/main/ContributingGuidelines.md)**
 
-Provide screen shot of a feature being added using your branching strategy
-successfully. The [GitLab Graph tool can do this](https://code.cs.umanitoba.ca/comp3350-summer2019/cook-eBook/-/network/develop),
-as well as using `git log --graph`.
+![Branching Strategy Graph](/branchPhoto.png)
+
+An example of our branching strategy is shown above. Tim first pulled existing Development to his own branch. Then he merged it locally and pushed his branch to Development. 
 
 SOLID
 -----
 
-Find a SOLID violation in the project of group `(n%16)+1` (group 16 does group 1).
-Open an issue in their project with the violation,
-clearly explaining the SOLID violation - specifying the type, provide a link to that issue. Be sure
-your links in the issues are to **specific commits** (not to `main`, or `develop` as those will be changed).
+After a thorough check about SOLID principles in the codebase of Group 5. We did not find any violations so far. The codes were organized. 
 
-Provide a link to the issue you created here.
+Link to the issue created: https://code.cs.umanitoba.ca/winter-2022-a02/group-5/nibble-pad/-/issues/27
 
 Agile Planning
 --------------
 
-Agile Planning
---------------
 We were fortunate enough not to have to move any of our features to iteration 2, as we properly planned for iteration 1. However, we actually ended up 
 needing to implement a feature that we had not thought about originally. We had planned all of the main pages and important features for our app and forgotten that 
 we would require a home/landing page. This feature was added to our issues early in iteration 1 and we drew out a simple design prototype. The code for the homepage UI was 

@@ -8,11 +8,11 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 
 import comp3350.dishproject.R;
-import comp3350.dishproject.persistence.DataAccess;
 import comp3350.dishproject.presentation.HomeCard;
 
 public class dbTest {
 
+    /*
     @Test
     public void emptyOrnot(){
         DataAccess db=new DataAccess();
@@ -54,7 +54,15 @@ public class dbTest {
         DataAccess db=new DataAccess();
         ArrayList<HomeCard>x=new ArrayList();
         x=db.getAllRecipe();
-        HomeCard s=x.get(5);
+        try {
+            HomeCard s = x.get(5);
+        }
+        catch(Exception e){
+            System.out.println("outOfBoundException");
+            System.out.println("can't Get more Homecard here.");
+        }
     }
+
+     */
 
 }
