@@ -42,11 +42,19 @@ public class ShowRecipe {
         }
         return ingredientString.toString();
     }
+    /*
+    Input:
+    Output:
+    Description: updates the record of ingredients to their initial size and then change them accordingly
+     */
 
-
-
-    public String updateIngredients(int scaleFactor) {
-       return showIngredient(scaleFactor);
+    public void updateIngredients(int scaleFactor) {
+       //return showIngredient(scaleFactor);
+        for(int i=0;i<ingredientsOfRecipe.size();i++){
+            ingredientsOfRecipe.get(i).setWeight(ingredientsOfRecipe.get(i).getInitWeight()*scaleFactor);
+            ingredientsOfRecipe.get(i).setCalorie(ingredientsOfRecipe.get(i).getInitCal()*scaleFactor);
+            ingredientsOfRecipe.get(i).setQuantity(ingredientsOfRecipe.get(i).getInitQuantity()*scaleFactor);
+        }
     }
 
     public String showTitle() {
@@ -75,6 +83,23 @@ public class ShowRecipe {
 
     public String showDirection() {
         return step.toString();
+    }
+
+    public String [] getIngredientListName(){
+        String []m=new String[10];
+        int x=0;
+        for(int i=0;i<ingredientsOfRecipe.size();i++){
+            m[i]=ingredientsOfRecipe.get(i).getName()+" Amount: "+
+                    ingredientsOfRecipe.get(i).getQuantity()+" Calorie: "+
+                    ingredientsOfRecipe.get(i).getCalorie()+" Weight: "+
+                    ingredientsOfRecipe.get(i).getWeight()
+            ;
+            x++;
+        }
+        String [] mm=new String[x];
+        //System.out.println("m "+m[i]);
+        System.arraycopy(m, 0, mm, 0, x);
+        return mm;
     }
 
 }

@@ -9,6 +9,9 @@ public class Ingredient {
     private String id;
     private int quantity;
     private double calorie;
+    private int initQuantity;
+    public double initCal;
+    public double initWeight;
 
     /*
     Input: Takes in a string name, string ID, int quantity, double weight, and double calorie
@@ -23,8 +26,19 @@ public class Ingredient {
         this.quantity = quantity;
         this.weight = weight;
         this.recipe = recipe;
+        this.initCal=calorie;
+        this.initQuantity=quantity;
+        this.initWeight=weight;
     }
-
+    public int getInitQuantity(){
+        return initQuantity;
+    }
+    public double getInitCal(){
+        return initCal;
+    }
+    public double getInitWeight(){
+        return initWeight;
+    }
     public String getID() {
         return this.id;
     }
