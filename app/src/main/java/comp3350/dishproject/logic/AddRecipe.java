@@ -13,7 +13,12 @@ public class AddRecipe {
     private static AccessRecipes ar = new AccessRecipes();
     private static AccessIngredients ai = new AccessIngredients();
     private static AccessSteps as = new AccessSteps();
-
+    
+    /*
+    Input: takes in string recipe name, string of cooking instructions, arrays of ingredients names and their weights
+    Output: true if add successful and false otherwise
+    Description: attempts to add a dish to the system
+     */
     public static boolean createRecipe(String recipeName, String cookingInstructions, String[] ingredientNames, Double[] ingredientWeights) {
         //Checking dish name
         if(RecipeValidator.checkIfDishInSystem(recipeName,ar.getAllRecipes())) {
