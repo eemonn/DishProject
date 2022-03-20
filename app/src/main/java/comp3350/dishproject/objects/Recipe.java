@@ -10,38 +10,30 @@ import comp3350.dishproject.logic.AccessRecipes;
 
 public class Recipe {
     private String name,recipeID;
-    private int calories;
-    private double weight;
-    private List<Ingredient> ingredientList;
+    private double rating;
 
-    public Recipe(String name, String recipeID) {
+    /*
+    Description: Constructor if we have all three parameters
+    */
+    public Recipe(String name, String recipeID,double rating) {
         this.name = name;
         this.recipeID = recipeID;
-    }
-    public void setIngredientArrayList(){
-        AccessIngredients aI=new AccessIngredients();
-        this.ingredientList= aI.getIngredients(this.recipeID);
-    }
-    public List<Ingredient>getIngredientArrayList(){
-        return ingredientList;
+        this.rating = rating;
     }
 
     /*
-    Description: method to get weight
-     */
-    public double getWeight() {
-        return weight;
-    }
-
+    Description: Constructor if we only have recipe ID
+    */
     public Recipe(String recipeID){
         AccessRecipes Ar = new AccessRecipes();
         this.name = Ar.getRecipe(recipeID).getName();
         this.recipeID = recipeID;
-        this.weight=Ar.getRecipe(recipeID).getWeight();
-
     }
 
-    //getters
+    //Getters
+    public double getRating(){
+        return this.rating;
+    }
     public String getName(){ return name;}
     public String getRecipeID(){return recipeID;}
 
@@ -49,22 +41,6 @@ public class Recipe {
     //setters
     public void setName(String newName) {this.name = newName;}
     public void setRecipeID(String newRecipeID) {this.recipeID = newRecipeID;}
-
-
-    public boolean isEquals(Recipe recipeObject) {
-        return this.name.equals(recipeObject.name) && this.recipeID.equals(recipeObject.recipeID);
-    }
-
-    @NonNull
-    @Override
-    public String toString() {
-        return "Recipe{" +
-                "name='" + name + '\'' +
-                ", id='" + recipeID + '\'' +
-                ", calorie=" + calories +
-                '}';
-    }
-
-
+    public void setRating(double rating){this.rating =rating;}
 
 }

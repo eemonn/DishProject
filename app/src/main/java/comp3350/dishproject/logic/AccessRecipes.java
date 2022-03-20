@@ -1,78 +1,94 @@
 package comp3350.dishproject.logic;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import comp3350.dishproject.application.Services;
+import comp3350.dishproject.objects.Ingredient;
 import comp3350.dishproject.objects.Recipe;
 
 import comp3350.dishproject.persistence.RecipePersistence;
 
 public class AccessRecipes {
-    private RecipePersistence recipePersistence;
+    private final RecipePersistence recipePersistence;
 
+    /*
+    Description: constructor
+     */
     public AccessRecipes() {
         recipePersistence = Services.getRecipePersistence();
     }
 
+    /*
+    Description: constructor if recipePersistence object passed in
+     */
     public AccessRecipes(final RecipePersistence recipePersistence) {
-        this();
         this.recipePersistence = recipePersistence;
     }
 
+    /*
+    Input: takes in a string of the recipe ID
+    Output: returns a List of ingredients objects
+    Description: returns a List of ingredients for a specific recipe
+     */
     public String findRecipeID(final String recipeName) {
         return recipePersistence.findRecipeID(recipeName);
     }
 
+    /*
+    Input: no input
+    Output: returns a List of recipe objects
+    Description: returns a List of all recipe objects in the system
+     */
     public List<Recipe> getAllRecipes() {
         return recipePersistence.getAllRecipes();
     }
 
-    public Recipe insertRecipe(Recipe newRecipe) {
-        List<Recipe> allRecipes = getAllRecipes();
-        for(int i=0; i<allRecipes.size();i++) {
-            Recipe r = allRecipes.get(i);
-            if(r.getName().equals(newRecipe.getName())) {
-                return newRecipe;
-            }
-        }
-        return recipePersistence.insertRecipe(newRecipe);
-    }
-
-    public Recipe getRecipe(final String recipeID) {
-        return recipePersistence.getRecipe(recipeID);
-    }
-
-    public Recipe updateRecipe(Recipe newRecipe) {
-        return recipePersistence.updateRecipe(newRecipe);
-    }
-
-    public void deleteRecipe(Recipe newRecipe){
-        recipePersistence.deleteRecipe(newRecipe);
-    }
-
-    public boolean checkIfDishInSystem(String nameOfDish) {
-        List<Recipe> allRecipes = getAllRecipes();
-        for(int i=0;i<allRecipes.size();i++) {
-            Recipe r = allRecipes.get(i);
-            if(r.getName().equalsIgnoreCase(nameOfDish)) {
-                return true;
-            }
+    /*
+    Input: takes in a recipe object
+    Output: returns a recipe object(of the recipe you're trying to add)
+    Description: Attempts to add a recipe into the system
+     */
+    public boolean insertRecipe(Recipe newRecipe) {
+        if(!RecipeValidator.validateRecipeID(newRecipe.getRecipeID(),getAllRecipes())) {
+            return recipePersistence.insertRecipe(newRecipe);
         }
         return false;
     }
 
-    public ArrayList<String> filterSearchSuggestions(String searchQuery, String[] dishes) {
-        ArrayList<String> filtered = new ArrayList<>();
-        for (String dish : dishes) {
-            String[] stringsToCheck = dish.split(" ");//Example: For dish of Chicken Parm, a search query of "Parm" will return Chicken Parm
-            for (String s : stringsToCheck) {
-                if (s.toLowerCase().contains(searchQuery.toLowerCase())) {//only lowercase cleaning
-                    filtered.add(dish);
-                }
-            }
+
+
+    /*
+    Input: takes string of a recipe id
+    Output: returns a recipe object
+    Description: finds a recipe by its recipe ID
+     */
+    public Recipe getRecipe(final String recipeID) {
+        if(RecipeValidator.validateRecipeID(recipeID,getAllRecipes())) {
+            return recipePersistence.getRecipe(recipeID);
         }
-        return filtered;
+        return null;
+    }
+
+    /*
+    Input: takes in a recipe object
+    Output: void
+    Description: deletes a recipe object from the system
+     */
+    public void deleteRecipe(String recipeID){
+        if(RecipeValidator.validateRecipeID(recipeID,getAllRecipes())) {
+            recipePersistence.deleteRecipe(recipeID);
+        }
+    }
+
+
+    public void changeRating(double rating,String recipeID) {
+        if(RecipeValidator.validateRecipeID(recipeID,getAllRecipes())) {
+            recipePersistence.changeRating(rating,recipeID);
+        }
     }
 
 }

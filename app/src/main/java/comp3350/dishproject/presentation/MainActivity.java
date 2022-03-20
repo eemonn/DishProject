@@ -20,9 +20,11 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import comp3350.dishproject.R;
 import comp3350.dishproject.logic.AccessRecipes;
+import comp3350.dishproject.logic.RecipeValidator;
 import comp3350.dishproject.objects.Recipe;
 import comp3350.dishproject.persistence.utils.DBHelper;
 
@@ -41,20 +43,12 @@ public class MainActivity extends AppCompatActivity {
         DBHelper.copyDatabaseToDevice(this);
 
         //we need call to db
-
+        updateDishList();
 
         //Setup recycler view with the adapter (shows cards on main screen)
         RecyclerView recyclerView = findViewById(R.id.rv_list);
 
-        AccessRecipes db = new AccessRecipes();
-        List<Recipe> rr = db.getAllRecipes();
-        dishes = new String[rr.size()];
-
-        for(int i=0;i<rr.size();i++) {
-            Recipe r = rr.get(i);
-            dishes[i] = r.getName();
-        }
-
+        //Popular cards - these need to be hardcoded since their popular to everyone
         List<HomeCard> mlist = new ArrayList<>();
         mlist.add(new HomeCard(R.drawable.burger, "Burger"));
         mlist.add(new HomeCard(R.drawable.pizza, "Pizza"));
@@ -62,8 +56,7 @@ public class MainActivity extends AppCompatActivity {
         mlist.add(new HomeCard(R.drawable.pancake, "Pancake"));
         mlist.add(new HomeCard(R.drawable.fish, "Fish"));
 
-
-
+        //Adapter for Cards
         Adapter adapter = new Adapter(this, mlist);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager((new LinearLayoutManager(this)));
@@ -87,7 +80,22 @@ public class MainActivity extends AppCompatActivity {
         listSearchSuggestions.setFriction(ViewConfiguration.getScrollFriction() * SCROLLING_SPEED_FRICTION);
     }
 
-    //Opens the dialog bog for "Adding a new recipe"
+    /*
+    Input: No input
+    Output: void function
+    Description: updates the local dish array with the latest adds(recipes) and formats it into string array
+     */
+    public void updateDishList() {
+        AccessRecipes db = new AccessRecipes();
+        List<Recipe> rr = db.getAllRecipes();
+        dishes = new String[rr.size()];
+        for(int i=0;i<rr.size();i++) {
+            Recipe r = rr.get(i);
+            dishes[i] = r.getName();
+        }
+    }
+
+    //Opens the dialog box for "Adding a new recipe"
     public void openDialog(){
         AddDialog addDialog = new AddDialog();
         addDialog.show(getSupportFragmentManager(), "Add a recipe");
@@ -104,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
         AddRecipe.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                Log.i("Add Recipe", "button clicked");
                 openDialog();
                 return false;
             }
@@ -124,8 +131,8 @@ public class MainActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String enteredString) {
 
 
-                if (Ar.checkIfDishInSystem(enteredString)) {
-                    String dishName = enteredString.substring(0, 1).toUpperCase() + enteredString.substring(1);
+                if (Ar.getRecipe(Ar.findRecipeID(enteredString)) != null) {
+                    String dishName = enteredString.toLowerCase();
                     searchView.clearFocus();
                     Intent intent = new Intent(MainActivity.this, ViewRecipe.class);
                     intent.putExtra("search",dishName);
@@ -146,7 +153,8 @@ public class MainActivity extends AppCompatActivity {
              */
             @Override
             public boolean onQueryTextChange(String newCharacterString) {//every change of character
-                ArrayList<String> filtered = Ar.filterSearchSuggestions(newCharacterString,dishes);
+                updateDishList();
+                ArrayList<String> filtered = RecipeValidator.filterSearchSuggestions(newCharacterString,dishes);
                 //Clearing search suggestions and adding everything found in user filtering
                 searchSuggestions.clear();
                 searchSuggestions.addAll(filtered);
@@ -166,12 +174,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //event listener for when you click a search suggestion
-                listSearchSuggestions.setOnItemClickListener((adapterView, view, post, id) -> {
-                    Object listItem = listSearchSuggestions.getItemAtPosition(post);//clicked Item
-                    searchView.setQuery(listItem.toString(), false);//adjusts the query to make it the clicked item
-                    listSearchSuggestions.setVisibility(View.INVISIBLE);
+        listSearchSuggestions.setOnItemClickListener((adapterView, view, post, id) -> {
+            Object listItem = listSearchSuggestions.getItemAtPosition(post);//clicked Item
+            searchView.setQuery(listItem.toString().toLowerCase(), false);//adjusts the query to make it the clicked item
+            listSearchSuggestions.setVisibility(View.INVISIBLE);
 
-                });
+        });
 
         //event listener for when the search box is closed
         searchView.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {

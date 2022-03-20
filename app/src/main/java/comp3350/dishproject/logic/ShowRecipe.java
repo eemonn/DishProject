@@ -4,52 +4,43 @@ import java.util.List;
 
 import comp3350.dishproject.objects.Ingredient;
 import comp3350.dishproject.objects.Recipe;
-import comp3350.dishproject.objects.Steps;
 
 public class ShowRecipe {
     private final Recipe recipe;
-    private final Steps step;
     private final String recipeID;
     List<Ingredient> ingredientsOfRecipe;
+    AccessRecipes Ar = new AccessRecipes();
+    AccessIngredients Ai = new AccessIngredients();
+
     /*
     Input: a recipe object
     Output: constructor
-    Description: Constructor for recipe object
+    Description: Constructor for showRecipe
      */
-    public ShowRecipe(Recipe r,Steps step) {
+    public ShowRecipe(Recipe r) {
         this.recipe = r;
-        this.step = step;
-        AccessRecipes Ar = new AccessRecipes();
         recipeID = Ar.findRecipeID(recipe.getName());
-        AccessIngredients Ai = new AccessIngredients();
         ingredientsOfRecipe = Ai.getIngredients(recipeID);
     }
 
-
-    public String showIngredient(int scaleFactor) {
-        StringBuilder ingredientString = new StringBuilder();
-
-        for (int i = 0; i < ingredientsOfRecipe.size(); i++) {
-            String name = ingredientsOfRecipe.get(i).getName();
-            int quantity = ingredientsOfRecipe.get(i).getQuantity() * scaleFactor;
-            double weight = ingredientsOfRecipe.get(i).getWeight() * scaleFactor;
-            double calorie = ingredientsOfRecipe.get(i).getCalorie() * scaleFactor;
-
-            ingredientString.append(i + 1).append(". ").append(name).append("  Amount: ").
-                    append(quantity).
-                    append("  Calorie: ").append(calorie).append("cal  Weight: ").
-                    append(weight).append("g\n");
-        }
-        return ingredientString.toString();
-    }
     /*
-    Input:
-    Output:
+    Input: a recipe object, string recipe ID, ingredient list
+    Output: constructor
+    Description: Constructor for showRecipe
+     */
+    public ShowRecipe(Recipe r,String recipeID,List<Ingredient> ingredients) {
+        this.recipe =r;
+        this.recipeID = recipeID;
+        this.ingredientsOfRecipe = ingredients;
+    }
+
+
+    /*
+    Input: takes in a integer representing the scaling factor
+    Output: void
     Description: updates the record of ingredients to their initial size and then change them accordingly
      */
-
     public void updateIngredients(int scaleFactor) {
-       //return showIngredient(scaleFactor);
         for(int i=0;i<ingredientsOfRecipe.size();i++){
             ingredientsOfRecipe.get(i).setWeight(ingredientsOfRecipe.get(i).getInitWeight()*scaleFactor);
             ingredientsOfRecipe.get(i).setCalorie(ingredientsOfRecipe.get(i).getInitCal()*scaleFactor);
@@ -57,36 +48,55 @@ public class ShowRecipe {
         }
     }
 
-    public String showTitle() {
-        return recipe.getName();
-    }
-
-
+    /*
+    Input: no input
+    Output: returns a string representing a title to be displayed
+    Description: returns a string with the title description of calories, weight, and rating
+     */
     public String showTitleDescription() {
         String ingredientInfo = "";
-        double totalCalories = calculateQuantity("Calories");
-        double totalWeight = calculateQuantity("Weight");
-        ingredientInfo += "Calorie: " + totalCalories + " Weight: " + totalWeight + "g\n";
+        double totalCalories = calculateCalories();
+        double totalWeight = calculateWeight();
+        ingredientInfo += "Calorie: " + totalCalories + "kcal "+ " Weight: " +  totalWeight + "g " + "Rating: " + recipe.getRating() + "\n";
         return ingredientInfo;
     }
 
-
-    public double calculateQuantity(String whatToCount) {
+    /*
+    Input: no input
+    Output: returns a double of calories
+    Description: returns a double that is sum of all calories for a given dish
+     */
+    public double calculateCalories() {
         double runningSum = 0;
         for(int i=0;i<ingredientsOfRecipe.size();i++) {
             Ingredient ing = ingredientsOfRecipe.get(i);
-           if(whatToCount.equals("Calories")) runningSum += ing.getCalorie();
-           if(whatToCount.equals("Weight")) runningSum += ing.getWeight();
+            runningSum += ing.getCalorie();
         }
         return runningSum;
     }
 
-    public String showDirection() {
-        return step.toString();
+    /*
+    Input: no input
+    Output: returns a double of weight
+    Description: returns a double that is sum of all weight for a given dish
+     */
+    public double calculateWeight(){
+        double runningSum = 0;
+        for(int i=0;i<ingredientsOfRecipe.size();i++) {
+            Ingredient ing = ingredientsOfRecipe.get(i);
+            runningSum += ing.getWeight();
+        }
+        return runningSum;
     }
 
+
+    /*
+    Input: no input
+    Output: returns an array of strings
+    Description: Method use to return the list of ingredients in a specified format
+     */
     public String [] getIngredientListName(){
-        String []m=new String[10];
+        String []m = new String[10];
         int x=0;
         for(int i=0;i<ingredientsOfRecipe.size();i++){
             m[i]=ingredientsOfRecipe.get(i).getName()+" Amount: "+
@@ -97,7 +107,6 @@ public class ShowRecipe {
             x++;
         }
         String [] mm=new String[x];
-        //System.out.println("m "+m[i]);
         System.arraycopy(m, 0, mm, 0, x);
         return mm;
     }

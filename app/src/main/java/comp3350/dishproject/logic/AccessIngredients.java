@@ -4,27 +4,44 @@ import java.util.List;
 
 import comp3350.dishproject.application.Services;
 import comp3350.dishproject.objects.Ingredient;
+import comp3350.dishproject.objects.Recipe;
 import comp3350.dishproject.persistence.IngredientPersistence;
 
 public class AccessIngredients {
-    private IngredientPersistence ingredientPersistence;
+    private final IngredientPersistence ingredientPersistence;
 
+    /*
+    Description: constructor
+     */
     public AccessIngredients() {
         ingredientPersistence = Services.getIngredientPersistence();
     }
 
-    //If passed in
+    /*
+    Description: constructor if passed in ingredientPersistence object
+     */
     public AccessIngredients(final IngredientPersistence ingredientPersistence) {
-        this();
         this.ingredientPersistence = ingredientPersistence;
     }
 
+    /*
+   Input: takes in a string of the recipe ID
+   Output: returns a List of ingredients objects
+   Description: returns a List of ingredients for a specific recipe
+    */
     public List<Ingredient> getIngredients(String recipeID) {
         return ingredientPersistence.getIngredients(recipeID);
     }
 
-    public void addIngredients(Ingredient ingredient, final String recipeID) {
-        ingredientPersistence.addIngredients(ingredient,recipeID);
+    /*
+     Input: Takes in an ingredient object and String recipe ID
+     Output: void function
+     Description: Allows the addition of an ingredient to a given recipe
+      */
+    public void addIngredients(Ingredient ingredient, final String recipeID,List<Recipe> allRecipes) {
+        if(RecipeValidator.validateRecipeID(recipeID,allRecipes)) {
+            ingredientPersistence.addIngredients(ingredient, recipeID);
+        }
     }
 
 
