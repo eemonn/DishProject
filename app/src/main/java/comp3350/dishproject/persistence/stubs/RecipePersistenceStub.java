@@ -1,7 +1,8 @@
 package comp3350.dishproject.persistence.stubs;
 
+import android.util.Log;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import comp3350.dishproject.objects.Recipe;
@@ -9,22 +10,35 @@ import comp3350.dishproject.persistence.RecipePersistence;
 
 
 public class RecipePersistenceStub implements RecipePersistence {
-    private List<Recipe> recipes;
+    private final List<Recipe> recipes;
 
+    /*
+    Description: Constructor
+    */
     public RecipePersistenceStub() {
         this.recipes = new ArrayList<>();
-        recipes.add(new Recipe("Burger","100"));
-        recipes.add(new Recipe("Pizza","200"));
-        recipes.add(new Recipe("Tacos","300"));
-        recipes.add(new Recipe("Pancake","400"));
-        recipes.add(new Recipe("Fish","500"));
+        recipes.add(new Recipe("burger","100",5));
+        recipes.add(new Recipe("pizza","200",4));
+        recipes.add(new Recipe("tacos","300",3));
+        recipes.add(new Recipe("pancake","400",1));
+        recipes.add(new Recipe("fish","500",1.5));
     }
 
+    /*
+    Input: no input
+    Output: returns a list of recipes
+    Description: returns a list of all recipes in the system
+    */
     @Override
     public List<Recipe> getAllRecipes() {
         return recipes;
     }
 
+    /*
+    Input: takes in a string of the recipe ID
+    Output: returns a recipe object
+    Description: returns a recipe object with that given recipe ID
+     */
     @Override
     public Recipe getRecipe(String recipeID) {
         for(int i=0;i<recipes.size();i++) {
@@ -36,44 +50,60 @@ public class RecipePersistenceStub implements RecipePersistence {
         return null;
     }
 
+    /*
+    Input: takes in a string of the recipe name
+    Output: returns a string of recipe id
+    Description: returns a string of a recipe ID for a given recipe dish name
+     */
     @Override
     public String findRecipeID(final String recipeName) {
         for (int i = 0; i < recipes.size(); i++) {
             Recipe r = recipes.get(i);
-            if (r.getName().equals(recipeName)) {
+            if (r.getName().equalsIgnoreCase(recipeName)) {
                 return r.getRecipeID();
             }
         }
-        return "";
+        return "No ID";
     }
 
 
+    /*
+    Input: Recipe object
+    Output: returns a recipe object
+    Description: adds a recipe into the system and returns it
+     */
     @Override
-    public Recipe insertRecipe(Recipe newRecipe) {
+    public boolean insertRecipe(Recipe newRecipe) {
         recipes.add(newRecipe);
-        return newRecipe;
+        return true;
     }
+
+    /*
+    Input: takes in a recipe object
+    Output: void
+    Description: deletes a given recipe object by id
+     */
     @Override
-    public Recipe updateRecipe(Recipe newRecipe) {
-        int index;
-
-        index = recipes.indexOf(newRecipe);
-        if (index >= 0)
-        {
-            recipes.set(index, newRecipe);
+    public void deleteRecipe(String recipeID) {
+        for (int i = 0; i < recipes.size(); i++) {
+            Recipe r = recipes.get(i);
+            if (r.getRecipeID().equals(recipeID)) {
+                recipes.remove(r);
+            }
         }
-        return newRecipe;
-
     }
-    @Override
-    public void deleteRecipe(Recipe newRecipe) {
-        int index;
 
-        index = recipes.indexOf(newRecipe);
-        if (index >= 0)
-        {
-            recipes.remove(index);
+    /*
+    Input: takes in double rating
+    Output: void
+    Description: changes a recipes rating
+     */
+    public void changeRating(double rating,String recipeID){
+        for (int i = 0; i < recipes.size(); i++) {
+            Recipe r = recipes.get(i);
+            if (r.getRecipeID().equalsIgnoreCase(recipeID)) {
+                r.setRating(rating);
+            }
         }
-
     }
 }

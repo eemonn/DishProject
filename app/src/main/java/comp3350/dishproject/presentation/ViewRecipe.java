@@ -5,15 +5,12 @@ import static android.widget.AdapterView.*;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -35,16 +32,15 @@ import comp3350.dishproject.objects.Steps;
 public class ViewRecipe extends AppCompatActivity {
     private RatingBar rating;
     private float rate;
-    private static final int SCROLLING_SPEED_FRICTION = 350;//modifies scrolling speed for search suggestion box
-
     private TextView ratingText;
     private ShowRecipe showRecipe;
-    private TextView ingredientListText;
     ListView listViewData;
     ArrayAdapter<String> adapter;
     private Recipe recipe;
+    private Steps step;
+    AccessRecipes ar = new AccessRecipes();
+    AccessSteps as = new AccessSteps();
 
-    //String [] arrayPeliculas=new String[]{"a","b"};
 
     //Android Specific Creator
     @Override
@@ -52,29 +48,35 @@ public class ViewRecipe extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_recipe);
 
-        AccessRecipes db = new AccessRecipes();
-        AccessSteps db1 = new AccessSteps();
+        //getting passed in value
         Bundle extras = getIntent().getExtras();
         String dish = "";
         if(extras !=null) {
             dish = getIntent().getStringExtra("search");
         }
 
-        String recipeID = db.findRecipeID(dish);
-        recipe = db.getRecipe(recipeID);
-        Steps step = new Steps(db1.getDirections(recipeID),recipe);
-        showRecipe = new ShowRecipe(recipe,step);
+        //getting recipe and step object
+        String recipeID = ar.findRecipeID(dish);
+        recipe = ar.getRecipe(recipeID);
+        step = new Steps(as.getDirections(recipeID),recipe);
+        showRecipe = new ShowRecipe(recipe);
+
+        //Inits
         changePicture(dish);
-        showRecipeDetaills();
+        showRecipeDetails();
         getRatingInput();
         setDropDownMenu();
         updateListViewer();
     }
+
+    //Android Specific Creator
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.main_menu,menu);
         return true;
     }
+
+    //Android Specific Creator
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
         int id=item.getItemId();
@@ -92,14 +94,16 @@ public class ViewRecipe extends AppCompatActivity {
     }
 
 
+    /*
+    Input: Takes in a name of a dish
+    Output: void function
+    Description: Changes the picture of the recipe, right now we only have pictures of our 5 most popular dishes
+   */
     public void changePicture(String dish) {
         String dishPicture = dish.toLowerCase();
-        TypedValue value = new TypedValue();
         int resID = getResources().getIdentifier(dishPicture, "drawable", getPackageName());
-        Log.d("TAG", "changePicture: " + resID);
         ImageView image = (ImageView) findViewById(R.id.imageView7);
         image.setImageResource(resID);
-
     }
 
     /*
@@ -107,15 +111,14 @@ public class ViewRecipe extends AppCompatActivity {
     Output: void
     Description: Show the details of the recipe such as ingredient list, direction, title
      */
-    public void showRecipeDetaills() {
-        //ingredientListText = (TextView) findViewById(R.id.ing_list);
+    public void showRecipeDetails() {
         TextView descriptionTextbox = (TextView) findViewById(R.id.des_title);
         rating = (RatingBar) findViewById(R.id.ratingBar2);
         ratingText = (TextView) findViewById(R.id.des_text);
         TextView directionText = (TextView) findViewById(R.id.direction_text);
-        ratingText.setText(showRecipe.showTitleDescription() + "Rating: " + rate);
-        directionText.setText(showRecipe.showDirection());
-        descriptionTextbox.setText(showRecipe.showTitle());
+        ratingText.setText(showRecipe.showTitleDescription());
+        directionText.setText(step.toString());
+        descriptionTextbox.setText(recipe.getName());
     }
 
     /*
@@ -128,7 +131,9 @@ public class ViewRecipe extends AppCompatActivity {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 rate = ratingBar.getRating();
-                ratingText.setText(showRecipe.showTitleDescription() + "Rating: " + rate);
+                ar.changeRating(rating,recipe.getRecipeID());
+                ratingText.setText(showRecipe.showTitleDescription());
+
             }
         });
     }
@@ -170,6 +175,11 @@ public class ViewRecipe extends AppCompatActivity {
         showRecipe.updateIngredients(num);
     }
 
+    /*
+    Input: no input
+    Output: void function
+    Description: Update list viewer
+     */
     public void updateListViewer(){
         String [] arrayPeliculas=showRecipe.getIngredientListName().clone();
         listViewData=findViewById(R.id.listView_data);
@@ -185,6 +195,12 @@ public class ViewRecipe extends AppCompatActivity {
         listViewData.setAdapter(adapter);
         updateHeightOfList(listViewData);
     }
+
+    /*
+    Input: no input
+    Output: void function
+    Description: Update height of shown list
+     */
     public void updateHeightOfList(ListView listViewData){
         ListAdapter listadp = listViewData.getAdapter();
         if (listadp != null) {
