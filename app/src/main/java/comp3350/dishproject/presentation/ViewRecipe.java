@@ -114,6 +114,7 @@ public class ViewRecipe extends AppCompatActivity {
     public void showRecipeDetails() {
         TextView descriptionTextbox = (TextView) findViewById(R.id.des_title);
         rating = (RatingBar) findViewById(R.id.ratingBar2);
+        rating.setRating((float)recipe.getRating());
         ratingText = (TextView) findViewById(R.id.des_text);
         TextView directionText = (TextView) findViewById(R.id.direction_text);
         ratingText.setText(showRecipe.showTitleDescription());
