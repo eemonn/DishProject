@@ -42,8 +42,7 @@ public class MainActivity extends AppCompatActivity {
         DBHelper.copyDatabaseToDevice(this);
 
         //navigation bar
-        Toolbar toolbar= findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
         //we need call to db
 
 
