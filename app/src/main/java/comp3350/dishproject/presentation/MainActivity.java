@@ -27,12 +27,19 @@ import comp3350.dishproject.logic.AccessRecipes;
 import comp3350.dishproject.objects.Recipe;
 import comp3350.dishproject.persistence.utils.DBHelper;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.annotation.NonNull;
+
 public class MainActivity extends AppCompatActivity {
     private static final int SCROLLING_SPEED_FRICTION = 350;//modifies scrolling speed for search suggestion box
     private ListView listSearchSuggestions; //listview used for displaying the search suggestions(AKA autocomplete)
     private ArrayAdapter<String> searchSuggestions;//used for taking a string array of dishes and inserting them into the listview
     private String[] dishes;
 
+    //for navigation bar
+    public DrawerLayout drawerLayout;
+    public ActionBarDrawerToggle actionBarDrawerToggle;
 
     //Android Specific Creator
     @Override
@@ -41,7 +48,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         DBHelper.copyDatabaseToDevice(this);
 
-        //navigation bar
+        //navigation bar activities
+        drawerLayout = findViewById(R.id.drawer_layout);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
+                R.string.nav_open, R.string.nav_close);
+
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //we need call to db
 
@@ -72,6 +87,17 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager((new LinearLayoutManager(this)));
         initializeSearchSuggestionBox();
 
+    }
+
+    /* the item click listener callback
+     to open and close the navigation
+     drawer when the icon is clicked*/
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     /*
