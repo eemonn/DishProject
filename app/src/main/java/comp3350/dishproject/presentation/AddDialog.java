@@ -75,6 +75,7 @@ public class AddDialog extends AppCompatDialogFragment {
         String cookingInstructions = "";
         String ingredientNames[] = new String[layoutList.getChildCount()];
         Double ingredientWeights[] = new Double[layoutList.getChildCount()];
+        boolean hasFailed = false;
 
         EditText recipeNameEdit = view.findViewById(R.id.add_recipe_name);
         EditText cookingInstructionsEdit = view.findViewById(R.id.add_recipe_directions);
@@ -94,11 +95,19 @@ public class AddDialog extends AppCompatDialogFragment {
 
             //Store the ingredient name and weight in variables
             ingredientNames[i] = ingredientName.getText().toString();
-            ingredientWeights[i] = Double.parseDouble(ingredientWeight.getText().toString());
+            try {
+                ingredientWeights[i] = Double.parseDouble(ingredientWeight.getText().toString());
+            } catch(NumberFormatException nfe ) {
+                hasFailed = true;
+                Messages.warning(view.getContext(),"Bad input to weight field, make it a number");
+            }
+
 
         }
 
-        AddRecipe.createRecipe(recipeName.toLowerCase(),cookingInstructions,ingredientNames,ingredientWeights);
+        if(!hasFailed) {
+            AddRecipe.createRecipe(recipeName.toLowerCase(),cookingInstructions,ingredientNames,ingredientWeights);
+        }
 
     }
 
