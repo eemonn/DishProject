@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String enteredString) {
 
 
-                if (Ar.getRecipe(Ar.findRecipeID(enteredString)) != null) {
+                if (Ar.getRecipe(Ar.findRecipeID(enteredString.toLowerCase())) != null) {
                     String dishName = enteredString.toLowerCase();
                     searchView.clearFocus();
                     Intent intent = new Intent(MainActivity.this, ViewRecipe.class);
