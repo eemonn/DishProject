@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">DishProject</string>
     <string name="done">done</string>
-
+    <string name="navigation_bar">Navigation Bar</string>
+    <string name="nav_open">Open</string>
+    <string name="nav_close">Close</string>
 </resources>
