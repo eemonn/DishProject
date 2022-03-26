@@ -28,6 +28,23 @@ Describe how the retrospective has changed the way you are doing your project. I
 
 Show links to your project where you use a well-known design pattern. Which pattern is it? Provide links to the design pattern that you used(not dependency Injection.
 
+We have used the Special Case/Null object design pattern. This means that a variable can be null in our system, we would have to surround it with null checking and avoidance in the case that the object was null. Instead of clogging up the code with this, we instead return a special case that has the same interface as what the caller is expecting. This helps by simplifying code and providing more reliability.
+
+Links:
+
+[Ex: 1](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/blob/clean-dev-iter2/app/src/main/java/comp3350/dishproject/persistence/hsqldb/RecipePersistenceHSQLDB.java#L79)
+
+[Ex: 2](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/blob/clean-dev-iter2/app/src/main/java/comp3350/dishproject/persistence/hsqldb/RecipePersistenceHSQLDB.java#L105)
+
+[Ex: 3](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/blob/clean-dev-iter2/app/src/main/java/comp3350/dishproject/persistence/hsqldb/StepsPersistenceHSQLDB.java#L50)
+
+[Ex: 4](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/blob/clean-dev-iter2/app/src/main/java/comp3350/dishproject/persistence/stubs/RecipePersistenceStub.java#L50)
+
+[Testing Ex: 1](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/blob/clean-dev-iter2/app/src/test/java/comp3350/dishproject/tests/logic/AccessRecipesTestIT.java#L63)
+
+[Testing Ex: 2](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/blob/clean-dev-iter2/app/src/test/java/comp3350/dishproject/tests/logic/AccessRecipesTestIT.java#L63)
+
+
 ## Iteration 1 Feedback fixes
 ---
 
