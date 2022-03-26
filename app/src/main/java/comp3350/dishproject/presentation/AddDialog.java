@@ -2,9 +2,7 @@ package comp3350.dishproject.presentation;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -16,11 +14,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import comp3350.dishproject.R;
+import comp3350.dishproject.logic.AccessRecipes;
+import comp3350.dishproject.logic.AddRecipe;
 
 public class AddDialog extends AppCompatDialogFragment {
 
     LinearLayout layoutList;
     Button buttonAdd;
+    AccessRecipes ar = new AccessRecipes();
 
     /*
     Input: instance State
@@ -74,6 +75,7 @@ public class AddDialog extends AppCompatDialogFragment {
         String cookingInstructions = "";
         String ingredientNames[] = new String[layoutList.getChildCount()];
         Double ingredientWeights[] = new Double[layoutList.getChildCount()];
+        boolean hasFailed = false;
 
         EditText recipeNameEdit = view.findViewById(R.id.add_recipe_name);
         EditText cookingInstructionsEdit = view.findViewById(R.id.add_recipe_directions);
@@ -82,8 +84,7 @@ public class AddDialog extends AppCompatDialogFragment {
         recipeName = recipeNameEdit.getText().toString();
         cookingInstructions = cookingInstructionsEdit.getText().toString();
 
-        Log.i("Testing Recipe Name", recipeName);
-        Log.i("Testing Instructions", cookingInstructions);
+
 
         for(int i = 0; i < layoutList.getChildCount(); i++)
         {
@@ -94,36 +95,46 @@ public class AddDialog extends AppCompatDialogFragment {
 
             //Store the ingredient name and weight in variables
             ingredientNames[i] = ingredientName.getText().toString();
-            ingredientWeights[i] = Double.parseDouble(ingredientWeight.getText().toString());
-            Log.i("Testing Ingredient List", ingredientNames[i]);
-            Log.i("Testing Weight List", ingredientWeights[i].toString());
+            try {
+                ingredientWeights[i] = Double.parseDouble(ingredientWeight.getText().toString());
+            } catch(NumberFormatException nfe ) {
+                hasFailed = true;
+                Messages.warning(view.getContext(),"Bad input to weight field, make it a number");
+            }
+
+
         }
+
+        if(!hasFailed) {
+            AddRecipe.createRecipe(recipeName.toLowerCase(),cookingInstructions,ingredientNames,ingredientWeights);
+        }
+
     }
 
     //Called to add a new row for ingredients
-   private void addView()
-   {
-       View ingredientView = getLayoutInflater().inflate(R.layout.row_add_recipe, null, false);
-       EditText ingredientName = ingredientView.findViewById(R.id.edit_ingredient_name);
-       EditText ingredientWeight = ingredientView.findViewById(R.id.edit_ingredient_weight);
-       ImageView imageClose = ingredientView.findViewById(R.id.image_remove);
+    private void addView()
+    {
+        View ingredientView = getLayoutInflater().inflate(R.layout.row_add_recipe, null, false);
+        EditText ingredientName = ingredientView.findViewById(R.id.edit_ingredient_name);
+        EditText ingredientWeight = ingredientView.findViewById(R.id.edit_ingredient_weight);
+        ImageView imageClose = ingredientView.findViewById(R.id.image_remove);
 
-       imageClose.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               removeView(ingredientView);
-           }
-       });
+        imageClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeView(ingredientView);
+            }
+        });
 
-       layoutList.addView(ingredientView);
+        layoutList.addView(ingredientView);
 
-   }
+    }
 
-   //Remove a specified row of ingredients
-   private void removeView(View view)
-   {
+    //Remove a specified row of ingredients
+    private void removeView(View view)
+    {
         layoutList.removeView(view);
-   }
+    }
 
 
 }

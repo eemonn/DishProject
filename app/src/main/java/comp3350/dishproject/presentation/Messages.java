@@ -6,6 +6,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 
 public class Messages {
+    /*
+    Messages for use when errors occur
+     */
     public static void fatalError(final Context context, String message) {
         AlertDialog alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setTitle("Fatal Error");

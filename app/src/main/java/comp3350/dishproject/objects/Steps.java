@@ -12,21 +12,20 @@ public class Steps {
         this.recipe = recipe;
     }
 
-
-    //getters and setters
-    public void setDirections(String newDirections) {
-        this.directions = newDirections;
-    }
+    //getters
     public String getDirections() {
         return this.directions;
     }
     public String getRecipeID() {return (recipe.getRecipeID());}
+
+    //Setters
+    public void setDirections(String newDirections) {
+        this.directions = newDirections;
+    }
 
     @NonNull
     @Override
     public String toString() {
         return "Steps: " + directions;
     }
-
-
 }
