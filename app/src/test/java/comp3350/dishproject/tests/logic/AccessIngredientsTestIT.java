@@ -61,7 +61,7 @@ public class AccessIngredientsTestIT {
     public void testAddIngredients() {
         int originalSize  = ai.getIngredients(recipeID).size();
         Ingredient i1 = new Ingredient("Fries",2,50,150,r.getRecipeID());
-        ai.addIngredients(i1,recipeID,ar.getAllRecipes());
+        ai.addIngredients(i1,recipeID);
         int newSize  = ai.getIngredients(recipeID).size();
         Assert.assertTrue("Ingredient should of been added so size + 1",originalSize+1 == newSize);
 
@@ -72,7 +72,7 @@ public class AccessIngredientsTestIT {
         int originalSize  = ai.getIngredients(recipeID).size();
         Ingredient i1 = new Ingredient("Mustard",1,23,123,r.getRecipeID());
         String badRecipeID = "124235";
-        ai.addIngredients(i1,badRecipeID,ar.getAllRecipes());
+        ai.addIngredients(i1,badRecipeID);
         int newSize  = ai.getIngredients(recipeID).size();
         Assert.assertFalse("Ingredient should of been added so size is still size",originalSize+1 == newSize);
     }

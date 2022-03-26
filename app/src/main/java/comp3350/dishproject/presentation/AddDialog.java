@@ -99,14 +99,14 @@ public class AddDialog extends AppCompatDialogFragment {
                 hasFailed = true;
                 Messages.warning(view.getContext(),"Bad input to weight field, make it a number");
             }
-
-
         }
-
         if(!hasFailed) {
-            AddRecipe.createRecipe(recipeName.toLowerCase(),cookingInstructions,ingredientNames,ingredientWeights);
+            try {
+                AddRecipe.createRecipe(recipeName.toLowerCase(), cookingInstructions, ingredientNames, ingredientWeights);
+            } catch(Exception e) {
+                Messages.warning(view.getContext(),e.getMessage());
+            }
         }
-
     }
 
     //Called to add a new row for ingredients

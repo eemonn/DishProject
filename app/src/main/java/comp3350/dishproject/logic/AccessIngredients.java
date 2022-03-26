@@ -38,10 +38,8 @@ public class AccessIngredients {
      Output: void function
      Description: Allows the addition of an ingredient to a given recipe
       */
-    public void addIngredients(Ingredient ingredient, final String recipeID,List<Recipe> allRecipes) {
-        if(RecipeValidator.validateRecipeID(recipeID,allRecipes)) {
-            ingredientPersistence.addIngredients(ingredient, recipeID);
-        }
+    public boolean addIngredients(Ingredient ingredient, final String recipeID) {
+        return ingredientPersistence.addIngredients(ingredient, recipeID);
     }
 
 

@@ -53,29 +53,30 @@ public class StepsPersistenceStub implements StepsPersistence {
 
     /*
     Input: takes in a string of the recipe ID and a string of new directions
-    Output: void
+    Output: boolean
     Description: updates a recipes directions
      */
     @Override
-    public void updateDirections(final String recipeID, String newDirections) {
+    public boolean updateDirections(final String recipeID, String newDirections) {
         for(int i=0;i<directions.size();i++) {
             Steps s = directions.get(i);
             if(s.getRecipeID().equals(recipeID)) {
                 s.setDirections(newDirections);
+                return true;
             }
         }
+        return false;
     }
 
     /*
     Input: String of directions and recipe object
-    Output: void
+    Output: boolean
     Description: adds steps of a given new recipe
      */
     @Override
     public boolean insertSteps(final String directions,Recipe r){
-        int originalQuantity = this.directions.size();
-        this.directions.add(new Steps(directions,r.getRecipeID()));
-        if(this.directions.size() == originalQuantity + 1) {
+        if(getDirections(r.getRecipeID()).equals("No Directions")) {
+            this.directions.add(new Steps(directions,r.getRecipeID()));
             return true;
         } else {
             return false;

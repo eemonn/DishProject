@@ -22,7 +22,6 @@ import java.util.List;
 
 import comp3350.dishproject.R;
 import comp3350.dishproject.logic.AccessRecipes;
-import comp3350.dishproject.logic.RecipeValidator;
 import comp3350.dishproject.objects.Recipe;
 import comp3350.dishproject.persistence.utils.DBHelper;
 
@@ -208,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newCharacterString) {//every change of character
                 updateDishList();
-                ArrayList<String> filtered = RecipeValidator.filterSearchSuggestions(newCharacterString,dishes);
+                ArrayList<String> filtered = filterSearchSuggestions(newCharacterString,dishes);
                 //Clearing search suggestions and adding everything found in user filtering
                 searchSuggestions.clear();
                 searchSuggestions.addAll(filtered);
@@ -279,6 +278,19 @@ public class MainActivity extends AppCompatActivity {
         }
         params.height = scalingFactor * item.getMeasuredHeight();//height of listview search suggestion box is either 1 element tall, 2 elements tall, or 3 element tall and
         //makes the user scroll down for more suggestions
+    }
+
+    public static ArrayList<String> filterSearchSuggestions(String searchQuery, String[] dishes) {
+        ArrayList<String> filtered = new ArrayList<>();
+        for (String dish : dishes) {
+            String[] stringsToCheck = dish.split(" ");//Example: For dish of Chicken Parm, a search query of "Parm" will return Chicken Parm
+            for (String s : stringsToCheck) {
+                if (s.toLowerCase().contains(searchQuery.toLowerCase())) {//only lowercase cleaning
+                    filtered.add(dish);
+                }
+            }
+        }
+        return filtered;
     }
 
 

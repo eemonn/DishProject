@@ -10,6 +10,6 @@ public interface RecipePersistence {
     Recipe getRecipe(final String recipeID);
     String findRecipeID(final String recipeName);
     boolean insertRecipe(Recipe newRecipe);
-    void deleteRecipe(String recipeID);
-    void changeRating(double rating,String recipeID);
+    boolean deleteRecipe(String recipeID);
+    boolean changeRating(double rating,String recipeID);
 }

@@ -1,29 +1,36 @@
 package comp3350.dishproject.tests.logic;
 
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import comp3350.dishproject.application.Services;
 import comp3350.dishproject.logic.ShowRecipe;
 import comp3350.dishproject.objects.Ingredient;
 import comp3350.dishproject.objects.Recipe;
+import comp3350.dishproject.tests.utils.TestUtils;
 
 
-public class ShowRecipeTest {
+public class ShowRecipeTestIT {
     private Recipe r;
     private Ingredient i1;
     private Ingredient i2;
     private Ingredient i3;
     private ShowRecipe sr;
     List<Ingredient> li;
+    private File tempDB;
 
 
     @Before
-    public void setUp() {
+    public void setUp() throws IOException {
+        this.tempDB = TestUtils.copyDB();
         r = new Recipe("Pizza","100",5);
         i1 = new Ingredient("Cheese",1,20,50,r.getRecipeID());
         i2 = new Ingredient("Dough",1,20,50,r.getRecipeID());
@@ -78,6 +85,9 @@ public class ShowRecipeTest {
         Assert.assertEquals("Lengths(number of ingredients) should be the same",li.size(),sr.getIngredientListName().length);
     }
 
-
-
+    @After
+    public void tearDown() {
+        this.tempDB.delete();
+        Services.clean();
+    }
 }

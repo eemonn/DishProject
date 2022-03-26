@@ -35,8 +35,8 @@ public class AccessSteps {
     Output: void
     Description: updates a recipes directions
      */
-    public void updateDirections(final String recipeID, String newDirections) {
-        stepPersistence.updateDirections(recipeID,newDirections);
+    public boolean updateDirections(final String recipeID, String newDirections) {
+        return stepPersistence.updateDirections(recipeID,newDirections);
     }
 
     /*
@@ -45,7 +45,6 @@ public class AccessSteps {
     Description: inserts a recipes directions
     */
     public boolean insertSteps(final String directions, Recipe r) {
-        stepPersistence.insertSteps(directions,r);
-        return true;
+        return stepPersistence.insertSteps(directions,r);
     }
 }

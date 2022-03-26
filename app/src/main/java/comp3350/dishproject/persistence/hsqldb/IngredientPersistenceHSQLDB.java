@@ -5,18 +5,24 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 
 import comp3350.dishproject.objects.Ingredient;
+import comp3350.dishproject.objects.Recipe;
 import comp3350.dishproject.persistence.IngredientPersistence;
 
 public class IngredientPersistenceHSQLDB implements IngredientPersistence {
 
     private final String dbPath;
+    private final List<String> recipeIDs;
+
     public IngredientPersistenceHSQLDB(final String dbPath) {
         this.dbPath = dbPath;
+        this.recipeIDs = new ArrayList<>();
+        loadRecipesIDs();
     }
 
     private Connection connection() throws SQLException {
@@ -32,11 +38,27 @@ public class IngredientPersistenceHSQLDB implements IngredientPersistence {
         return new Ingredient(ingredientName,ingredientQuantity,ingredientWeight,ingredientCalorie,recipeID);
     }
 
+    private void loadRecipesIDs(){
+        try(final Connection c=connection()){
+            final Statement st = c.createStatement();
+            final ResultSet rs = st.executeQuery("SELECT * FROM RECIPES");
+            while (rs.next()) {
+                String recipeID = rs.getString("RECIPEID");
+                recipeIDs.add(recipeID);
+            }
+            rs.close();
+            st.close();
+        }catch (final SQLException e){
+            throw new PersistenceException(e);
+        }
+    }
+
     /*
     Input: String of recipe ID
     Output: returns a list of ingredients
     Description: returns a list of ingredients for a given recipe
     */
+    @Override
     public List<Ingredient> getIngredients(final String recipeID) {
         final List<Ingredient> ingredients= new ArrayList<>();
 
@@ -59,22 +81,28 @@ public class IngredientPersistenceHSQLDB implements IngredientPersistence {
 
     /*
     Input: takes in a ingredient object and string recipe ID
-    Output: void
+    Output: boolean
     Description: Adds ingredients for a given recipeID
     */
-    public void addIngredients(Ingredient i, final String recipeID) {
+    @Override
+    public boolean addIngredients(Ingredient i, final String recipeID) {
         try (final Connection c = connection()) {
-            final PreparedStatement st = c.prepareStatement("INSERT INTO INGREDIENTS VALUES(?,?,?,?,?)");
-            st.setString(1, i.getName());
-            st.setInt(2, i.getQuantity());
-            st.setDouble(3, i.getWeight());
-            st.setDouble(4, i.getCalorie());
-            st.setString(5, i.getRecipeID());
+            loadRecipesIDs();
+            if(recipeIDs.contains(recipeID)) {
+                final PreparedStatement st = c.prepareStatement("INSERT INTO INGREDIENTS VALUES(?,?,?,?,?)");
+                st.setString(1, i.getName());
+                st.setInt(2, i.getQuantity());
+                st.setDouble(3, i.getWeight());
+                st.setDouble(4, i.getCalorie());
+                st.setString(5, i.getRecipeID());
 
-            st.executeUpdate();
-
+                st.executeUpdate();
+                st.close();
+                return true;
+            }
         } catch (final SQLException e) {
             throw new PersistenceException(e);
         }
+        return false;
     }
 }

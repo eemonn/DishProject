@@ -10,6 +10,7 @@ import comp3350.dishproject.persistence.IngredientPersistence;
 public class IngredientPersistenceStub implements IngredientPersistence {
     List<List<Ingredient>> ingredients;
     List<Recipe> recipes;
+    List<String> recipeIDs;
 
     /*
     Description: Constructor
@@ -17,6 +18,7 @@ public class IngredientPersistenceStub implements IngredientPersistence {
     public IngredientPersistenceStub() {
         this.ingredients = new ArrayList<>();
         this.recipes = new ArrayList<>();
+        this.recipeIDs = new ArrayList<>();
 
         final Recipe burger = new Recipe("Burger", "100",5);
         final Recipe pizza = new Recipe("Pizza", "200",4);
@@ -24,10 +26,15 @@ public class IngredientPersistenceStub implements IngredientPersistence {
         final Recipe pancake = new Recipe("Pancake", "400",1);
         final Recipe fish = new Recipe("Fish", "500",1.5);
         recipes.add(burger);
+        recipeIDs.add(burger.getRecipeID());
         recipes.add(pizza);
+        recipeIDs.add(pizza.getRecipeID());
         recipes.add(taco);
+        recipeIDs.add(taco.getRecipeID());
         recipes.add(pancake);
+        recipeIDs.add(pancake.getRecipeID());
         recipes.add(fish);
+        recipeIDs.add(fish.getRecipeID());
 
         List<Ingredient> burgerIngredients = new ArrayList<>();
         burgerIngredients.add(new Ingredient("Bun", 5,23,3, burger.getRecipeID()));
@@ -80,24 +87,26 @@ public class IngredientPersistenceStub implements IngredientPersistence {
 
     /*
     Input: takes in a ingredient object and string recipe ID
-    Output: void
+    Output: boolean
     Description: Adds ingredients for a given recipeID
     */
-    public void addIngredients(Ingredient ing, final String recipeID) {
+    public boolean addIngredients(Ingredient ing, final String recipeID) {
         boolean previousIngredient = false;
         for (int i = 0; i < ingredients.size(); i++) {
             List<Ingredient> in = ingredients.get(i);
             if (in.get(0).getRecipeID().equals(recipeID)) {
                 in.add(ing);
                 previousIngredient = true;
-
             }
         }
-        if (!previousIngredient) {
+
+        if (!previousIngredient ) {
             List<Ingredient> newIngredients = new ArrayList<>();
             newIngredients.add(ing);
             ingredients.add(newIngredients);
+
         }
+        return true;
     }
 
 }

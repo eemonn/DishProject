@@ -46,12 +46,8 @@ public class AccessRecipes {
     Description: Attempts to add a recipe into the system
      */
     public boolean insertRecipe(Recipe newRecipe) {
-        if(!RecipeValidator.validateRecipeID(newRecipe.getRecipeID(),getAllRecipes())) {
-            return recipePersistence.insertRecipe(newRecipe);
-        }
-        return false;
+        return recipePersistence.insertRecipe(newRecipe);
     }
-
 
 
     /*
@@ -68,17 +64,13 @@ public class AccessRecipes {
     Output: void
     Description: deletes a recipe object from the system
      */
-    public void deleteRecipe(String recipeID){
-        if(RecipeValidator.validateRecipeID(recipeID,getAllRecipes())) {
-            recipePersistence.deleteRecipe(recipeID);
-        }
+    public boolean deleteRecipe(String recipeID){
+        return recipePersistence.deleteRecipe(recipeID);
     }
 
 
-    public void changeRating(double rating,String recipeID) {
-        if(RecipeValidator.validateRecipeID(recipeID,getAllRecipes())) {
-            recipePersistence.changeRating(rating,recipeID);
-        }
+    public boolean changeRating(double rating,String recipeID) {
+        return recipePersistence.changeRating(rating,recipeID);
     }
 
 }
