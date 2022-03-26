@@ -42,9 +42,10 @@ public class ShowRecipe {
      */
     public void updateIngredients(int scaleFactor) {
         for(int i=0;i<ingredientsOfRecipe.size();i++){
-            ingredientsOfRecipe.get(i).setWeight(ingredientsOfRecipe.get(i).getInitWeight()*scaleFactor);
-            ingredientsOfRecipe.get(i).setCalorie(ingredientsOfRecipe.get(i).getInitCal()*scaleFactor);
-            ingredientsOfRecipe.get(i).setQuantity(ingredientsOfRecipe.get(i).getInitQuantity()*scaleFactor);
+            Ingredient ingredient = ingredientsOfRecipe.get(i);
+            ingredient.setWeight(ingredient.getInitWeight()*scaleFactor);
+            ingredient.setCalorie(ingredient.getInitCal()*scaleFactor);
+            ingredient.setQuantity(ingredient.getInitQuantity()*scaleFactor);
         }
     }
 
@@ -97,17 +98,19 @@ public class ShowRecipe {
      */
     public String [] getIngredientListName(){
         String []m = new String[10];
-        int x=0;
+        int size=0;
+
         for(int i=0;i<ingredientsOfRecipe.size();i++){
-            m[i]=ingredientsOfRecipe.get(i).getName()+" Amount: "+
-                    ingredientsOfRecipe.get(i).getQuantity()+" Calorie: "+
-                    ingredientsOfRecipe.get(i).getCalorie()+" Weight: "+
-                    ingredientsOfRecipe.get(i).getWeight()
+            Ingredient ingredient = ingredientsOfRecipe.get(i);
+            m[i]= ingredient.getName()+" Amount: "+
+                    ingredient.getQuantity()+" Calorie: "+
+                    ingredient.getCalorie()+" Weight: "+
+                    ingredient.getWeight()
             ;
-            x++;
+            size++;
         }
-        String [] mm=new String[x];
-        System.arraycopy(m, 0, mm, 0, x);
+        String [] mm=new String[size];
+        System.arraycopy(m, 0, mm, 0, size);
         return mm;
     }
 

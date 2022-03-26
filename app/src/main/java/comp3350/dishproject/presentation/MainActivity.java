@@ -2,14 +2,12 @@ package comp3350.dishproject.presentation;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,7 +19,6 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 import comp3350.dishproject.R;
 import comp3350.dishproject.logic.AccessRecipes;
@@ -32,6 +29,8 @@ import comp3350.dishproject.persistence.utils.DBHelper;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.annotation.NonNull;
+
+import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
     private static final int SCROLLING_SPEED_FRICTION = 350;//modifies scrolling speed for search suggestion box
@@ -50,18 +49,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         DBHelper.copyDatabaseToDevice(this);
 
-        //navigation bar activities
-        drawerLayout = findViewById(R.id.drawer_layout);
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
-                R.string.nav_open, R.string.nav_close);
-
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
-        actionBarDrawerToggle.syncState();
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
-        //we need call to db
+        //Update the list of recipes at startup
         updateDishList();
 
         //Setup recycler view with the adapter (shows cards on main screen)
@@ -79,19 +67,56 @@ public class MainActivity extends AppCompatActivity {
         Adapter adapter = new Adapter(this, mlist);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager((new LinearLayoutManager(this)));
+
+        //Inits
         initializeSearchSuggestionBox();
+        initializeNavigationBar();
+        setNavigationOnClick();
 
     }
 
-    /* the item click listener callback
-     to open and close the navigation
-     drawer when the icon is clicked*/
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    /*
+    Input: No input
+    Output: void function
+    Description: initializes the navigation bar
+     */
+    public void initializeNavigationBar() {
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
+                R.string.nav_open, R.string.nav_close);
+        actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
 
-        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    /*
+    Input: No input
+    Output: void function
+    Description:  This method will act as a listener for the nav bar allowing the user to go to add a recipe
+     */
+    public void setNavigationOnClick() {
+        final NavigationView nv = (NavigationView) findViewById(R.id.nav_view);
+        nv.bringToFront();
+        nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                if(id == R.id.nav_add_recipe) {
+                    openDialog();
+                }
+                return true;
+            }
+        });
+    }
+
+    /*
+    Input: Menuitem item
+    Output: returns true if clicked
+    Description: be used in opening the nav bar
+     */
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
     /*
@@ -116,8 +141,8 @@ public class MainActivity extends AppCompatActivity {
     Description: updates the local dish array with the latest adds(recipes) and formats it into string array
      */
     public void updateDishList() {
-        AccessRecipes db = new AccessRecipes();
-        List<Recipe> rr = db.getAllRecipes();
+        AccessRecipes ar = new AccessRecipes();
+        List<Recipe> rr = ar.getAllRecipes();
         dishes = new String[rr.size()];
         for(int i=0;i<rr.size();i++) {
             Recipe r = rr.get(i);
@@ -146,12 +171,11 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-        AccessRecipes Ar = new AccessRecipes();
 
         final SearchView searchView = (SearchView) menuItem.getActionView();//returns currently set action view
         searchView.setQueryHint("Search for Dish");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
+            AccessRecipes ar = new AccessRecipes();
             /*
             Input: Takes in a string s. This string will be the typed string once the user hits enter.
             Output: returns true if done successfully
@@ -161,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String enteredString) {
 
 
-                if (Ar.getRecipe(Ar.findRecipeID(enteredString.toLowerCase())) != null) {
+                if (ar.getRecipe(ar.findRecipeID(enteredString.toLowerCase())) != null) {
                     String dishName = enteredString.toLowerCase();
                     searchView.clearFocus();
                     Intent intent = new Intent(MainActivity.this, ViewRecipe.class);

@@ -42,7 +42,7 @@ public class AddRecipe {
         for(int i =0;i<ingredientNames.length;i++) {
             int quantity = rand.nextInt(1000);
             double calorie = (double) rand.nextInt(1000);
-            Ingredient ingredient = new Ingredient(ingredientNames[i],quantity,ingredientWeights[i],calorie,r);
+            Ingredient ingredient = new Ingredient(ingredientNames[i],quantity,ingredientWeights[i],calorie,r.getRecipeID());
             ai.addIngredients(ingredient,recipeID,ar.getAllRecipes());
         }
         as.insertSteps(cookingInstructions,r);

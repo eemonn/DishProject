@@ -76,7 +76,7 @@ public class RecipePersistenceHSQLDB implements RecipePersistence {
         } catch (final SQLException e) {
             throw new PersistenceException(e);
         }
-        return null;
+        return new Recipe("Null","1",1);
     }
 
     /*

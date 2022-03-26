@@ -47,7 +47,7 @@ public class RecipePersistenceStub implements RecipePersistence {
                 return r;
             }
         }
-        return null;
+        return new Recipe("Null","1",1);
     }
 
     /*

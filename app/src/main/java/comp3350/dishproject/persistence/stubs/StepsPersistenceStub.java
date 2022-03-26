@@ -28,11 +28,11 @@ public class StepsPersistenceStub implements StepsPersistence {
         final String d4 = "Cook batter and put syrup and butter on top";
         final String d5 = "Put salt on fish and cook";
 
-        this.directions.add(new Steps(d1,burger));
-        this.directions.add(new Steps(d2,pizza));
-        this.directions.add(new Steps(d3,taco));
-        this.directions.add(new Steps(d4,pancake));
-        this.directions.add(new Steps(d5,fish));
+        this.directions.add(new Steps(d1,burger.getRecipeID()));
+        this.directions.add(new Steps(d2,pizza.getRecipeID()));
+        this.directions.add(new Steps(d3,taco.getRecipeID()));
+        this.directions.add(new Steps(d4,pancake.getRecipeID()));
+        this.directions.add(new Steps(d5,fish.getRecipeID()));
     }
 
     /*
@@ -74,7 +74,7 @@ public class StepsPersistenceStub implements StepsPersistence {
     @Override
     public boolean insertSteps(final String directions,Recipe r){
         int originalQuantity = this.directions.size();
-        this.directions.add(new Steps(directions,r));
+        this.directions.add(new Steps(directions,r.getRecipeID()));
         if(this.directions.size() == originalQuantity + 1) {
             return true;
         } else {

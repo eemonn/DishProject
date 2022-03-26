@@ -17,7 +17,7 @@ public class StepsTest {
     public void setUp() {
          r = new Recipe("Pizza","100",5);
          directions = "Cook the dish";
-         s = new Steps(directions,r);
+         s = new Steps(directions,r.getRecipeID());
     }
 
     @Test

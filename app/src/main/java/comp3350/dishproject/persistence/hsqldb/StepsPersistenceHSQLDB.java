@@ -22,9 +22,7 @@ public class StepsPersistenceHSQLDB implements StepsPersistence {
         final String directions = rs.getString("STEPS");
         final String recipedID = rs.getString("RECIPEID");
 
-        final Recipe r= new Recipe(recipedID);
-
-        return new Steps(directions,r);
+        return new Steps(directions,recipedID);
     }
 
     /*
@@ -33,7 +31,6 @@ public class StepsPersistenceHSQLDB implements StepsPersistence {
     Description: returns a string of a given recipes directions
      */
     public String getDirections(final String recipeID) {
-        final String direction ;
         try (final Connection c = connection()) {
             final PreparedStatement st = c.prepareStatement("SELECT * FROM DIRECTIONS WHERE DIRECTIONS.recipeID=?");
             st.setString(1, recipeID);

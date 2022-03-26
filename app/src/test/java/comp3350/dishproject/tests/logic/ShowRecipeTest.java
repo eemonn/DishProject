@@ -25,9 +25,9 @@ public class ShowRecipeTest {
     @Before
     public void setUp() {
         r = new Recipe("Pizza","100",5);
-        i1 = new Ingredient("Cheese",1,20,50,r);
-        i2 = new Ingredient("Dough",1,20,50,r);
-        i3 = new Ingredient("Sauce",1,20,50,r);
+        i1 = new Ingredient("Cheese",1,20,50,r.getRecipeID());
+        i2 = new Ingredient("Dough",1,20,50,r.getRecipeID());
+        i3 = new Ingredient("Sauce",1,20,50,r.getRecipeID());
         li = new ArrayList<>();
         li.add(i1);
         li.add(i2);

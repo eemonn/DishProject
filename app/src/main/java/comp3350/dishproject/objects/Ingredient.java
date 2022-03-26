@@ -1,26 +1,20 @@
 package comp3350.dishproject.objects;
-import androidx.annotation.NonNull;
 
 public class Ingredient {
     //Variables
-    private String name;
-    private double weight;
-    private Recipe recipe;
-    private int quantity;
-    private double calorie;
-    private int initQuantity;
-    public double initCal;
-    public double initWeight;
+    private String name,recipeID;
+    private double weight,calorie, initCal, initWeight;
+    private int quantity, initQuantity;
 
     /*
     Description: Constructor
      */
-    public Ingredient(String name, int quantity, double weight, double calorie, Recipe recipe) {
+    public Ingredient(String name, int quantity, double weight, double calorie, String recipeID) {
         this.name = name;
         this.calorie = calorie;
         this.quantity = quantity;
         this.weight = weight;
-        this.recipe = recipe;
+        this.recipeID = recipeID;
         this.initCal=calorie;
         this.initQuantity=quantity;
         this.initWeight=weight;
@@ -42,7 +36,7 @@ public class Ingredient {
     public double getCalorie() {
         return this.calorie;
     }
-    public String getRecipeID(){return recipe.getRecipeID();}
+    public String getRecipeID(){return recipeID;}
     public double getWeight() {
         return weight;
     }
@@ -71,7 +65,6 @@ public class Ingredient {
     /*
      Description: replacing the toString method
      */
-    @NonNull
     @Override
     public String toString() {
         return "Ingredient{" +

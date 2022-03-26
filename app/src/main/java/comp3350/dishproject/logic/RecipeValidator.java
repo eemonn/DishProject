@@ -6,7 +6,6 @@ import java.util.List;
 import comp3350.dishproject.objects.Recipe;
 
 public class RecipeValidator {
-    AccessRecipes ar = new AccessRecipes();
 
     /*
     Input: takes in a string of a dish name

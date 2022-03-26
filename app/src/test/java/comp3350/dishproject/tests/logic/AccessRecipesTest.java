@@ -57,14 +57,14 @@ public class AccessRecipesTest {
         String badRecipeID = "87138975";
 
         Assert.assertNotNull("Should return a recipe",ar.getRecipe(recipeID));
-        Assert.assertNull("Should return a recipe",ar.getRecipe(badRecipeID));
+        Assert.assertTrue("Should return a recipe with name Null",ar.getRecipe(badRecipeID).getName().equals("Null"));
     }
 
     @Test
     public void testDeleteRecipe(){
         String recipeID = "100";//burger
         ar.deleteRecipe("100");
-        Assert.assertNull("Should not return a recipe",ar.getRecipe(recipeID));
+        Assert.assertTrue("Should return a recipe with name Null",ar.getRecipe(recipeID).getName().equals("Null"));
     }
 
     @Test

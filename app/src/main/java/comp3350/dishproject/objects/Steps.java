@@ -1,29 +1,26 @@
 package comp3350.dishproject.objects;
 
-import androidx.annotation.NonNull;
-
 public class Steps {
     private String directions;
-    private Recipe recipe;
+    private final String recipeID;
 
-    public Steps(String directions, final Recipe recipe)
+    public Steps(String directions, final String recipeID)
     {
         this.directions = directions;
-        this.recipe = recipe;
+        this.recipeID = recipeID;
     }
 
     //getters
     public String getDirections() {
         return this.directions;
     }
-    public String getRecipeID() {return (recipe.getRecipeID());}
+    public String getRecipeID() {return (this.recipeID);}
 
     //Setters
     public void setDirections(String newDirections) {
         this.directions = newDirections;
     }
 
-    @NonNull
     @Override
     public String toString() {
         return "Steps: " + directions;

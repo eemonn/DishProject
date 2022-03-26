@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import comp3350.dishproject.logic.AccessRecipes;
+
 import comp3350.dishproject.objects.Ingredient;
 import comp3350.dishproject.persistence.IngredientPersistence;
 
@@ -23,13 +23,13 @@ public class IngredientPersistenceHSQLDB implements IngredientPersistence {
         return DriverManager.getConnection("jdbc:hsqldb:file:" + dbPath + ";shutdown=true", "SA", "");
     }
     private Ingredient fromResultSet(final ResultSet rs) throws SQLException{
-        AccessRecipes ar = new AccessRecipes();
+
         final String ingredientName= rs.getString("NAME");
         final int ingredientQuantity= rs.getInt("QUANTITY");
         final double ingredientWeight= rs.getDouble("WEIGHT");
         final double ingredientCalorie= rs.getDouble("CALORIE");
         final String recipeID= rs.getString("RECIPEID");
-        return new Ingredient(ingredientName,ingredientQuantity,ingredientWeight,ingredientCalorie,ar.getRecipe(recipeID));
+        return new Ingredient(ingredientName,ingredientQuantity,ingredientWeight,ingredientCalorie,recipeID);
     }
 
     /*

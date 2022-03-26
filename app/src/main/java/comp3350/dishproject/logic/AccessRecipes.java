@@ -1,15 +1,8 @@
 package comp3350.dishproject.logic;
 
-import android.util.Log;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-
 import comp3350.dishproject.application.Services;
-import comp3350.dishproject.objects.Ingredient;
 import comp3350.dishproject.objects.Recipe;
-
 import comp3350.dishproject.persistence.RecipePersistence;
 
 public class AccessRecipes {
@@ -67,10 +60,7 @@ public class AccessRecipes {
     Description: finds a recipe by its recipe ID
      */
     public Recipe getRecipe(final String recipeID) {
-        if(RecipeValidator.validateRecipeID(recipeID,getAllRecipes())) {
-            return recipePersistence.getRecipe(recipeID);
-        }
-        return null;
+        return recipePersistence.getRecipe(recipeID);
     }
 
     /*

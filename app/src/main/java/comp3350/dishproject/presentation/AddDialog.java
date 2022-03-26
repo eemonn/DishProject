@@ -14,14 +14,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import comp3350.dishproject.R;
-import comp3350.dishproject.logic.AccessRecipes;
 import comp3350.dishproject.logic.AddRecipe;
 
 public class AddDialog extends AppCompatDialogFragment {
 
     LinearLayout layoutList;
     Button buttonAdd;
-    AccessRecipes ar = new AccessRecipes();
 
     /*
     Input: instance State

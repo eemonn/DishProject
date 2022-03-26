@@ -18,7 +18,7 @@ public class IngredientTest {
     @Before
     public void setUp() {
         r = new Recipe("Fruit", "100",5);
-        ingredient=new Ingredient("Apple",  1, 200.0,180.0,r);
+        ingredient=new Ingredient("Apple",  1, 200.0,180.0,r.getRecipeID());
     }
 
     @Test
@@ -74,9 +74,9 @@ public class IngredientTest {
     }
     @Test
     public void testIsEqual(){
-        assert(ingredient.isEqual(new Ingredient("Apple",1, 200.0,180.0,r)));
-        assert(ingredient.isEqual(new Ingredient("Apple",10, 203.0,180.0,r)));
-        assert(!ingredient.isEqual(new Ingredient("Banana",1, 200.0,180.0,r)));
+        assert(ingredient.isEqual(new Ingredient("Apple",1, 200.0,180.0,r.getRecipeID())));
+        assert(ingredient.isEqual(new Ingredient("Apple",10, 203.0,180.0,r.getRecipeID())));
+        assert(!ingredient.isEqual(new Ingredient("Banana",1, 200.0,180.0,r.getRecipeID())));
     }
     @Test
     public void testToString(){

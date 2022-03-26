@@ -11,13 +11,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.List;
-import java.util.Locale;
-
 import comp3350.dishproject.R;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.myViewHolder> {
@@ -63,7 +59,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.myViewHolder> {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, ViewRecipe.class);
-                intent.putExtra("search",mData.get(position).getRecipeName().toLowerCase(Locale.ROOT));
+                intent.putExtra("search",mData.get(position).getRecipeName().toLowerCase());
                 mContext.startActivity(intent);
             }
         });

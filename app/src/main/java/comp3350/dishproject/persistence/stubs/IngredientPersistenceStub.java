@@ -30,32 +30,32 @@ public class IngredientPersistenceStub implements IngredientPersistence {
         recipes.add(fish);
 
         List<Ingredient> burgerIngredients = new ArrayList<>();
-        burgerIngredients.add(new Ingredient("Bun", 5,23,3, burger));
-        burgerIngredients.add(new Ingredient("Beef",5,23,3,burger));
-        burgerIngredients.add(new Ingredient("Cheese",5,23,3, burger));
+        burgerIngredients.add(new Ingredient("Bun", 5,23,3, burger.getRecipeID()));
+        burgerIngredients.add(new Ingredient("Beef",5,23,3,burger.getRecipeID()));
+        burgerIngredients.add(new Ingredient("Cheese",5,23,3, burger.getRecipeID()));
         ingredients.add(burgerIngredients);
 
         List<Ingredient> pizzaIngredients = new ArrayList<>();
-        pizzaIngredients.add(new Ingredient("Dough",5,23,3, pizza));
-        pizzaIngredients.add(new Ingredient("Pizza Sauce",5,23,3, pizza));
-        pizzaIngredients.add(new Ingredient("Cheese",5,23,3, pizza));
+        pizzaIngredients.add(new Ingredient("Dough",5,23,3, pizza.getRecipeID()));
+        pizzaIngredients.add(new Ingredient("Pizza Sauce",5,23,3, pizza.getRecipeID()));
+        pizzaIngredients.add(new Ingredient("Cheese",5,23,3, pizza.getRecipeID()));
         ingredients.add(pizzaIngredients);
 
         List<Ingredient> tacoIngredients = new ArrayList<>();
-        tacoIngredients.add(new Ingredient("Shell",5,23,3, taco));
-        tacoIngredients.add(new Ingredient("Beef",5,23,3, taco));
-        tacoIngredients.add(new Ingredient("Cheese",5,23,3, taco));
+        tacoIngredients.add(new Ingredient("Shell",5,23,3, taco.getRecipeID()));
+        tacoIngredients.add(new Ingredient("Beef",5,23,3, taco.getRecipeID()));
+        tacoIngredients.add(new Ingredient("Cheese",5,23,3, taco.getRecipeID()));
         ingredients.add(tacoIngredients);
 
         List<Ingredient> pancakeIngredients = new ArrayList<>();
-        pancakeIngredients.add(new Ingredient("Batter",5,23,3, pancake));
-        pancakeIngredients.add(new Ingredient("Syrup",5,23,3, pancake));
-        pancakeIngredients.add(new Ingredient("Butter",5,23,3, pancake));
+        pancakeIngredients.add(new Ingredient("Batter",5,23,3, pancake.getRecipeID()));
+        pancakeIngredients.add(new Ingredient("Syrup",5,23,3, pancake.getRecipeID()));
+        pancakeIngredients.add(new Ingredient("Butter",5,23,3, pancake.getRecipeID()));
         ingredients.add(pancakeIngredients);
 
         List<Ingredient> fishIngredients = new ArrayList<>();
-        fishIngredients.add(new Ingredient("Salmon",5,23,3, fish));
-        fishIngredients.add(new Ingredient("Salt",5,23,3, fish));
+        fishIngredients.add(new Ingredient("Salmon",5,23,3, fish.getRecipeID()));
+        fishIngredients.add(new Ingredient("Salt",5,23,3, fish.getRecipeID()));
         ingredients.add(fishIngredients);
     }
 
