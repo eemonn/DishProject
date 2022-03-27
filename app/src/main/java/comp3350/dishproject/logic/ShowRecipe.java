@@ -9,8 +9,8 @@ public class ShowRecipe {
     private final Recipe recipe;
     private final String recipeID;
     List<Ingredient> ingredientsOfRecipe;
-    AccessRecipes Ar = new AccessRecipes();
-    AccessIngredients Ai = new AccessIngredients();
+    AccessRecipes Ar;
+    AccessIngredients Ai;
 
     /*
     Input: a recipe object
@@ -19,6 +19,8 @@ public class ShowRecipe {
      */
     public ShowRecipe(Recipe r) {
         this.recipe = r;
+        Ar = new AccessRecipes();
+        Ai = new AccessIngredients();
         recipeID = Ar.findRecipeID(recipe.getName());
         ingredientsOfRecipe = Ai.getIngredients(recipeID);
     }
