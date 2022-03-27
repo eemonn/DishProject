@@ -48,6 +48,7 @@ Links:
 ## Iteration 1 Feedback fixes
 ---
 
-Provide a link to an issue opened by the grader.
+[Issue 1](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/issues/56) was about having Android specific annotation (import androidx.annotation.NonNull;) in Ingredient and Recipe classes.It was a code smell because it was increasing coupling. We have removed the annotation from both of the class. 
 
-Explain what the issue was, and why it was flagged. Explain what you did to refactor or fix your code to address the issue. Provide links to the commits where you fixed the issue.
+[Issue 2](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/issues/55) was about not storing a result in a variable which was later called multiple times in a loop. For instances, In the ShowRecipe class “recipe.getIngredientArrayList().get(i)” was called multiple times in a loop which instead could have been stored in a variable. We have refactored the code and stored it in a variable instead of calling "getIngredientArrayList().get(i)"  each time. 
+
