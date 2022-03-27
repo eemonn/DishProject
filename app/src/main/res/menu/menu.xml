@@ -2,10 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/add_recipe"
-        android:title="Add+"
-        app:showAsAction="always" />
+
     <item
         android:id="@+id/action_search"
         android:title="Search"
