@@ -270,6 +270,11 @@ public class MainActivity extends AppCompatActivity {
         //makes the user scroll down for more suggestions
     }
 
+    /*
+    Input: takes in a dish name and a string array of dish names
+    Output: returns a filtered list of all dish names that match the searchquery
+    Description: Filters our search results based on the searchquery
+     */
     public static ArrayList<String> filterSearchSuggestions(String searchQuery, String[] dishes) {
         ArrayList<String> filtered = new ArrayList<>();
         for (String dish : dishes) {
