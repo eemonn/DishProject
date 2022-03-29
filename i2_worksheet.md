@@ -13,6 +13,7 @@ Show two instances of your group paying off technical debt. For these two instan
 **Fake database**
 
 We payed off our technical debt with our fake database when we implemented our HSQLDB 
+
 The debt would likely be Prudent Deliberate.
 - The reason for this is because we knew that we would be taking on technical debt by implementing a fake database in iteration 1 and we decided to do it anyways to prioritize other features. We had to make a significant amount of changes when we implemented the real database, but using the fake DB allowed us to get our foundations down quickly. 
 
