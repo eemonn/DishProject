@@ -22,6 +22,17 @@ Provide a link to the issue you created here.
 
 Describe how the retrospective has changed the way you are doing your project. Is there evidence of the change in estimating/committing/peer review/timelines/testing? Provide those links and evidence here - or explain why there is not evidence.
 
+In the past iteration we have a bit communication gap between team members because not all the team members are located in the same time zone. Name of the different time zones are following:
+
+[Winnipeg timezone](https://greenwichmeantime.com/time-zone/north-america/canada/manitoba/winnipeg/time/)
+
+[Other timezone](https://greenwichmeantime.com/time/bangladesh/)
+
+
+But we minimized that by communicating well this time and divided up our work, and got our jobs done as best we could. We also came forward and put everything together at the end.
+
+There is no evidence of change in estimating/timelines/testing on GitLab itself but we communicated internally using our own mediums of communication (Discord). 
+
 
 ## Design patterns
 ---
