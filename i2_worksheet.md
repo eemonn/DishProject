@@ -10,14 +10,14 @@ Show two instances of your group paying off technical debt. For these two instan
 - Show commits, links to lines in your commit where you paid off technical debt.
 - Classify the debt, and justify why you chose that classification with 1-3 sentences.
 
-Fake database
------------------
+**Fake database**
+
 We payed off our technical debt with our fake database when we implemented our HSQLDB 
 The debt would likely be Prudent Deliberate.
 - The reason for this is because we knew that we would be taking on technical debt by implementing a fake database in iteration 1 and we decided to do it anyways to prioritize other features. We had to make a significant amount of changes when we implemented the real database, but using the fake DB allowed us to get our foundations down quickly. 
 
-Home cards 
------------
+**Home cards **
+
 This is a rather small technical debt but still debt none the less. The add recipe feature implemented a button so that we could test the dialog and finish the feature, however this button was not what we wanted. We want to have the button in the navigation bar, however, it was better to implement an extra button for now than to halt production until it was done. 
 
 This debt would again be prudent deliberate. 
