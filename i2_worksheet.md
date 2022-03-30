@@ -29,9 +29,10 @@ This debt would again be prudent deliberate.
 ## SOLID
 ---
 
-Find a SOLID violation in the project of group with the same group number in the next class over - (n%3)+1 (A03 does A01) Open an issue in their project with the violation, clearly explaining the SOLID violation - specifying the type, provide a link to that issue. Be sure your links in the issues are to specific commits (not to main, or develop as those will be changed).
-
-Provide a link to the issue you created here.
+Type: Single Responsibility Principle
+Commit: DevUpdate
+Description: Mixing one layer with another layer is a violation of SOLID principles. RecyclerMovieAdapter.java should have been in the presentation layer. Since it contains material from the user interface. It should only hold material for the business layer.
+Link: [SOLID Violation](https://code.cs.umanitoba.ca/winter-2022-a02/group-3/movie-recommendation-app/-/issues/36)
 
 ## Retrospective
 ---
