@@ -8,7 +8,7 @@ Guidelines for contributing to the project. This project will follow a Git flow 
 -  `develop` branch will be used as integration branch for features. This branch will be treated as pre-production should be a working version. No code will be directly added to `develop` without a merge request except for small spelling or very simple code additions(one line max).
 -  When working on a feature, you must create a new branch about that feature and work with that branch.
 -  Once you are done with the feature, make a merge request to `develop`. All code committed must work and include tests.
--  A clean-Dev branch will be made before merging `develop` to `main` that will make sure code matches standards.
+-  A clean-Dev branch will be made before merging `develop` to `main` that will make sure code matches standards. This branch can also be merged into `main`.
 
 ### Branch Naming Conventions
 ---
