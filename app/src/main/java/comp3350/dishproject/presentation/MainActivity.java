@@ -2,14 +2,12 @@ package comp3350.dishproject.presentation;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,17 +19,17 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 import comp3350.dishproject.R;
 import comp3350.dishproject.logic.AccessRecipes;
-import comp3350.dishproject.logic.RecipeValidator;
 import comp3350.dishproject.objects.Recipe;
 import comp3350.dishproject.persistence.utils.DBHelper;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.annotation.NonNull;
+
+import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
     private static final int SCROLLING_SPEED_FRICTION = 350;//modifies scrolling speed for search suggestion box
@@ -50,18 +48,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         DBHelper.copyDatabaseToDevice(this);
 
-        //navigation bar activities
-        drawerLayout = findViewById(R.id.drawer_layout);
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
-                R.string.nav_open, R.string.nav_close);
-
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
-        actionBarDrawerToggle.syncState();
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
-        //we need call to db
+        //Update the list of recipes at startup
         updateDishList();
 
         //Setup recycler view with the adapter (shows cards on main screen)
@@ -79,19 +66,56 @@ public class MainActivity extends AppCompatActivity {
         Adapter adapter = new Adapter(this, mlist);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager((new LinearLayoutManager(this)));
+
+        //Inits
         initializeSearchSuggestionBox();
+        initializeNavigationBar();
+        setNavigationOnClick();
 
     }
 
-    /* the item click listener callback
-     to open and close the navigation
-     drawer when the icon is clicked*/
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    /*
+    Input: No input
+    Output: void function
+    Description: initializes the navigation bar
+     */
+    public void initializeNavigationBar() {
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
+                R.string.nav_open, R.string.nav_close);
+        actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
 
-        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    /*
+    Input: No input
+    Output: void function
+    Description:  This method will act as a listener for the nav bar allowing the user to go to add a recipe
+     */
+    public void setNavigationOnClick() {
+        final NavigationView nv = (NavigationView) findViewById(R.id.nav_view);
+        nv.bringToFront();
+        nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                if(id == R.id.nav_add_recipe) {
+                    openDialog();
+                }
+                return true;
+            }
+        });
+    }
+
+    /*
+    Input: Menuitem item
+    Output: returns true if clicked
+    Description: be used in opening the nav bar
+     */
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
     /*
@@ -116,8 +140,8 @@ public class MainActivity extends AppCompatActivity {
     Description: updates the local dish array with the latest adds(recipes) and formats it into string array
      */
     public void updateDishList() {
-        AccessRecipes db = new AccessRecipes();
-        List<Recipe> rr = db.getAllRecipes();
+        AccessRecipes ar = new AccessRecipes();
+        List<Recipe> rr = ar.getAllRecipes();
         dishes = new String[rr.size()];
         for(int i=0;i<rr.size();i++) {
             Recipe r = rr.get(i);
@@ -136,22 +160,11 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu, menu);//instantiate menu XML files into a menu object, this menu will be
         //a search menu as defined in the XML file menu.xml
         MenuItem menuItem = menu.findItem(R.id.action_search);
-        MenuItem AddRecipe = menu.findItem(R.id.add_recipe);
-
-        //Logic for button press on "Add new recipe"
-        AddRecipe.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                openDialog();
-                return false;
-            }
-        });
-        AccessRecipes Ar = new AccessRecipes();
-
+        
         final SearchView searchView = (SearchView) menuItem.getActionView();//returns currently set action view
         searchView.setQueryHint("Search for Dish");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
+            AccessRecipes ar = new AccessRecipes();
             /*
             Input: Takes in a string s. This string will be the typed string once the user hits enter.
             Output: returns true if done successfully
@@ -161,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String enteredString) {
 
 
-                if (Ar.getRecipe(Ar.findRecipeID(enteredString.toLowerCase())) != null) {
+                if (ar.getRecipe(ar.findRecipeID(enteredString.toLowerCase())) != null) {
                     String dishName = enteredString.toLowerCase();
                     searchView.clearFocus();
                     Intent intent = new Intent(MainActivity.this, ViewRecipe.class);
@@ -184,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newCharacterString) {//every change of character
                 updateDishList();
-                ArrayList<String> filtered = RecipeValidator.filterSearchSuggestions(newCharacterString,dishes);
+                ArrayList<String> filtered = filterSearchSuggestions(newCharacterString,dishes);
                 //Clearing search suggestions and adding everything found in user filtering
                 searchSuggestions.clear();
                 searchSuggestions.addAll(filtered);
@@ -255,6 +268,24 @@ public class MainActivity extends AppCompatActivity {
         }
         params.height = scalingFactor * item.getMeasuredHeight();//height of listview search suggestion box is either 1 element tall, 2 elements tall, or 3 element tall and
         //makes the user scroll down for more suggestions
+    }
+
+    /*
+    Input: takes in a dish name and a string array of dish names
+    Output: returns a filtered list of all dish names that match the searchquery
+    Description: Filters our search results based on the searchquery
+     */
+    public static ArrayList<String> filterSearchSuggestions(String searchQuery, String[] dishes) {
+        ArrayList<String> filtered = new ArrayList<>();
+        for (String dish : dishes) {
+            String[] stringsToCheck = dish.split(" ");//Example: For dish of Chicken Parm, a search query of "Parm" will return Chicken Parm
+            for (String s : stringsToCheck) {
+                if (s.toLowerCase().contains(searchQuery.toLowerCase())) {//only lowercase cleaning
+                    filtered.add(dish);
+                }
+            }
+        }
+        return filtered;
     }
 
 

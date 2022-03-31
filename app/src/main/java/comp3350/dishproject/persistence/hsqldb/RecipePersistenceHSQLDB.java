@@ -16,7 +16,12 @@ import comp3350.dishproject.persistence.RecipePersistence;
 
 public class RecipePersistenceHSQLDB implements RecipePersistence {
     private final String dbPath;
-    public RecipePersistenceHSQLDB(final String dbPath) { this.dbPath = dbPath;}
+    private final List<String> recipeIDs;
+    public RecipePersistenceHSQLDB(final String dbPath) {
+        this.dbPath = dbPath;
+        this.recipeIDs = new ArrayList<>();
+        loadRecipesIDs();
+    }
 
     private Recipe fromResultSet(final ResultSet rs) throws SQLException {
         final String recipeID = rs.getString("RECIPEID");
@@ -29,6 +34,21 @@ public class RecipePersistenceHSQLDB implements RecipePersistence {
 
     private Connection connection() throws SQLException {
         return DriverManager.getConnection("jdbc:hsqldb:file:" + dbPath + ";shutdown=true", "SA", "");
+    }
+
+    private void loadRecipesIDs(){
+        try(final Connection c=connection()){
+            final Statement st = c.createStatement();
+            final ResultSet rs = st.executeQuery("SELECT * FROM RECIPES");
+            while (rs.next()) {
+                String recipeID = rs.getString("RECIPEID");
+                recipeIDs.add(recipeID);
+            }
+            rs.close();
+            st.close();
+        }catch (final SQLException e){
+            throw new PersistenceException(e);
+        }
     }
 
     /*
@@ -76,7 +96,7 @@ public class RecipePersistenceHSQLDB implements RecipePersistence {
         } catch (final SQLException e) {
             throw new PersistenceException(e);
         }
-        return null;
+        return new Recipe("Null","1",1);
     }
 
     /*
@@ -113,12 +133,17 @@ public class RecipePersistenceHSQLDB implements RecipePersistence {
     @Override
     public boolean insertRecipe(Recipe newRecipe) {
         try (final Connection c = connection()) {
-            final PreparedStatement st = c.prepareStatement("INSERT INTO RECIPES VALUES(?, ?, ?)");
-            st.setString(1, newRecipe.getRecipeID());
-            st.setString(2, newRecipe.getName());
-            st.setDouble(3,5);
-            st.executeUpdate();
-            st.close();
+            loadRecipesIDs();
+            if(!recipeIDs.contains(newRecipe.getRecipeID())) {
+                final PreparedStatement st = c.prepareStatement("INSERT INTO RECIPES VALUES(?, ?, ?)");
+                st.setString(1, newRecipe.getRecipeID());
+                st.setString(2, newRecipe.getName());
+                st.setDouble(3, 5);
+                st.executeUpdate();
+                st.close();
+            } else {
+                return false;
+            }
             return true;
         } catch (final SQLException e) {
             throw new PersistenceException(e);
@@ -129,21 +154,27 @@ public class RecipePersistenceHSQLDB implements RecipePersistence {
 
     /*
      Input: takes in a recipe object
-     Output: void
+     Output: boolean
      Description: deletes a given recipe object by id
       */
     @Override
-    public void deleteRecipe(String recipeID) {
+    public boolean deleteRecipe(String recipeID) {
         try (final Connection c = connection()) {
-            final PreparedStatement sc = c.prepareStatement("DELETE FROM RECIPES WHERE RECIPEID = ?");
-            sc.setString(1, recipeID);
-            sc.executeUpdate();
-            final PreparedStatement st = c.prepareStatement("DELETE FROM INGREDIENTS WHERE RECIPEID = ?");
-            st.setString(1, recipeID);
-            st.executeUpdate();
-            final PreparedStatement sm = c.prepareStatement("DELETE FROM DIRECTIONS WHERE RECIPEID = ?");
-            sm.setString(1, recipeID);
-            sm.executeUpdate();
+            loadRecipesIDs();
+            if(recipeIDs.contains(recipeID)) {
+                final PreparedStatement sc = c.prepareStatement("DELETE FROM RECIPES WHERE RECIPEID = ?");
+                sc.setString(1, recipeID);
+                sc.executeUpdate();
+                final PreparedStatement st = c.prepareStatement("DELETE FROM INGREDIENTS WHERE RECIPEID = ?");
+                st.setString(1, recipeID);
+                st.executeUpdate();
+                final PreparedStatement sm = c.prepareStatement("DELETE FROM DIRECTIONS WHERE RECIPEID = ?");
+                sm.setString(1, recipeID);
+                sm.executeUpdate();
+            } else {
+                return  false;
+            }
+            return true;
         } catch (final SQLException e) {
             throw new PersistenceException(e);
         }
@@ -151,16 +182,21 @@ public class RecipePersistenceHSQLDB implements RecipePersistence {
 
     /*
     Input: takes in double rating
-    Output: void
+    Output: boolean
     Description: changes a recipes rating
      */
-    public void changeRating(double rating,String recipeID){
+    public boolean changeRating(double rating,String recipeID){
         try (final Connection c = connection()) {
-            final PreparedStatement st = c.prepareStatement("UPDATE RECIPES SET RATING = ? WHERE RECIPEID = ?");
-            st.setDouble(1, rating);
-            st.setString(2, recipeID);
-
-            st.executeUpdate();
+            loadRecipesIDs();
+            if(recipeIDs.contains(recipeID)) {
+                final PreparedStatement st = c.prepareStatement("UPDATE RECIPES SET RATING = ? WHERE RECIPEID = ?");
+                st.setDouble(1, rating);
+                st.setString(2, recipeID);
+                st.executeUpdate();
+            } else {
+                return false;
+            }
+            return true;
         } catch (final SQLException e) {
             throw new PersistenceException(e);
         }

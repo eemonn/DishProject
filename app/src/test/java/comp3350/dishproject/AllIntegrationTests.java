@@ -7,13 +7,15 @@ import comp3350.dishproject.tests.logic.AccessIngredientsTestIT;
 import comp3350.dishproject.tests.logic.AccessRecipesTestIT;
 import comp3350.dishproject.tests.logic.AccessStepsTestIT;
 import comp3350.dishproject.tests.logic.AddRecipeTestIT;
+import comp3350.dishproject.tests.logic.ShowRecipeTestIT;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
         AccessIngredientsTestIT.class,
         AccessRecipesTestIT.class,
         AccessStepsTestIT.class,
-        AddRecipeTestIT.class
+        AddRecipeTestIT.class,
+        ShowRecipeTestIT.class
 })
 public class AllIntegrationTests {
 }

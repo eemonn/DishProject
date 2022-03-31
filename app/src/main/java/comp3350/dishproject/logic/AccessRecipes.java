@@ -1,15 +1,8 @@
 package comp3350.dishproject.logic;
 
-import android.util.Log;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-
 import comp3350.dishproject.application.Services;
-import comp3350.dishproject.objects.Ingredient;
 import comp3350.dishproject.objects.Recipe;
-
 import comp3350.dishproject.persistence.RecipePersistence;
 
 public class AccessRecipes {
@@ -53,12 +46,8 @@ public class AccessRecipes {
     Description: Attempts to add a recipe into the system
      */
     public boolean insertRecipe(Recipe newRecipe) {
-        if(!RecipeValidator.validateRecipeID(newRecipe.getRecipeID(),getAllRecipes())) {
-            return recipePersistence.insertRecipe(newRecipe);
-        }
-        return false;
+        return recipePersistence.insertRecipe(newRecipe);
     }
-
 
 
     /*
@@ -67,10 +56,7 @@ public class AccessRecipes {
     Description: finds a recipe by its recipe ID
      */
     public Recipe getRecipe(final String recipeID) {
-        if(RecipeValidator.validateRecipeID(recipeID,getAllRecipes())) {
-            return recipePersistence.getRecipe(recipeID);
-        }
-        return null;
+        return recipePersistence.getRecipe(recipeID);
     }
 
     /*
@@ -78,17 +64,13 @@ public class AccessRecipes {
     Output: void
     Description: deletes a recipe object from the system
      */
-    public void deleteRecipe(String recipeID){
-        if(RecipeValidator.validateRecipeID(recipeID,getAllRecipes())) {
-            recipePersistence.deleteRecipe(recipeID);
-        }
+    public boolean deleteRecipe(String recipeID){
+        return recipePersistence.deleteRecipe(recipeID);
     }
 
 
-    public void changeRating(double rating,String recipeID) {
-        if(RecipeValidator.validateRecipeID(recipeID,getAllRecipes())) {
-            recipePersistence.changeRating(rating,recipeID);
-        }
+    public boolean changeRating(double rating,String recipeID) {
+        return recipePersistence.changeRating(rating,recipeID);
     }
 
 }

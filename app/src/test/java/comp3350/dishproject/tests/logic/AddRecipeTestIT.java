@@ -28,15 +28,14 @@ public class AddRecipeTestIT {
         ingredientWeights = new Double[]{5.2,23.6};
     }
 
-    @Test
-    public void testAddRecipe() {
-        recipeName = "Pasta";
+    @Test(expected = Exception.class)
+    public void testAddRecipe() throws Exception {
+        recipeName = "DeepFried Pizza";
         boolean isSuccess = AddRecipe.createRecipe(recipeName,directions,ingredientNames,ingredientWeights);
         Assert.assertTrue("Add should of happened",isSuccess);
 
         recipeName = "burger";
         boolean isSuccessBad = AddRecipe.createRecipe(recipeName,directions,ingredientNames,ingredientWeights);
-        Assert.assertFalse("Add should not of happened because of duplicate name",isSuccessBad);
     }
 
 

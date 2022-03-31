@@ -14,14 +14,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import comp3350.dishproject.R;
-import comp3350.dishproject.logic.AccessRecipes;
 import comp3350.dishproject.logic.AddRecipe;
 
 public class AddDialog extends AppCompatDialogFragment {
 
     LinearLayout layoutList;
     Button buttonAdd;
-    AccessRecipes ar = new AccessRecipes();
 
     /*
     Input: instance State
@@ -101,14 +99,14 @@ public class AddDialog extends AppCompatDialogFragment {
                 hasFailed = true;
                 Messages.warning(view.getContext(),"Bad input to weight field, make it a number");
             }
-
-
         }
-
         if(!hasFailed) {
-            AddRecipe.createRecipe(recipeName.toLowerCase(),cookingInstructions,ingredientNames,ingredientWeights);
+            try {
+                AddRecipe.createRecipe(recipeName.toLowerCase(), cookingInstructions, ingredientNames, ingredientWeights);
+            } catch(Exception e) {
+                Messages.warning(view.getContext(),e.getMessage());
+            }
         }
-
     }
 
     //Called to add a new row for ingredients

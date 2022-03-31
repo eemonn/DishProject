@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,7 +30,6 @@ import comp3350.dishproject.objects.Steps;
 
 public class ViewRecipe extends AppCompatActivity {
     private RatingBar rating;
-    private float rate;
     private TextView ratingText;
     private ShowRecipe showRecipe;
     ListView listViewData;
@@ -51,15 +49,15 @@ public class ViewRecipe extends AppCompatActivity {
         //getting passed in value
         Bundle extras = getIntent().getExtras();
         String dish = "";
+
+        //Setting up the recipe object for which the page is being seen
         if(extras !=null) {
             dish = getIntent().getStringExtra("search");
+            String recipeID = ar.findRecipeID(dish);
+            recipe = ar.getRecipe(recipeID);
+            step = new Steps(as.getDirections(recipeID),recipe.getRecipeID());
+            showRecipe = new ShowRecipe(recipe);
         }
-
-        //getting recipe and step object
-        String recipeID = ar.findRecipeID(dish);
-        recipe = ar.getRecipe(recipeID);
-        step = new Steps(as.getDirections(recipeID),recipe);
-        showRecipe = new ShowRecipe(recipe);
 
         //Inits
         changePicture(dish);
@@ -131,7 +129,6 @@ public class ViewRecipe extends AppCompatActivity {
         rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                rate = ratingBar.getRating();
                 ar.changeRating(rating,recipe.getRecipeID());
                 ratingText.setText(showRecipe.showTitleDescription());
 
@@ -182,9 +179,9 @@ public class ViewRecipe extends AppCompatActivity {
     Description: Update list viewer
      */
     public void updateListViewer(){
-        String [] arrayPeliculas=showRecipe.getIngredientListName().clone();
+        String [] arrayOfIngredients =showRecipe.getIngredientListName().clone();
         listViewData=findViewById(R.id.listView_data);
-        adapter=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice,arrayPeliculas){
+        adapter=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice,arrayOfIngredients){
             @Override
             public View getView(int position, View convertView, ViewGroup parent){
                 View view = super.getView(position, convertView, parent);

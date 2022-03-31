@@ -12,32 +12,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 import comp3350.dishproject.application.Services;
+import comp3350.dishproject.logic.AccessIngredients;
 import comp3350.dishproject.logic.ShowRecipe;
 import comp3350.dishproject.objects.Ingredient;
 import comp3350.dishproject.objects.Recipe;
 import comp3350.dishproject.tests.utils.TestUtils;
 
 
-public class ShowRecipeTest {
+public class ShowRecipeTestIT {
     private Recipe r;
     private Ingredient i1;
-    private Ingredient i2;
-    private Ingredient i3;
     private ShowRecipe sr;
+    private File tempDB;
     List<Ingredient> li;
+    private AccessIngredients ai;
 
 
     @Before
-    public void setUp() {
-        r = new Recipe("Pizza","100",5);
-        i1 = new Ingredient("Cheese",1,20,50,r.getRecipeID());
-        i2 = new Ingredient("Dough",1,20,50,r.getRecipeID());
-        i3 = new Ingredient("Sauce",1,20,50,r.getRecipeID());
-        li = new ArrayList<>();
-        li.add(i1);
-        li.add(i2);
-        li.add(i3);
-        sr = new ShowRecipe(r,"100",li);
+    public void setUp() throws IOException {
+        this.tempDB = TestUtils.copyDB();
+        ai = new AccessIngredients();
+        r = new Recipe("burger","100",5);
+        li = ai.getIngredients(r.getRecipeID());
+        i1 = li.get(0);//This will be Buns with a weight of 0.5, calorie of 20, quantity of 1
+        sr = new ShowRecipe(r);
     }
 
     @Test
@@ -45,42 +43,49 @@ public class ShowRecipeTest {
         Assert.assertNotNull("Show Recipe should not be null", sr);
     }
 
+
+
     @Test
     public void testUpdateIngredients() {
-        sr.updateIngredients(3);
-        Assert.assertEquals("Weight of Ingredient should be 3x20=60", 60, i1.getWeight(), 0.01);
-        Assert.assertEquals("Calorie of Ingredient should be 3x50=150", 150, i1.getCalorie(), 0.01);
-        Assert.assertEquals("Quantity of Ingredient should be 3x1=3", 3, i1.getQuantity(), 0.01);
-        sr.updateIngredients(5);
-        Assert.assertEquals("Weight of Ingredient should be 5x20=100", 100, i1.getWeight(), 0.01);
-        Assert.assertEquals("Calorie of Ingredient should be 5x50=250", 250, i1.getCalorie(), 0.01);
-        Assert.assertEquals("Quantity of Ingredient should be 5x1=5", 5, i1.getQuantity(), 0.01);
+        //cant test this here as this is used to display UI elements(that dont change the database)
     }
 
+
+    /* - Ingredients of Burger Reference
+    INSERT INTO INGREDIENTS VALUES('Buns',1,0.5,20,'100')
+    INSERT INTO INGREDIENTS VALUES('Ground Beef',2,1.5,32.5,'100')
+    INSERT INTO INGREDIENTS VALUES('Cheese',2,1.5,32.5,'100')
+     */
     @Test
     public void testShowTitleDescription() {
         String title = "";
-        double totalCalories = 50*3;
-        double totalWeight = 20*3;
+        double totalCalories = 20 + 32 + 32;
+        double totalWeight = 0 + 1 + 1;
         title += "Calorie: " + totalCalories + "kcal "+ " Weight: " +  totalWeight + "g " + "Rating: " + r.getRating() + "\n";
         Assert.assertEquals("Titles should be the same",title,sr.showTitleDescription());
     }
 
     @Test
     public void testCalculateCalories() {
-        double totalCalories = 50*3;
+        double totalCalories = 20 + 32 + 32;
         Assert.assertEquals("Total calories of all ingredients should be the same",totalCalories,sr.calculateCalories(),0.01);
     }
 
     @Test
     public void testCalculateWeight() {
-        double totalWeight = 20*3;
+        double totalWeight = 0 + 1 + 1;
         Assert.assertEquals("Total weight of all ingredients should be the same",totalWeight,sr.calculateWeight(),0.01);
     }
 
     @Test
     public void testGetIngredientListName() {
         Assert.assertEquals("Lengths(number of ingredients) should be the same",li.size(),sr.getIngredientListName().length);
+    }
+
+    @After
+    public void tearDown() {
+        this.tempDB.delete();
+        Services.clean();
     }
 
 }

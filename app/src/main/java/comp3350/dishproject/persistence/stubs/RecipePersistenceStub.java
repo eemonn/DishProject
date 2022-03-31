@@ -47,7 +47,7 @@ public class RecipePersistenceStub implements RecipePersistence {
                 return r;
             }
         }
-        return null;
+        return new Recipe("Null","1",1);
     }
 
     /*
@@ -74,36 +74,46 @@ public class RecipePersistenceStub implements RecipePersistence {
      */
     @Override
     public boolean insertRecipe(Recipe newRecipe) {
+        for (int i = 0; i < recipes.size(); i++) {
+            Recipe r = recipes.get(i);
+            if (r.getRecipeID().equalsIgnoreCase(newRecipe.getRecipeID()) || r.getName().equals(newRecipe.getName())) {
+                return false;
+            }
+        }
         recipes.add(newRecipe);
         return true;
     }
 
     /*
     Input: takes in a recipe object
-    Output: void
+    Output: boolean
     Description: deletes a given recipe object by id
      */
     @Override
-    public void deleteRecipe(String recipeID) {
+    public boolean deleteRecipe(String recipeID) {
         for (int i = 0; i < recipes.size(); i++) {
             Recipe r = recipes.get(i);
             if (r.getRecipeID().equals(recipeID)) {
                 recipes.remove(r);
+                return true;
             }
         }
+        return false;
     }
 
     /*
     Input: takes in double rating
-    Output: void
+    Output: boolean
     Description: changes a recipes rating
      */
-    public void changeRating(double rating,String recipeID){
+    public boolean changeRating(double rating,String recipeID){
         for (int i = 0; i < recipes.size(); i++) {
             Recipe r = recipes.get(i);
             if (r.getRecipeID().equalsIgnoreCase(recipeID)) {
                 r.setRating(rating);
+                return true;
             }
         }
+        return false;
     }
 }
