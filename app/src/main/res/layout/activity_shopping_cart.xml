@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".presentation.ShoppingCartActivity">
+    <TextView
+        android:id="@+id/des_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Shopping List"
+        android:textColor="#6C25EA"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100sp"
+        android:background="#D6EAF3"
+        android:id="@+id/header"
+        android:layout_below="@+id/des_title"
+
+        >
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter ingredient here"
+            android:layout_centerInParent="true"
+            android:id="@+id/input"
+            />
+        <ImageView
+            android:layout_width="40sp"
+            android:layout_height="40sp"
+            android:layout_toEndOf="@+id/input"
+            android:id="@+id/add"
+            android:layout_marginStart="7sp"
+            android:src="@drawable/ic_add_recipe"
+            android:layout_centerVertical="true"
+            />
+
+    </RelativeLayout>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listview"
+        android:layout_below="@+id/header"
+        android:background="#F1FEFF"
+
+
+        />
+
+
+
+</RelativeLayout>

@@ -5,6 +5,7 @@ import static android.widget.AdapterView.*;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Menu;
@@ -38,6 +39,7 @@ public class ViewRecipe extends AppCompatActivity {
     private Steps step;
     AccessRecipes ar = new AccessRecipes();
     AccessSteps as = new AccessSteps();
+    Toast t;
 
 
     //Android Specific Creator
@@ -85,10 +87,25 @@ public class ViewRecipe extends AppCompatActivity {
                     itemSelected+=listViewData.getItemAtPosition(i)+"\n";
                 }
             }
-            Toast.makeText(this,itemSelected,Toast.LENGTH_LONG).show();
+            makeToast(itemSelected);
+            //Toast.makeText(this,itemSelected,Toast.LENGTH_LONG).show();
             System.out.println(itemSelected);
         }
         return super.onOptionsItemSelected(item);
+    }
+    public void makeToast(String s){
+        if(t!=null) t.cancel();
+        t=Toast.makeText(this.getApplicationContext(),s,Toast.LENGTH_LONG);
+        //ViewGroup group = (ViewGroup) t.getView();
+        //TextView messageTextView = (TextView) group.getChildAt(0);
+        //messageTextView.setTextSize(30);
+        TextView tv=new TextView(this.getApplicationContext());
+        tv.setBackgroundColor(Color.WHITE);
+        tv.setPadding(10,10,10,10);
+        tv.setTextSize(25);
+        tv.setText(s);
+        t.setView(tv);
+        t.show();
     }
 
 

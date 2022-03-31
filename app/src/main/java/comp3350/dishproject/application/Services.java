@@ -2,12 +2,14 @@ package comp3350.dishproject.application;
 
 import comp3350.dishproject.persistence.IngredientPersistence;
 import comp3350.dishproject.persistence.RecipePersistence;
+import comp3350.dishproject.persistence.ShoppingCartPersistence;
 import comp3350.dishproject.persistence.StepsPersistence;
 import comp3350.dishproject.persistence.hsqldb.IngredientPersistenceHSQLDB;
 import comp3350.dishproject.persistence.hsqldb.RecipePersistenceHSQLDB;
 import comp3350.dishproject.persistence.hsqldb.StepsPersistenceHSQLDB;
 import comp3350.dishproject.persistence.stubs.IngredientPersistenceStub;
 import comp3350.dishproject.persistence.stubs.RecipePersistenceStub;
+import comp3350.dishproject.persistence.stubs.ShoppingCartPersistenceStub;
 import comp3350.dishproject.persistence.stubs.StepsPersistenceStub;
 
 public class Services {
@@ -74,6 +76,21 @@ public class Services {
         recipePersistence = null;
         ingredientPersistence = null;
         stepsPersistence = null;
+    }
+    // for noman
+
+    private static ShoppingCartPersistence shoppingListPersistence = null;
+
+    //add method
+    public static synchronized ShoppingCartPersistence getShoppingListPersistence() {
+        if(shoppingListPersistence == null) {
+            if(useRealDatabase) {
+                //add comment here
+            } else {
+                shoppingListPersistence = new ShoppingCartPersistenceStub();
+            }
+        }
+        return shoppingListPersistence;
     }
 
 }
