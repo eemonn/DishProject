@@ -14,12 +14,18 @@ Show two instances of your group paying off technical debt. For these two instan
 
 We payed off our technical debt with our fake database when we implemented our HSQLDB 
 
+Link to commit: fe7ed36ee09ba16491845ca5903c9adf5624565b and 79e8d5cb25bff8a574329401ed624766abc5bfce
+
 The debt would likely be Prudent Deliberate.
 - The reason for this is because we knew that we would be taking on technical debt by implementing a fake database in iteration 1 and we decided to do it anyways to prioritize other features. We had to make a significant amount of changes when we implemented the real database, but using the fake DB allowed us to get our foundations down quickly. 
 
-**Home cards**
+**Add Recipe Button**
 
-This is a rather small technical debt but still debt none the less. The add recipe feature implemented a button so that we could test the dialog and finish the feature, however this button was not what we wanted. We want to have the button in the navigation bar, however, it was better to implement an extra button for now than to halt production until it was done. 
+We payed this technical debt off by adding the add recipe button to the navigation bar.
+
+Link to commit: c1a9fa5d63f5b21df4692b677c8f673a37c6f776 and 170f2d5b01dad0a9e05f61ae4aa3c594e604f74b
+
+This is a rather small technical debt but still debt nonetheless. The add recipe feature implemented a button so that we could test the dialog and finish the feature, however this button was not what we wanted. We want to have the button in the navigation bar, however, it was better to implement an extra button for now than to halt production until it was done. 
 
 This debt would again be prudent deliberate. 
 - The reason for this is because again we knew that we were adding this debt, and we knew how we were going to fix it. As soon as the navbar was finished we were able to resolve the technical debt. 
@@ -63,23 +69,22 @@ We have used the Special Case/Null object design pattern. This means that a vari
 
 Links:
 
-[Ex: 1](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/blob/clean-dev-iter2/app/src/main/java/comp3350/dishproject/persistence/hsqldb/RecipePersistenceHSQLDB.java#L79)
+[Ex: 1](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/blob/main/app/src/main/java/comp3350/dishproject/persistence/hsqldb/RecipePersistenceHSQLDB.java#L125)
 
-[Ex: 2](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/blob/clean-dev-iter2/app/src/main/java/comp3350/dishproject/persistence/hsqldb/RecipePersistenceHSQLDB.java#L105)
+[Ex: 2](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/blob/main/app/src/main/java/comp3350/dishproject/persistence/hsqldb/RecipePersistenceHSQLDB.java#L99)
 
-[Ex: 3](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/blob/clean-dev-iter2/app/src/main/java/comp3350/dishproject/persistence/hsqldb/StepsPersistenceHSQLDB.java#L50)
+[Testing Ex: 1](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/blob/main/app/src/test/java/comp3350/dishproject/tests/logic/AccessRecipesTestIT.java#L38)
 
-[Ex: 4](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/blob/clean-dev-iter2/app/src/main/java/comp3350/dishproject/persistence/stubs/RecipePersistenceStub.java#L50)
-
-[Testing Ex: 1](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/blob/clean-dev-iter2/app/src/test/java/comp3350/dishproject/tests/logic/AccessRecipesTestIT.java#L63)
-
-[Testing Ex: 2](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/blob/clean-dev-iter2/app/src/test/java/comp3350/dishproject/tests/logic/AccessRecipesTestIT.java#L63)
-
+[Testing Ex: 2](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/blob/main/app/src/test/java/comp3350/dishproject/tests/logic/AccessRecipesTestIT.java#L63)
 
 ## Iteration 1 Feedback fixes
 ---
 
 [Issue 1](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/issues/56) was about having Android specific annotation (import androidx.annotation.NonNull;) in Ingredient and Recipe classes.It was a code smell because it was increasing coupling. We have removed the annotation from both of the classes. 
 
+Commit Link: 170f2d5b01dad0a9e05f61ae4aa3c594e604f74b
+
 [Issue 2](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/issues/55) was about not storing a result in a variable which was later called multiple times in a loop. For instances, In the ShowRecipe class “recipe.getIngredientArrayList().get(i)” was called multiple times in a loop which instead could have been stored in a variable. We have refactored the code and stored it in a variable instead of calling "getIngredientArrayList().get(i)"  each time. 
+
+Commit Link: 170f2d5b01dad0a9e05f61ae4aa3c594e604f74b
 
