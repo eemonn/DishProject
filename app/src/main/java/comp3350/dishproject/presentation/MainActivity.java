@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private ListView listSearchSuggestions; //listview used for displaying the search suggestions(AKA autocomplete)
     private ArrayAdapter<String> searchSuggestions;//used for taking a string array of dishes and inserting them into the listview
     private String[] dishes;
+    List<HomeCard> mlist = new ArrayList<>();
 
     //for navigation bar
     public DrawerLayout drawerLayout;
@@ -55,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.rv_list);
 
         //Popular cards - these need to be hardcoded since their popular to everyone
-        List<HomeCard> mlist = new ArrayList<>();
         mlist.add(new HomeCard(R.drawable.burger, "Burger"));
         mlist.add(new HomeCard(R.drawable.pizza, "Pizza"));
         mlist.add(new HomeCard(R.drawable.tacos, "Tacos"));
@@ -71,7 +71,12 @@ public class MainActivity extends AppCompatActivity {
         initializeSearchSuggestionBox();
         initializeNavigationBar();
         setNavigationOnClick();
+        sortRecipeCards();
 
+    }
+
+    public void sortRecipeCards(){
+        //implements this please nate
     }
 
     /*

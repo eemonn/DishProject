@@ -73,4 +73,8 @@ public class AccessRecipes {
         return recipePersistence.changeRating(rating,recipeID);
     }
 
+    public boolean changeFav(boolean fav,String recipeID){
+        return recipePersistence.changeFav(fav,recipeID);
+    }
+
 }

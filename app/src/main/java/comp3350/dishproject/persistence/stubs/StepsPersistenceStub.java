@@ -16,11 +16,11 @@ public class StepsPersistenceStub implements StepsPersistence {
      */
     public StepsPersistenceStub() {
         this.directions = new ArrayList<>();
-        final Recipe burger = new Recipe("Burger", "100",5);
-        final Recipe pizza = new Recipe("Pizza", "200",4);
-        final Recipe taco = new Recipe("Taco", "300",3);
-        final Recipe pancake = new Recipe("Pancake", "400",1);
-        final Recipe fish = new Recipe("Fish", "500",1.5);
+        final Recipe burger = new Recipe("Burger", "100",5,false);
+        final Recipe pizza = new Recipe("Pizza", "200",4,false);
+        final Recipe taco = new Recipe("Taco", "300",3,false);
+        final Recipe pancake = new Recipe("Pancake", "400",1,false);
+        final Recipe fish = new Recipe("Fish", "500",1.5,false);
 
         final String d1 = "Cheese on top of beef and put that between buns";
         final String d2 = "Sauce and Cheese on dough and cook";

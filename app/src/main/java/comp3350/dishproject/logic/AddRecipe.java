@@ -42,7 +42,7 @@ public class AddRecipe {
         double randomRating = (double) rand.nextInt(5);
 
         //Creates recipe object
-        Recipe r = new Recipe(recipeName,recipeID,randomRating);
+        Recipe r = new Recipe(recipeName,recipeID,randomRating,false);
         boolean isAdded = ar.insertRecipe(r);//already validated the id and name, so now exception needed here
 
         //Add ingredients

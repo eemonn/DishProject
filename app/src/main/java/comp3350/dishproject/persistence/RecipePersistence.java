@@ -12,4 +12,5 @@ public interface RecipePersistence {
     boolean insertRecipe(Recipe newRecipe);
     boolean deleteRecipe(String recipeID);
     boolean changeRating(double rating,String recipeID);
+    boolean changeFav(boolean fav,String recipeID);
 }

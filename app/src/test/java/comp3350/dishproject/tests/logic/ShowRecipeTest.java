@@ -29,7 +29,7 @@ public class ShowRecipeTest {
 
     @Before
     public void setUp() {
-        r = new Recipe("Pizza","100",5);
+        r = new Recipe("Pizza","100",5,0);
         i1 = new Ingredient("Cheese",1,20,50,r.getRecipeID());
         i2 = new Ingredient("Dough",1,20,50,r.getRecipeID());
         i3 = new Ingredient("Sauce",1,20,50,r.getRecipeID());

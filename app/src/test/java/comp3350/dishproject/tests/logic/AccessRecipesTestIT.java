@@ -46,8 +46,8 @@ public class AccessRecipesTestIT {
 
     @Test
     public void testInsertRecipe() {
-        Recipe r = new Recipe("Apple","123",5);
-        Recipe badRecipe = new Recipe("burger","100",3);
+        Recipe r = new Recipe("Apple","123",5,0);
+        Recipe badRecipe = new Recipe("burger","100",3,0);
 
         Assert.assertTrue("Add should be good",ar.insertRecipe(r));
 

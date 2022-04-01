@@ -27,8 +27,9 @@ public class RecipePersistenceHSQLDB implements RecipePersistence {
         final String recipeID = rs.getString("RECIPEID");
         final String recipeName = rs.getString("NAME");
         final double rating = rs.getDouble("RATING");
+        final boolean fav = rs.getBoolean("FAV");
 
-        return new Recipe(recipeName, recipeID,rating);
+        return new Recipe(recipeName, recipeID,rating,fav);
     }
 
 
@@ -96,7 +97,7 @@ public class RecipePersistenceHSQLDB implements RecipePersistence {
         } catch (final SQLException e) {
             throw new PersistenceException(e);
         }
-        return new Recipe("Null","1",1);
+        return new Recipe("Null","1",1,false);
     }
 
     /*
@@ -150,6 +151,26 @@ public class RecipePersistenceHSQLDB implements RecipePersistence {
         }
 
     }
+
+    @Override
+    public boolean changeFav(boolean fav,String recipeID){
+        try (final Connection c = connection()) {
+            loadRecipesIDs();
+            if(recipeIDs.contains(recipeID)) {
+                final PreparedStatement st = c.prepareStatement("UPDATE RECIPES SET FAV = ? WHERE RECIPEID = ?");
+                st.setBoolean(1, fav);
+                st.setString(2, recipeID);
+                st.executeUpdate();
+            } else {
+                return false;
+            }
+            return true;
+        } catch (final SQLException e) {
+            throw new PersistenceException(e);
+        }
+    }
+
+
 
 
     /*
