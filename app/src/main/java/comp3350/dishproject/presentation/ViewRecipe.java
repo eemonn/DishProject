@@ -85,6 +85,8 @@ public class ViewRecipe extends AppCompatActivity {
             for(int i=0;i<listViewData.getCount();i++){
                 if(listViewData.isItemChecked(i)){
                     itemSelected+=listViewData.getItemAtPosition(i)+"\n";
+                    //listViewData.isCh;
+
                 }
             }
             makeToast(itemSelected);
