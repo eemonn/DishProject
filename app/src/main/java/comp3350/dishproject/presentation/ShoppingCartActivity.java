@@ -45,18 +45,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
         items.add("a");
         items.add("b");
         items.add("c");items.add("d");
-        items.add("a1");
-        items.add("b1");
-        items.add("c1");items.add("d1");
-        items.add("a2");
-        items.add("b2");
-        items.add("c2");items.add("d2");
-        items.add("a3");
-        items.add("b3");
-        items.add("c3");items.add("d3");
-        items.add("a4");
-        items.add("b4");
-        items.add("c4");items.add("d4");
+
         //items.add("e");items.add("f");items.add("g");
 
         //adapter.notifyDataSetChanged();
