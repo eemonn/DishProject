@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.TypedValue;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -15,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
@@ -28,11 +31,10 @@ public class ShoppingCartActivity extends AppCompatActivity {
     static ShoppingCartAdapter adapter;
     static Context context;
     static Toast t;
-    EditText insert; ImageView imageView;
+    EditText insert; ImageView imageView; Menu emptyMenu;
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_cart);
-
         listView = findViewById(R.id.listview);
         context=getApplicationContext();
         insert = findViewById(R.id.input);
@@ -43,18 +45,21 @@ public class ShoppingCartActivity extends AppCompatActivity {
         items.add("a");
         items.add("b");
         items.add("c");items.add("d");
-        items.add("a");
-        items.add("b");
-        items.add("c");items.add("d");items.add("a");
-        items.add("b");
-        items.add("c");items.add("d");
-        items.add("a");
-        items.add("b");
-        items.add("c");items.add("d");items.add("a");
-        items.add("b");
-        items.add("c");items.add("d");
+        items.add("a1");
+        items.add("b1");
+        items.add("c1");items.add("d1");
+        items.add("a2");
+        items.add("b2");
+        items.add("c2");items.add("d2");
+        items.add("a3");
+        items.add("b3");
+        items.add("c3");items.add("d3");
+        items.add("a4");
+        items.add("b4");
+        items.add("c4");items.add("d4");
         //items.add("e");items.add("f");items.add("g");
 
+        //adapter.notifyDataSetChanged();
 
 
 
@@ -71,21 +76,41 @@ public class ShoppingCartActivity extends AppCompatActivity {
                     addItem(text);
                     insert.setText("");
                     makeToast("Added " + text);
-                    adapter=new ShoppingCartAdapter(context,items);
-                    listView.setAdapter(adapter);
+                    //adapter=new ShoppingCartAdapter(context,items);
+                    //listView.setAdapter(adapter);
                 }
             }
         });
         //listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //makeToast(items.get(i).getName()+"");
-                System.out.println(items);
-            }
-        });
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+//
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                //makeToast(items.get(i).getName()+"");
+//                System.out.println(items);
+//            }
+//        });
     }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu){
+//        getMenuInflater().inflate(R.menu.shopping_cart_menu,menu);
+//        return true;
+//    }
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item){
+//        int id=item.getItemId();
+//        if(id==R.id.empty){
+//            int i=0;
+//            while(items.size()>0){
+//                removeItem(i);
+//                i++;
+//            }
+////            adapter=new ShoppingCartAdapter(context,items);
+////            listView.setAdapter(adapter);
+//            makeToast("");
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
     public static void addItem(String item) {
         items.add(item);
         listView.setAdapter(adapter);
@@ -93,6 +118,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
     public static void displayIngredientInfo(int i){
         makeToast((String) items.get(i));
         //listView.setAdapter(adapter);
+
     }
 
 
@@ -112,6 +138,6 @@ public class ShoppingCartActivity extends AppCompatActivity {
         tv.setText(s);
         t.setView(tv);
         t.show();
-        listView.setAdapter(adapter);
+        //listView.setAdapter(adapter);
     }
 }
