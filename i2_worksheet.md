@@ -4,12 +4,6 @@ Iteration 2 Worksheet
 ## Paying off technical debt
 ---
 
-
-Show two instances of your group paying off technical debt. For these two instances:
-- Explain how your are paying off the technical debt.
-- Show commits, links to lines in your commit where you paid off technical debt.
-- Classify the debt, and justify why you chose that classification with 1-3 sentences.
-
 **Fake database**
 
 We payed off our technical debt with our fake database when we implemented our HSQLDB 
