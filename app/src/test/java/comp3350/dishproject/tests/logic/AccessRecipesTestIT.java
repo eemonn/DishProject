@@ -46,8 +46,8 @@ public class AccessRecipesTestIT {
 
     @Test
     public void testInsertRecipe() {
-        Recipe r = new Recipe("Apple","123",5,0);
-        Recipe badRecipe = new Recipe("burger","100",3,0);
+        Recipe r = new Recipe("Apple","123",5,false);
+        Recipe badRecipe = new Recipe("burger","100",3,false);
 
         Assert.assertTrue("Add should be good",ar.insertRecipe(r));
 
@@ -71,11 +71,19 @@ public class AccessRecipesTestIT {
     }
 
     @Test
-    public void changeRating() {
+    public void testChangeRating() {
         String recipeID = "100";//burger
         double newRating = 3;
         ar.changeRating(newRating,recipeID);
         Assert.assertEquals("rating should be 3.4",3,ar.getRecipe(recipeID).getRating(),0.01);
+    }
+
+    @Test
+    public void testChangeFav() {
+        String recipeID = "100";//burger
+        boolean newFav = true;
+        ar.changeFav(newFav,recipeID);
+        Assert.assertTrue("Burger should now be fav",ar.getRecipe(recipeID).getFav());
     }
 
     @After

@@ -106,7 +106,11 @@ public class ViewRecipe extends AppCompatActivity {
         String dishPicture = dish.toLowerCase();
         int resID = getResources().getIdentifier(dishPicture, "drawable", getPackageName());
         ImageView image = (ImageView) findViewById(R.id.imageView7);
-        image.setImageResource(resID);
+        if(resID !=0) {//meaing we have a picture
+            image.setImageResource(resID);
+        } else {
+            image.setImageResource(R.drawable.cook);
+        }
     }
 
     /*

@@ -59,8 +59,9 @@ public class AccessRecipes {
         return recipePersistence.getRecipe(recipeID);
     }
 
+
     /*
-    Input: takes in a recipe object
+    Input: takes in a recipe id
     Output: void
     Description: deletes a recipe object from the system
      */
@@ -69,10 +70,22 @@ public class AccessRecipes {
     }
 
 
+
+    /*
+    Input: takes in a recipe id and rating
+    Output: void
+    Description: changes the rating for a recipe in the system
+     */
     public boolean changeRating(double rating,String recipeID) {
         return recipePersistence.changeRating(rating,recipeID);
     }
 
+
+    /*
+    Input: takes in a recipe id and boolean if it is a favourite
+    Output: void
+    Description: changes the favourite field of a recipe
+     */
     public boolean changeFav(boolean fav,String recipeID){
         return recipePersistence.changeFav(fav,recipeID);
     }

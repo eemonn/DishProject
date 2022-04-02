@@ -136,10 +136,11 @@ public class RecipePersistenceHSQLDB implements RecipePersistence {
         try (final Connection c = connection()) {
             loadRecipesIDs();
             if(!recipeIDs.contains(newRecipe.getRecipeID())) {
-                final PreparedStatement st = c.prepareStatement("INSERT INTO RECIPES VALUES(?, ?, ?)");
+                final PreparedStatement st = c.prepareStatement("INSERT INTO RECIPES VALUES(?, ?, ?, ?)");
                 st.setString(1, newRecipe.getRecipeID());
                 st.setString(2, newRecipe.getName());
-                st.setDouble(3, 5);
+                st.setDouble(3, 5);//rating default 5
+                st.setBoolean(4,false);//default is false
                 st.executeUpdate();
                 st.close();
             } else {
@@ -152,6 +153,11 @@ public class RecipePersistenceHSQLDB implements RecipePersistence {
 
     }
 
+    /*
+     Input: takes in a recipe id and a boolean indicating if it is a favourite
+     Output: boolean
+     Description: updates the favourite status of the recipe
+     */
     @Override
     public boolean changeFav(boolean fav,String recipeID){
         try (final Connection c = connection()) {
@@ -169,9 +175,6 @@ public class RecipePersistenceHSQLDB implements RecipePersistence {
             throw new PersistenceException(e);
         }
     }
-
-
-
 
     /*
      Input: takes in a recipe object

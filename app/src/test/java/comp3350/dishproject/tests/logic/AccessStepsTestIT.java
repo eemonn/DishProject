@@ -61,7 +61,7 @@ public class AccessStepsTestIT {
 
     @Test
     public void testInsertSteps(){
-        Recipe recipe = new Recipe("Pasta","12234534",3,0);
+        Recipe recipe = new Recipe("Pasta","12234534",3,false);
         String d1 = "Boil the noodles in water and then salt";
         boolean isAdded = as.insertSteps(d1,recipe);
         Assert.assertTrue("add should be true(meaning good add)",isAdded);

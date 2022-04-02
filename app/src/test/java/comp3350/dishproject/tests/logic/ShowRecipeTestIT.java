@@ -32,7 +32,7 @@ public class ShowRecipeTestIT {
     public void setUp() throws IOException {
         this.tempDB = TestUtils.copyDB();
         ai = new AccessIngredients();
-        r = new Recipe("burger","100",5,0);
+        r = new Recipe("burger","100",5,false);
         li = ai.getIngredients(r.getRecipeID());
         i1 = li.get(0);//This will be Buns with a weight of 0.5, calorie of 20, quantity of 1
         sr = new ShowRecipe(r);

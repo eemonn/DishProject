@@ -106,6 +106,7 @@ public class RecipePersistenceStub implements RecipePersistence {
     Output: boolean
     Description: changes a recipes rating
      */
+    @Override
     public boolean changeRating(double rating,String recipeID){
         for (int i = 0; i < recipes.size(); i++) {
             Recipe r = recipes.get(i);
@@ -117,6 +118,11 @@ public class RecipePersistenceStub implements RecipePersistence {
         return false;
     }
 
+    /*
+    Input: takes in boolean fav and a recipeID
+    Output: boolean, true if recipe found
+    Description: changes a recipes rating
+     */
     @Override
     public boolean changeFav(boolean fav,String recipeID){
         for (int i = 0; i < recipes.size(); i++) {

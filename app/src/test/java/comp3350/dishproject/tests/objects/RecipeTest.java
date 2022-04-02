@@ -11,7 +11,7 @@ public class RecipeTest {
 
     @Before
     public void setUp() {
-        recipe=new Recipe("Pizza","1025",5,0);
+        recipe=new Recipe("Pizza","1025",5,false);
 
     }
 
