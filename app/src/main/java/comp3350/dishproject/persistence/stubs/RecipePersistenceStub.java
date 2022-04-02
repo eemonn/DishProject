@@ -17,11 +17,11 @@ public class RecipePersistenceStub implements RecipePersistence {
     */
     public RecipePersistenceStub() {
         this.recipes = new ArrayList<>();
-        recipes.add(new Recipe("burger","100",5));
-        recipes.add(new Recipe("pizza","200",4));
-        recipes.add(new Recipe("tacos","300",3));
-        recipes.add(new Recipe("pancake","400",1));
-        recipes.add(new Recipe("fish","500",1.5));
+        recipes.add(new Recipe("burger","100",5,false));
+        recipes.add(new Recipe("pizza","200",4,false));
+        recipes.add(new Recipe("tacos","300",3,false));
+        recipes.add(new Recipe("pancake","400",1,false));
+        recipes.add(new Recipe("fish","500",1.5,false));
     }
 
     /*
@@ -47,7 +47,7 @@ public class RecipePersistenceStub implements RecipePersistence {
                 return r;
             }
         }
-        return new Recipe("Null","1",1);
+        return new Recipe("Null","1",1,false);
     }
 
     /*
@@ -106,11 +106,29 @@ public class RecipePersistenceStub implements RecipePersistence {
     Output: boolean
     Description: changes a recipes rating
      */
+    @Override
     public boolean changeRating(double rating,String recipeID){
         for (int i = 0; i < recipes.size(); i++) {
             Recipe r = recipes.get(i);
             if (r.getRecipeID().equalsIgnoreCase(recipeID)) {
                 r.setRating(rating);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /*
+    Input: takes in boolean fav and a recipeID
+    Output: boolean, true if recipe found
+    Description: changes a recipes rating
+     */
+    @Override
+    public boolean changeFav(boolean fav,String recipeID){
+        for (int i = 0; i < recipes.size(); i++) {
+            Recipe r = recipes.get(i);
+            if (r.getRecipeID().equalsIgnoreCase(recipeID)) {
+                r.setFav(fav);
                 return true;
             }
         }
