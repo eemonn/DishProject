@@ -6,6 +6,7 @@ public class HomeCard {
     private String recipeName;
     private boolean fav;
 
+
     /*
     Input: Takes in a int for background and string of the recipe name
     Output: Constructor

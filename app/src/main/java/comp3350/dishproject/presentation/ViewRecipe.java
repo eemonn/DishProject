@@ -146,7 +146,11 @@ public class ViewRecipe extends AppCompatActivity {
             }
         });
     }
-
+    /*
+    Input: No input
+    Output: void function
+    Description: Sets the "favorite" boolean for a recipe
+     */
     public void getFavInput(){
         sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

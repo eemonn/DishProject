@@ -19,6 +19,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import comp3350.dishproject.R;
@@ -32,7 +33,7 @@ import androidx.annotation.NonNull;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
     private static final int SCROLLING_SPEED_FRICTION = 350;//modifies scrolling speed for search suggestion box
     private ListView listSearchSuggestions; //listview used for displaying the search suggestions(AKA autocomplete)
     private ArrayAdapter<String> searchSuggestions;//used for taking a string array of dishes and inserting them into the listview
@@ -43,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
     public DrawerLayout drawerLayout;
     public ActionBarDrawerToggle actionBarDrawerToggle;
     AccessRecipes ar;
+
+    Adapter adapter;
 
     //Android Specific Creator
     @Override
@@ -63,10 +66,14 @@ public class MainActivity extends AppCompatActivity {
         //mlist.add(new HomeCard(R.drawable.pancake, "Pancake"));
         //mlist.add(new HomeCard(R.drawable.fish, "Fish"));
 
+        turnRecipesIntoCards();
+        sortRecipeCards();
+
         //Adapter for Cards
-        Adapter adapter = new Adapter(this, mlist);
+        adapter = new Adapter(this, mlist);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager((new LinearLayoutManager(this)));
+
 
         //Inits
         initializeSearchSuggestionBox();
@@ -74,13 +81,27 @@ public class MainActivity extends AppCompatActivity {
         setNavigationOnClick();
 
         //Calling the recipe card methods on create
-        sortRecipeCards();
-        turnRecipesIntoCards();
+    }
+
+    /*
+    Input: No input
+    Output: void function
+    Description: Refreshes the page when we use the back button to return to home. Allows us to update home cards
+     */
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        //When BACK BUTTON is pressed, the activity on the stack is restarted
+        //Do what you want on the refresh procedure here
+        //Refresh the page if we use the back button to get back to it
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(getIntent());
+        overridePendingTransition(0, 0);
 
     }
 
     /*
-    @Nate - this should be done somewhat
     Input: No input
     Output: void function
     Description: Takes all the recipes in the system and converts them to recipe cards
@@ -103,10 +124,11 @@ public class MainActivity extends AppCompatActivity {
     /*
     Input: No input
     Output: void function
-    Description: Sorts the recipe cards based on the favorite status
+    Description: Sorts the recipe cards based on the favorite status, favorites come first
      */
     public void sortRecipeCards(){
-
+        //Sort with favorites on top
+        Collections.sort(mlist, (object1, object2) -> Boolean.compare(object2.getFav(), object1.getFav()));
     }
 
     /*
@@ -186,7 +208,9 @@ public class MainActivity extends AppCompatActivity {
     //Opens the dialog box for "Adding a new recipe"
     public void openDialog(){
         AddDialog addDialog = new AddDialog();
+        addDialog.initialize(this); //Send a reference of mainActivity so we can refresh page on close
         addDialog.show(getSupportFragmentManager(), "Add a recipe");
+
 
     }
     //Android Specific Creator

@@ -29,6 +29,12 @@
                 android:id="@+id/imageView7"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:maxHeight="500px"
+                android:maxWidth="500px"
+                android:minHeight="200px"
+                android:minWidth="200px"
+                android:scaleType="centerInside"
                 app:srcCompat="@drawable/burger" />
 
             <TextView
