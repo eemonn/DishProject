@@ -9,12 +9,12 @@ public class ShoppingCartPersistenceStub implements ShoppingCartPersistence {
 
 
     @Override
-    public boolean addToList(Ingredient ingredient) {
+    public boolean addToList(Ingredient ingredientName) {
         return false;
     }
 
     @Override
-    public boolean deleteFromList(Ingredient ingredient) {
+    public boolean deleteFromList(Ingredient ingredientName) {
         return false;
     }
 

@@ -23,13 +23,13 @@ public class AccessShoppingCart {
         this.shoppingListPersistence = shoppingListPersistence;
     }
 
-    public boolean addToList(Ingredient ingredient)
+    public boolean addToList(Ingredient ingredientName)
     {
-        return shoppingListPersistence.addToList(ingredient);
+        return shoppingListPersistence.addToList(ingredientName);
     }
 
-    public boolean deleteFromList(Ingredient ingredient){
-        return shoppingListPersistence.deleteFromList(ingredient);
+    public boolean deleteFromList(Ingredient ingredientName){
+        return shoppingListPersistence.deleteFromList(ingredientName);
     }
 
     public List<Ingredient> getEntireList(){
