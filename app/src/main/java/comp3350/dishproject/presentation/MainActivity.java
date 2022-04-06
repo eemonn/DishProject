@@ -161,6 +161,11 @@ public class MainActivity extends AppCompatActivity  {
                 if(id == R.id.nav_add_recipe) {
                     openDialog();
                 }
+                if(id == R.id.nav_shopping_cart){
+                    //
+                    Intent intent = new Intent(MainActivity.this, ShoppingCartActivity.class);
+                    startActivity(intent);
+                }
                 return true;
             }
         });

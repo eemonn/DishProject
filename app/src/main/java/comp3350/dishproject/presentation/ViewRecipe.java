@@ -5,6 +5,7 @@ import static android.widget.AdapterView.*;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Menu;
@@ -25,8 +26,10 @@ import android.widget.Toast;
 
 import comp3350.dishproject.R;
 import comp3350.dishproject.logic.AccessRecipes;
+import comp3350.dishproject.logic.AccessShoppingCart;
 import comp3350.dishproject.logic.AccessSteps;
 import comp3350.dishproject.logic.ShowRecipe;
+import comp3350.dishproject.objects.Ingredient;
 import comp3350.dishproject.objects.Recipe;
 import comp3350.dishproject.objects.Steps;
 
@@ -41,6 +44,8 @@ public class ViewRecipe extends AppCompatActivity {
     private Steps step;
     AccessRecipes ar = new AccessRecipes();
     AccessSteps as = new AccessSteps();
+    AccessShoppingCart sc= new AccessShoppingCart();
+    Toast t;
 
 
     //Android Specific Creator
@@ -86,14 +91,44 @@ public class ViewRecipe extends AppCompatActivity {
             String itemSelected="Added to your cart: \n";
             for(int i=0;i<listViewData.getCount();i++){
                 if(listViewData.isItemChecked(i)){
-                    itemSelected+=listViewData.getItemAtPosition(i)+"\n";
+                    String temp=(String) listViewData.getItemAtPosition(i);
+                    itemSelected+=temp+"\n";
+                    sc.addToList(makeIngredients(temp));
+
                 }
             }
-            Toast.makeText(this,itemSelected,Toast.LENGTH_LONG).show();
+            makeToast(itemSelected);
+            //Toast.makeText(this,itemSelected,Toast.LENGTH_LONG).show();
             System.out.println(itemSelected);
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    //private helper function to create ingredients
+    private Ingredient makeIngredients(String s){
+        Ingredient ingredient;
+
+        String[] info = s.split("Am");
+        String[] ingredientsInfo= info[1].split(" ");
+        ingredient=new Ingredient(info[0],Integer.parseInt(ingredientsInfo[1]),Double.parseDouble(ingredientsInfo[5]),
+                Double.parseDouble(ingredientsInfo[3]),"1");
+
+        return ingredient;
+
+    }
+    public void makeToast(String s){
+        if(t!=null) t.cancel();
+        t=Toast.makeText(this.getApplicationContext(),s,Toast.LENGTH_LONG);
+        //ViewGroup group = (ViewGroup) t.getView();
+        //TextView messageTextView = (TextView) group.getChildAt(0);
+        //messageTextView.setTextSize(30);
+        TextView tv=new TextView(this.getApplicationContext());
+        tv.setBackgroundColor(Color.WHITE);
+        tv.setPadding(10,10,10,10);
+        tv.setTextSize(25);
+        tv.setText(s);
+        t.setView(tv);
+        t.show();
     }
 
 
