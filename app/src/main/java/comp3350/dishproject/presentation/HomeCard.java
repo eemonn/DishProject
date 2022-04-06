@@ -4,16 +4,22 @@ public class HomeCard {
 
     private int background;
     private String recipeName;
+    private boolean fav;
+
 
     /*
     Input: Takes in a int for background and string of the recipe name
     Output: Constructor
     Description: Constructor for item object, which will be displayed on home page cards
     */
-    public HomeCard(int background, String recipeName) {
+    public HomeCard(int background, String recipeName,boolean fav) {
         this.background = background;
         this.recipeName = recipeName;
+        this.fav = fav;
     }
+
+    public boolean getFav(){return this.fav;}//shouldnt be setter
+
 
     /*
     Description: Getter for background image
@@ -21,6 +27,7 @@ public class HomeCard {
     public int getBackground() {
         return background;
     }
+
 
     /*
     Description: Setter for background image

@@ -14,11 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +35,7 @@ import comp3350.dishproject.objects.Steps;
 
 public class ViewRecipe extends AppCompatActivity {
     private RatingBar rating;
+    private Switch sw;
     private TextView ratingText;
     private ShowRecipe showRecipe;
     ListView listViewData;
@@ -68,6 +71,7 @@ public class ViewRecipe extends AppCompatActivity {
         changePicture(dish);
         showRecipeDetails();
         getRatingInput();
+        getFavInput();
         setDropDownMenu();
         updateListViewer();
     }
@@ -97,6 +101,7 @@ public class ViewRecipe extends AppCompatActivity {
             //Toast.makeText(this,itemSelected,Toast.LENGTH_LONG).show();
             System.out.println(itemSelected);
         }
+
         return super.onOptionsItemSelected(item);
     }
     //private helper function to create ingredients
@@ -136,7 +141,11 @@ public class ViewRecipe extends AppCompatActivity {
         String dishPicture = dish.toLowerCase();
         int resID = getResources().getIdentifier(dishPicture, "drawable", getPackageName());
         ImageView image = (ImageView) findViewById(R.id.imageView7);
-        image.setImageResource(resID);
+        if(resID !=0) {//meaing we have a picture
+            image.setImageResource(resID);
+        } else {
+            image.setImageResource(R.drawable.cook);
+        }
     }
 
     /*
@@ -148,6 +157,8 @@ public class ViewRecipe extends AppCompatActivity {
         TextView descriptionTextbox = (TextView) findViewById(R.id.des_title);
         rating = (RatingBar) findViewById(R.id.ratingBar2);
         rating.setRating((float)recipe.getRating());
+        sw = (Switch) findViewById(R.id.switch1);
+        sw.setChecked(recipe.getFav());
         ratingText = (TextView) findViewById(R.id.des_text);
         TextView directionText = (TextView) findViewById(R.id.direction_text);
         ratingText.setText(showRecipe.showTitleDescription());
@@ -169,6 +180,19 @@ public class ViewRecipe extends AppCompatActivity {
 
             }
         });
+    }
+    /*
+    Input: No input
+    Output: void function
+    Description: Sets the "favorite" boolean for a recipe
+     */
+    public void getFavInput(){
+        sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                ar.changeFav(isChecked,recipe.getRecipeID());
+            }
+        });
+
     }
 
     /*

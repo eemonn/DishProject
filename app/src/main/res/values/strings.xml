@@ -4,4 +4,6 @@
     <string name="navigation_bar">Navigation Bar</string>
     <string name="nav_open">Open</string>
     <string name="nav_close">Close</string>
+    <string name="fav">Fav?</string>
+
 </resources>

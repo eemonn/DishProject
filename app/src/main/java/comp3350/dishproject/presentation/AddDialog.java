@@ -2,7 +2,9 @@ package comp3350.dishproject.presentation;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +22,8 @@ public class AddDialog extends AppCompatDialogFragment {
 
     LinearLayout layoutList;
     Button buttonAdd;
+
+    MainActivity mainActivityCopy;
 
     /*
     Input: instance State
@@ -103,6 +107,13 @@ public class AddDialog extends AppCompatDialogFragment {
         if(!hasFailed) {
             try {
                 AddRecipe.createRecipe(recipeName.toLowerCase(), cookingInstructions, ingredientNames, ingredientWeights);
+
+                //Reload the main activity showing the new card
+                mainActivityCopy.finish();
+                mainActivityCopy.overridePendingTransition(0, 0);
+                mainActivityCopy.startActivity(mainActivityCopy.getIntent());
+                mainActivityCopy.overridePendingTransition(0, 0);
+
             } catch(Exception e) {
                 Messages.warning(view.getContext(),e.getMessage());
             }
@@ -134,5 +145,12 @@ public class AddDialog extends AppCompatDialogFragment {
         layoutList.removeView(view);
     }
 
-
+    /*
+    Input: Reference to main activity
+    Output: void function
+    Description: Gives us a reference to main activity so we can refresh the cards when we finish adding
+     */
+    public void initialize(MainActivity mainActivity) {
+        mainActivityCopy = mainActivity;
+    }
 }

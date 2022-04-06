@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+<<<<<<< HEAD
         <entry key="..\:/Users/natha/Desktop/3350/Project/dish-project/app/src/main/res/layout/activity_main.xml" value="0.10233029381965553" />
         <entry key="..\:/Users/natha/Desktop/3350/Project/dish-project/app/src/main/res/layout/activity_view_recipe.xml" value="0.21041666666666667" />
         <entry key="..\:/Users/natha/Desktop/3350/Project/dish-project/app/src/main/res/layout/card_item.xml" value="0.10233029381965553" />
@@ -10,6 +11,11 @@
         <entry key="..\:/Users/natha/Desktop/3350/Project/dish-project/app/src/main/res/layout/row_add_recipe.xml" value="0.25" />
         <entry key="..\:/Users/natha/Desktop/3350/Project/dish-project/app/src/main/res/menu/menu.xml" value="0.21041666666666667" />
         <entry key="app/src/main/res/drawable-v24/ic_banner_foreground.xml" value="0.126" />
+=======
+        <entry key="..\:/Users/natha/Desktop/3350/Project/dish-project/app/src/main/res/layout/activity_main.xml" value="0.26367781155015196" />
+        <entry key="..\:/Users/natha/Desktop/3350/Project/dish-project/app/src/main/res/layout/activity_view_recipe.xml" value="0.18425925925925926" />
+        <entry key="..\:/Users/natha/Desktop/3350/Project/dish-project/app/src/main/res/layout/card_item.xml" value="0.25" />
+>>>>>>> cfbb6c55f58e44c0d7758207a83251e78b748f77
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.145" />
         <entry key="app/src/main/res/drawable/black_gradient.xml" value="0.145" />
         <entry key="app/src/main/res/drawable/btn_view_style.xml" value="0.145" />
