@@ -26,27 +26,9 @@ public class ShoppingCartAdapter extends ArrayAdapter<String> {
         this.context=context;
         list=items;
     }
-    //@SuppressLint("SetTextI18n")
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent){
-//        if(convertView == null){
-//            LayoutInflater layoutInflater= (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-//            convertView=layoutInflater.inflate(R.layout.list_row, null);
-//
-//            TextView number=convertView.findViewById(R.id.number);
-//            TextView name=convertView.findViewById(R.id.name);
-//            ImageView remove=convertView.findViewById(R.id.remove);
-//            ImageView info=convertView.findViewById(R.id.info);
-//
-//
-//            number.setText(position + 1 + ".");
-//
-//            name.setText(list.get(position));
-//
-
-//        }
-//        return convertView;
         try {
             if (convertView == null) {
                 LayoutInflater inflater = ((Activity) context).getLayoutInflater();

@@ -42,18 +42,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
         context=getApplicationContext();
         insert = findViewById(R.id.input);
         imageView = findViewById(R.id.add);
-// for noman
         items = shoppingList(sc.getEntireList());
-
-
-
-        //items.add("e");items.add("f");items.add("g");
-
-        //adapter.notifyDataSetChanged();
-
-
-
-
         adapter=new ShoppingCartAdapter(this,items);
         listView.setAdapter(adapter);
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -66,20 +55,9 @@ public class ShoppingCartActivity extends AppCompatActivity {
                     addItem(text);
                     insert.setText("");
                     makeToast("Added " + text);
-                    //adapter=new ShoppingCartAdapter(context,items);
-                    //listView.setAdapter(adapter);
                 }
             }
         });
-        //listView.setAdapter(adapter);
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-//
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                //makeToast(items.get(i).getName()+"");
-//                System.out.println(items);
-//            }
-//        });
     }
     private ArrayList<String> shoppingList(List<Ingredient> list){
         ArrayList<String> temp=new ArrayList<>();
@@ -89,26 +67,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
         return temp;
     }
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu){
-//        getMenuInflater().inflate(R.menu.shopping_cart_menu,menu);
-//        return true;
-//    }
-//    @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item){
-//        int id=item.getItemId();
-//        if(id==R.id.empty){
-//            int i=0;
-//            while(items.size()>0){
-//                removeItem(i);
-//                i++;
-//            }
-////            adapter=new ShoppingCartAdapter(context,items);
-////            listView.setAdapter(adapter);
-//            makeToast("");
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
+
     public static void addItem(String item) {
         items.add(item);
         listView.setAdapter(adapter);
@@ -138,6 +97,5 @@ public class ShoppingCartActivity extends AppCompatActivity {
         tv.setText(s);
         t.setView(tv);
         t.show();
-        //listView.setAdapter(adapter);
     }
 }
