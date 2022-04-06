@@ -28,7 +28,7 @@ public class AccessShoppingCart {
         return shoppingListPersistence.addToList(ingredientName);
     }
 
-    public boolean deleteFromList(Ingredient ingredientName){
+    public boolean deleteFromList(String ingredientName){
         return shoppingListPersistence.deleteFromList(ingredientName);
     }
 

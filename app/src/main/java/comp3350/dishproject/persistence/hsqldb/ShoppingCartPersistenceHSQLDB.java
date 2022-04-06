@@ -56,11 +56,11 @@ public class ShoppingCartPersistenceHSQLDB implements ShoppingCartPersistence {
 
 
     @Override
-    public boolean deleteFromList(Ingredient ingredientName) {
+    public boolean deleteFromList(String ingredientName) {
         boolean removed=false;
         try (final Connection c = connection()) {
             final PreparedStatement sc = c.prepareStatement("DELETE FROM SHOPPINGLIST WHERE NAME = ?");
-            sc.setString(1, ingredientName.getName());
+            sc.setString(1, ingredientName);
             sc.executeUpdate();
             removed=true;
         } catch (final SQLException e) {

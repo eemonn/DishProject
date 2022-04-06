@@ -14,7 +14,7 @@ public class ShoppingCartPersistenceStub implements ShoppingCartPersistence {
     }
 
     @Override
-    public boolean deleteFromList(Ingredient ingredientName) {
+    public boolean deleteFromList(String ingredientName) {
         return false;
     }
 

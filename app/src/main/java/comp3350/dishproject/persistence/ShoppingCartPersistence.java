@@ -5,6 +5,6 @@ import comp3350.dishproject.objects.Ingredient;
 
 public interface ShoppingCartPersistence {
     public boolean addToList(Ingredient ingredient);
-    public boolean deleteFromList(Ingredient ingredientName);
+    public boolean deleteFromList(String ingredientName);
     public List<Ingredient> getEntireList();
 }

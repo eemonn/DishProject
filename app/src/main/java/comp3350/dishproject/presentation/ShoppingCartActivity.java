@@ -21,8 +21,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import comp3350.dishproject.R;
+import comp3350.dishproject.logic.AccessShoppingCart;
 import comp3350.dishproject.objects.Ingredient;
 
 public class ShoppingCartActivity extends AppCompatActivity {
@@ -32,6 +34,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
     static Context context;
     static Toast t;
     EditText insert; ImageView imageView; Menu emptyMenu;
+    static AccessShoppingCart sc= new AccessShoppingCart();
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_cart);
@@ -40,11 +43,9 @@ public class ShoppingCartActivity extends AppCompatActivity {
         insert = findViewById(R.id.input);
         imageView = findViewById(R.id.add);
 // for noman
-        items = new ArrayList<>();
+        items = shoppingList(sc.getEntireList());
 
-        items.add("a");
-        items.add("b");
-        items.add("c");items.add("d");
+
 
         //items.add("e");items.add("f");items.add("g");
 
@@ -80,6 +81,14 @@ public class ShoppingCartActivity extends AppCompatActivity {
 //            }
 //        });
     }
+    private ArrayList<String> shoppingList(List<Ingredient> list){
+        ArrayList<String> temp=new ArrayList<>();
+        for(int i=0;i<list.size();i++){
+            temp.add(list.get(i).getName());
+        }
+
+        return temp;
+    }
 //    @Override
 //    public boolean onCreateOptionsMenu(Menu menu){
 //        getMenuInflater().inflate(R.menu.shopping_cart_menu,menu);
@@ -112,7 +121,9 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
 
     public static void removeItem(int item){
-        makeToast((String)items.get(item)+" has been removed");
+        String deleteItem=(String)items.get(item);
+        makeToast(deleteItem+" has been removed");
+        sc.deleteFromList(deleteItem);
         items.remove(item);
         listView.setAdapter(adapter);
     }

@@ -24,8 +24,10 @@ import android.widget.Toast;
 
 import comp3350.dishproject.R;
 import comp3350.dishproject.logic.AccessRecipes;
+import comp3350.dishproject.logic.AccessShoppingCart;
 import comp3350.dishproject.logic.AccessSteps;
 import comp3350.dishproject.logic.ShowRecipe;
+import comp3350.dishproject.objects.Ingredient;
 import comp3350.dishproject.objects.Recipe;
 import comp3350.dishproject.objects.Steps;
 
@@ -39,6 +41,7 @@ public class ViewRecipe extends AppCompatActivity {
     private Steps step;
     AccessRecipes ar = new AccessRecipes();
     AccessSteps as = new AccessSteps();
+    AccessShoppingCart sc= new AccessShoppingCart();
     Toast t;
 
 
@@ -84,8 +87,9 @@ public class ViewRecipe extends AppCompatActivity {
             String itemSelected="Added to your cart: \n";
             for(int i=0;i<listViewData.getCount();i++){
                 if(listViewData.isItemChecked(i)){
-                    itemSelected+=listViewData.getItemAtPosition(i)+"\n";
-                    //listViewData.isCh;
+                    String temp=(String) listViewData.getItemAtPosition(i);
+                    itemSelected+=temp+"\n";
+                    sc.addToList(makeIngredients(temp));
 
                 }
             }
@@ -94,6 +98,18 @@ public class ViewRecipe extends AppCompatActivity {
             System.out.println(itemSelected);
         }
         return super.onOptionsItemSelected(item);
+    }
+    //private helper function to create ingredients
+    private Ingredient makeIngredients(String s){
+        Ingredient ingredient;
+
+        String[] info = s.split("Am");
+        String[] ingredientsInfo= info[1].split(" ");
+        ingredient=new Ingredient(info[0],Integer.parseInt(ingredientsInfo[1]),Double.parseDouble(ingredientsInfo[5]),
+                Double.parseDouble(ingredientsInfo[3]),"1");
+
+        return ingredient;
+
     }
     public void makeToast(String s){
         if(t!=null) t.cancel();
