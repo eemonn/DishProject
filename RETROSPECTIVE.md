@@ -9,5 +9,4 @@ Fill in
 
 #### Project Velocity
 --- 
-
-Chart
+![](./ProjectVelocity.png)
