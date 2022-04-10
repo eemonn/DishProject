@@ -51,8 +51,10 @@ public class ShoppingCartActivity extends AppCompatActivity {
                 String text = insert.getText().toString();
                 if (text.length() == 0) {
                     makeToast("Enter an ingredient.");
+                    sc.addToList(new Ingredient(text,5,6.6,7.0,"100"));
                 } else {
                     addItem(text);
+                    sc.addToList(new Ingredient(text,5,6.6,7.0,"100"));
                     insert.setText("");
                     makeToast("Added " + text);
                 }

@@ -61,4 +61,10 @@ public class AccessShoppingCartTestIT {
         scSize--;
         Assert.assertEquals(sc.getEntireList().size(),scSize); // one removed
     }
+
+    @After
+    public void tearDown() {
+        tempDB.delete();
+        Services.clean();
+    }
 }
