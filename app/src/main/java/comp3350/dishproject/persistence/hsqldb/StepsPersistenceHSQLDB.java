@@ -107,6 +107,7 @@ public class StepsPersistenceHSQLDB implements StepsPersistence {
                 st.setString(1, directions);
                 st.setString(2, recipe.getRecipeID());
                 st.executeUpdate();
+                st.close();
             } else {
                 return false;
             }

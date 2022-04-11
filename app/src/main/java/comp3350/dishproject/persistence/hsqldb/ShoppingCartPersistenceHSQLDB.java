@@ -63,6 +63,7 @@ public class ShoppingCartPersistenceHSQLDB implements ShoppingCartPersistence {
             sc.setString(1, ingredientName);
             sc.executeUpdate();
             removed=true;
+            sc.close();
         } catch (final SQLException e) {
             throw new PersistenceException(e);
         }
