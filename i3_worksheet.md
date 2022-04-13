@@ -1,8 +1,13 @@
 What technical debt has been cleaned up
 ========================================
 
-Show links to a commit where you paid off technical debt. Write 2-5 sentences
-that explain what debt was paid, and what its classification is.
+<ins>Homecards Reckless Inadvertent</ins>
+[Commit](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/commit/f6e61bed5a17743f0e9991d515c066d00e3bb139)
+One of the biggest technical debts we payed off in iteration 3 related to our home cards. 
+We had not properly planned out the dynamic adding of recipes to the home page, and because of this we were forced to close the app and restart it to have new recipes show up. 
+I would call this **Reckless Inadvertent** because it was an oversight on our part, due to lack of planning. 
+This was resolved by having the positive button in the add Recipe dialog, call for the home card recycler to refresh.
+Fixing this technical debt allowed us a lot more opportunities to improve our home page, because we could now easily refresh the list (meaning we could sort, add favorite, and most importantly display new recipes). 
 
 What technical debt did you leave?
 ==================================
