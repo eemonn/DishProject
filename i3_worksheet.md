@@ -2,7 +2,9 @@ What technical debt has been cleaned up
 ========================================
 
 <ins>Homecards Reckless Inadvertent</ins>
+
 [Commit](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/commit/f6e61bed5a17743f0e9991d515c066d00e3bb139)
+
 One of the biggest technical debts we payed off in iteration 3 related to our home cards. 
 We had not properly planned out the dynamic adding of recipes to the home page, and because of this we were forced to close the app and restart it to have new recipes show up. 
 I would call this **Reckless Inadvertent** because it was an oversight on our part, due to lack of planning. 
