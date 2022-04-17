@@ -1,0 +1,70 @@
+
+.navbar {
+    margin-bottom: 0;
+}
+
+.nav-Bar{
+	background-color:grey;
+	padding-right: 50px;
+}
+
+
+.min-height{
+	min-height: 100px;
+  }
+
+
+  .bg-header{
+	
+	font-family : Papyrus, Papyrus, fantasy;
+
+}
+  
+body, html {
+	height: 100%;
+	line-height: 1.8;
+
+  }
+  
+  .hero-bg{
+
+	background-position: center;
+	background-image: url("Tastease-logos.jpeg");
+	background-size: cover;
+	height: 150%;
+	background-repeat: no-repeat;
+  }
+
+ .background-pick{
+	
+	background-image: url("visionImage3.jpeg");
+	
+
+}
+  
+  .text-change{
+	color: #ffffff;
+  }
+  
+  .container{
+	display: flex;
+  }
+  .fixed{
+	min-width: 300px;
+	margin-left: auto;
+  	margin-right: auto;
+  	width: 70%;
+  }
+  .flex-item{
+	flex-grow:.2;
+  }
+  .spacer{
+	min-height: 30px;
+  }
+
+  footer{
+	background-color: #107dac; 
+	
+    
+	
+}
