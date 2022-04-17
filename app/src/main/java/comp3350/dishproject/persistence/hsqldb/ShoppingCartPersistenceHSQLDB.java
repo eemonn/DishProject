@@ -62,6 +62,7 @@ public class ShoppingCartPersistenceHSQLDB implements ShoppingCartPersistence {
             final PreparedStatement sc = c.prepareStatement("DELETE FROM SHOPPINGLIST WHERE NAME = ?");
             sc.setString(1, ingredientName);
             sc.executeUpdate();
+            sc.close();
             removed=true;
             sc.close();
         } catch (final SQLException e) {

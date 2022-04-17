@@ -34,7 +34,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
     static Context context;
     static Toast t;
     EditText insert; ImageView imageView; Menu emptyMenu;
-    static AccessShoppingCart sc= new AccessShoppingCart();
+    static AccessShoppingCart sc;
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_cart);
@@ -42,6 +42,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
         context=getApplicationContext();
         insert = findViewById(R.id.input);
         imageView = findViewById(R.id.add);
+        sc= new AccessShoppingCart();
         items = shoppingList(sc.getEntireList());
         adapter=new ShoppingCartAdapter(this,items);
         listView.setAdapter(adapter);
@@ -51,8 +52,10 @@ public class ShoppingCartActivity extends AppCompatActivity {
                 String text = insert.getText().toString();
                 if (text.length() == 0) {
                     makeToast("Enter an ingredient.");
+                    sc.addToList(new Ingredient(text,5,6.6,7.0,"100"));
                 } else {
                     addItem(text);
+                    sc.addToList(new Ingredient(text,5,6.6,7.0,"100"));
                     insert.setText("");
                     makeToast("Added " + text);
                 }

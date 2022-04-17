@@ -4,6 +4,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import comp3350.dishproject.tests.logic.AccessIngredientsTest;
 import comp3350.dishproject.tests.logic.AccessRecipesTest;
+import comp3350.dishproject.tests.logic.AccessShoppingCartTest;
 import comp3350.dishproject.tests.logic.AccessStepsTest;
 import comp3350.dishproject.tests.logic.ShowRecipeTest;
 import comp3350.dishproject.tests.logic.ShowRecipeTestIT;
@@ -20,6 +21,7 @@ import comp3350.dishproject.tests.objects.StepsTest;
         AccessRecipesTest.class,
         ShowRecipeTest.class,
         AccessStepsTest.class,
+        AccessShoppingCartTest.class
 })
 
 public class AllUnitTests {
