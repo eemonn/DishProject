@@ -34,7 +34,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
     static Context context;
     static Toast t;
     EditText insert; ImageView imageView; Menu emptyMenu;
-    static AccessShoppingCart sc= new AccessShoppingCart();
+    static AccessShoppingCart sc;
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_cart);
@@ -42,6 +42,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
         context=getApplicationContext();
         insert = findViewById(R.id.input);
         imageView = findViewById(R.id.add);
+        sc= new AccessShoppingCart();
         items = shoppingList(sc.getEntireList());
         adapter=new ShoppingCartAdapter(this,items);
         listView.setAdapter(adapter);

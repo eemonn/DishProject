@@ -23,7 +23,10 @@ import java.util.Collections;
 import java.util.List;
 
 import comp3350.dishproject.R;
+import comp3350.dishproject.logic.AccessIngredients;
 import comp3350.dishproject.logic.AccessRecipes;
+import comp3350.dishproject.logic.AccessShoppingCart;
+import comp3350.dishproject.logic.AccessSteps;
 import comp3350.dishproject.objects.Recipe;
 import comp3350.dishproject.persistence.utils.DBHelper;
 
@@ -44,6 +47,9 @@ public class MainActivity extends AppCompatActivity  {
     public DrawerLayout drawerLayout;
     public ActionBarDrawerToggle actionBarDrawerToggle;
     AccessRecipes ar;
+    AccessSteps as;
+    AccessIngredients ai;
+    AccessShoppingCart asc;
 
     Adapter adapter;
 
@@ -54,6 +60,9 @@ public class MainActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_main);
         DBHelper.copyDatabaseToDevice(this);
         ar = new AccessRecipes();
+        as = new AccessSteps();
+        ai = new AccessIngredients();
+        asc = new AccessShoppingCart();
         //Update the list of recipes at startup
         updateDishList();
         //Setup recycler view with the adapter (shows cards on main screen)

@@ -87,6 +87,7 @@ public class Services {
         recipePersistence = null;
         ingredientPersistence = null;
         stepsPersistence = null;
+        shoppingListPersistence=null;
     }
     // for noman
 

@@ -2,6 +2,12 @@ package comp3350.dishproject.tests.logic;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+
+import java.util.ArrayList;
 
 import comp3350.dishproject.logic.AccessShoppingCart;
 import comp3350.dishproject.objects.Ingredient;
@@ -15,8 +21,8 @@ public class AccessShoppingCartTest {
 
     @Before
     public void setUp(){
-        shoppingCart= new ShoppingCartPersistenceStub();
-        sc= new AccessShoppingCart();
+        shoppingCart= mock(ShoppingCartPersistence.class);
+        sc= new AccessShoppingCart(shoppingCart);
     }
 
     @Test
@@ -27,33 +33,42 @@ public class AccessShoppingCartTest {
     @Test
     public void testAddtoList(){
         Ingredient ingredient=new Ingredient("Tomato",5,23,3, "100");
+        final ArrayList<Ingredient> ingredients=new ArrayList<>();
+        ingredients.add(ingredient); // one more added
+        when(shoppingCart.getEntireList()).thenReturn(ingredients);
+
         int scSize=shoppingCart.getEntireList().size();
-        shoppingCart.addToList(ingredient);
-        Assert.assertEquals(shoppingCart.getEntireList().size(),scSize+1); // one more added
+        Assert.assertEquals(scSize,1); // There is only one element in the list
+        verify(shoppingCart).getEntireList();
     }
 
     @Test
     public void testDeleteFromList(){
+        Ingredient ingredient=new Ingredient("Tomato",5,23,3, "100");
+        Ingredient ingredient2=new Ingredient("Lettuce",5,23,3, "100");
+        final ArrayList<Ingredient> ingredients=new ArrayList<>();
+        ingredients.add(ingredient); // one more added
+        ingredients.add(ingredient2);
+        ingredients.remove(0); //remove the first one
+        when(shoppingCart.getEntireList()).thenReturn(ingredients);
+
         int scSize=shoppingCart.getEntireList().size();
-        shoppingCart.deleteFromList("Bun");
-        Assert.assertEquals(shoppingCart.getEntireList().size(),scSize-1); // one removed
+        Assert.assertEquals(scSize,1); // There is only one element in the list
+        verify(shoppingCart).getEntireList();
+
     }
 
     @Test
     public void testGetEntireList(){
-        int scSize=shoppingCart.getEntireList().size();
-        Ingredient ingredient1=new Ingredient("Tomato",5,23,3, "100");
-        shoppingCart.addToList(ingredient1);
-        scSize++;
-        Assert.assertEquals(shoppingCart.getEntireList().size(),scSize); // one more added
-
+        Ingredient ingredient=new Ingredient("Tomato",5,23,3, "100");
         Ingredient ingredient2=new Ingredient("Lettuce",5,23,3, "100");
-        shoppingCart.addToList(ingredient2);
-        scSize++;
-        Assert.assertEquals(shoppingCart.getEntireList().size(),scSize); // two more added
+        final ArrayList<Ingredient> ingredients=new ArrayList<>();
+        ingredients.add(ingredient); // one more added
+        ingredients.add(ingredient2);
+        when(shoppingCart.getEntireList()).thenReturn(ingredients);
 
-        shoppingCart.deleteFromList("Tomato");
-        scSize--;
-        Assert.assertEquals(shoppingCart.getEntireList().size(),scSize); // one removed
+        int scSize=shoppingCart.getEntireList().size();
+        Assert.assertEquals(scSize,2); // There are total two  elements in the list
+        verify(shoppingCart).getEntireList();
     }
 }
