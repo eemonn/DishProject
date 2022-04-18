@@ -12,6 +12,8 @@ In its current iteration, the presentation layer contains 4 classes of HomeCard,
 - `Adapter` is used as a helper class in displaying the popular recipe cards on the homepage.
 - `AddDialog` is used as a GUI feature that opens up a user input field that lets the user add their own recipe to the system.
 - `Messages` will be used for displaying error and warning messages to the user.
+- `ShoppingCartActivity` is the page responsible for displaying the shopping cart list.
+- `ShoppingCartAdapter` is a helper method to display the shopping cart.
 
 ## Persistence Layer
 ---
@@ -29,6 +31,7 @@ In its current iteration, the presentation layer contains 4 classes of HomeCard,
 - `AccessSteps` will contain functionality for accessing data from the steps persistence interface. 
 - `AccessIngredients` will contain functionality for accessing data from the ingredients persistence interface. 
 - `AddRecipe` will be the helper class to add a recipe into the system
+- `AccessShoppingCart` will contain functionality for accessing and checking data from the shopping cart persistence interface. 
 
 
 ## Domain Specific Objects
