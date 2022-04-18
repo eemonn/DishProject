@@ -2,7 +2,10 @@
 ---
 The dish project system(DP system) is an application which will allow users to find and dissect their favourite dishes simply by searching the name of the dish. The DP system is focused around letting users find the dish they want to cook and then adding the ingredients they don't have to a shopping list to make the shopping process easier.
 
-No special instructions to run the app.
+### Special Instructions to run app
+---
+- Build in Android Studio with Gradle
+- You can use latest version of Gradle and Android Plugin 
 
 ### Project Documents:
 ---
