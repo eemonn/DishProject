@@ -14,5 +14,5 @@ import comp3350.dishproject.tests.ShoppingListTest;
         ShoppingListTest.class
 })
 
-    public class AllSystemTests {
+    public class AllAcceptanceTests {
 }
