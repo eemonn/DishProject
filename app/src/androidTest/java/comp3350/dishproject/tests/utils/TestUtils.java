@@ -1,14 +1,4 @@
 package comp3350.dishproject.tests.utils;
-
-import android.view.View;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.test.espresso.matcher.BoundedMatcher;
-
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-
 import java.util.Collections;
 import java.util.List;
 
@@ -43,24 +33,6 @@ public class TestUtils {
         List<Recipe> mlist = ar.getAllRecipes();
         Collections.sort(mlist, (object1, object2) -> Boolean.compare(object2.getFav(), object1.getFav()));
         return(mlist.get(0));
-    }
-
-    public String [] getIngredientListName(List<Ingredient> ingredientsOfRecipe){
-        String []m = new String[10];
-        int size=0;
-
-        for(int i=0;i<ingredientsOfRecipe.size();i++){
-            Ingredient ingredient = ingredientsOfRecipe.get(i);
-            m[i]= ingredient.getName()+" Amount: "+
-                    ingredient.getQuantity()+" Calorie: "+
-                    ingredient.getCalorie()+" Weight: "+
-                    ingredient.getWeight()
-            ;
-            size++;
-        }
-        String [] mm=new String[size];
-        System.arraycopy(m, 0, mm, 0, size);
-        return mm;
     }
 
     public String[] getStrings(Recipe r){

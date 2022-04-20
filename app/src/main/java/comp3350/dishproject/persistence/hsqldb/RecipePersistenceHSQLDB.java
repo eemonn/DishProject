@@ -17,6 +17,7 @@ import comp3350.dishproject.persistence.RecipePersistence;
 public class RecipePersistenceHSQLDB implements RecipePersistence {
     private final String dbPath;
     private final List<String> recipeIDs;
+
     public RecipePersistenceHSQLDB(final String dbPath) {
         this.dbPath = dbPath;
         this.recipeIDs = new ArrayList<>();

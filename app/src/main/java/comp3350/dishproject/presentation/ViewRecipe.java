@@ -38,14 +38,14 @@ public class ViewRecipe extends AppCompatActivity {
     private Switch sw;
     private TextView ratingText;
     private ShowRecipe showRecipe;
-    ListView listViewData;
-    ArrayAdapter<String> adapter;
+    private ListView listViewData;
+    private ArrayAdapter<String> adapter;
     private Recipe recipe;
     private Steps step;
-    AccessRecipes ar = new AccessRecipes();
-    AccessSteps as = new AccessSteps();
-    AccessShoppingCart sc= new AccessShoppingCart();
-    Toast t;
+    private AccessRecipes ar;
+    private AccessSteps as;
+    private AccessShoppingCart sc;
+    private Toast t;
 
 
     //Android Specific Creator
@@ -57,6 +57,11 @@ public class ViewRecipe extends AppCompatActivity {
         //getting passed in value
         Bundle extras = getIntent().getExtras();
         String dish = "";
+
+        //Setting up logic layer access
+        ar = new AccessRecipes();
+        as = new AccessSteps();
+        sc= new AccessShoppingCart();
 
         //Setting up the recipe object for which the page is being seen
         if(extras !=null) {
@@ -76,14 +81,14 @@ public class ViewRecipe extends AppCompatActivity {
         updateListViewer();
     }
 
-    //Android Specific Creator
+    //Android Specific Creator for menu bar
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.main_menu,menu);
         return true;
     }
 
-    //Android Specific Creator
+    //Android Specific Creator for item checked on menuitem
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
         int id=item.getItemId();
@@ -94,34 +99,36 @@ public class ViewRecipe extends AppCompatActivity {
                     String temp=(String) listViewData.getItemAtPosition(i);
                     itemSelected+=temp+"\n";
                     sc.addToList(makeIngredients(temp));
-
                 }
             }
             makeToast(itemSelected);
-            //Toast.makeText(this,itemSelected,Toast.LENGTH_LONG).show();
-            System.out.println(itemSelected);
         }
-
         return super.onOptionsItemSelected(item);
     }
-    //private helper function to create ingredients
+
+    /*
+    Input: Takes in a string containing information about a given ingredient
+    Output: returns an ingredient
+    Description: private helper used for converting information form the UI to ingredients
+   */
     private Ingredient makeIngredients(String s){
         Ingredient ingredient;
-
         String[] info = s.split("Am");
         String[] ingredientsInfo= info[1].split(" ");
         ingredient=new Ingredient(info[0],Integer.parseInt(ingredientsInfo[1]),Double.parseDouble(ingredientsInfo[5]),
                 Double.parseDouble(ingredientsInfo[3]),"1");
-
         return ingredient;
 
     }
+
+    /*
+    Input: Takes in a string to display
+    Output: void function
+    Description: Helper for displaying string message about adding to shopping cart
+   */
     public void makeToast(String s){
         if(t!=null) t.cancel();
         t=Toast.makeText(this.getApplicationContext(),s,Toast.LENGTH_LONG);
-        //ViewGroup group = (ViewGroup) t.getView();
-        //TextView messageTextView = (TextView) group.getChildAt(0);
-        //messageTextView.setTextSize(30);
         TextView tv=new TextView(this.getApplicationContext());
         tv.setBackgroundColor(Color.WHITE);
         tv.setPadding(10,10,10,10);

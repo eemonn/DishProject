@@ -2,9 +2,7 @@ package comp3350.dishproject.presentation;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -20,10 +18,9 @@ import comp3350.dishproject.logic.AddRecipe;
 
 public class AddDialog extends AppCompatDialogFragment {
 
-    LinearLayout layoutList;
-    Button buttonAdd;
-
-    MainActivity mainActivityCopy;
+    private LinearLayout layoutList;
+    private Button buttonAdd;
+    private MainActivity mainActivityCopy;
 
     /*
     Input: instance State
@@ -64,12 +61,14 @@ public class AddDialog extends AppCompatDialogFragment {
                 addView();
             }
         });
-
-
-
         return builder.create();
     }
 
+    /*
+    Input: Takes in a view
+    Output: void
+    Description: Reads the data from the add recipe dialog boxes and sends it to logic layer
+     */
     private void readData(View view)
     {
         //Initialize Variables to hold data

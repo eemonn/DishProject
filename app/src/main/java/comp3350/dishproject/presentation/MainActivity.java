@@ -7,8 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -41,40 +39,39 @@ public class MainActivity extends AppCompatActivity  {
     private ListView listSearchSuggestions; //listview used for displaying the search suggestions(AKA autocomplete)
     private ArrayAdapter<String> searchSuggestions;//used for taking a string array of dishes and inserting them into the listview
     private String[] dishes;
-    List<HomeCard> mlist = new ArrayList<>();
+    private List<HomeCard> mlist;
+    private AccessRecipes ar;
+    private AccessSteps as;
+    private AccessIngredients ai;
+    private AccessShoppingCart asc;
+    private Adapter adapter;
 
     //for navigation bar
-    public DrawerLayout drawerLayout;
-    public ActionBarDrawerToggle actionBarDrawerToggle;
-    AccessRecipes ar;
-    AccessSteps as;
-    AccessIngredients ai;
-    AccessShoppingCart asc;
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle actionBarDrawerToggle;
 
-    Adapter adapter;
 
     //Android Specific Creator
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        DBHelper.copyDatabaseToDevice(this);
+        DBHelper.copyDatabaseToDevice(this);//Database
+
+        //Setting up our database singleton classes
         ar = new AccessRecipes();
         as = new AccessSteps();
         ai = new AccessIngredients();
         asc = new AccessShoppingCart();
+
         //Update the list of recipes at startup
         updateDishList();
         //Setup recycler view with the adapter (shows cards on main screen)
         RecyclerView recyclerView = findViewById(R.id.rv_list);
 
-        //Popular cards - these need to be hardcoded since their popular to everyone
-        //mlist.add(new HomeCard(R.drawable.burger, "Burger"));
-        //mlist.add(new HomeCard(R.drawable.pizza, "Pizza"));
-        //mlist.add(new HomeCard(R.drawable.tacos, "Tacos"));
-        //mlist.add(new HomeCard(R.drawable.pancake, "Pancake"));
-        //mlist.add(new HomeCard(R.drawable.fish, "Fish"));
 
+        //Recipes Cards Init
+        mlist = new ArrayList<>();
         turnRecipesIntoCards();
         sortRecipeCards();
 
@@ -83,13 +80,11 @@ public class MainActivity extends AppCompatActivity  {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager((new LinearLayoutManager(this)));
 
-
         //Inits
         initializeSearchSuggestionBox();
         initializeNavigationBar();
         setNavigationOnClick();
 
-        //Calling the recipe card methods on create
     }
 
     /*
@@ -117,7 +112,6 @@ public class MainActivity extends AppCompatActivity  {
      */
     public void turnRecipesIntoCards(){
         List<Recipe> recipeList = ar.getAllRecipes();
-
         for(int i=0;i<recipeList.size();i++) {
             Recipe recipe = recipeList.get(i);
             String dish = recipe.getName().toLowerCase();

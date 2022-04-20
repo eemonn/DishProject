@@ -82,7 +82,6 @@ public class ShoppingListTest {
         top = tu.topRecipe();
     }
 
-    //sizes are bugged - FIX
     @Test
     public void testAddAndDeleteIngredient(){
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
@@ -90,13 +89,13 @@ public class ShoppingListTest {
         onView(withId(R.id.input)).perform(typeText("Squid"));
         onView(withId(R.id.add)).perform(click());
         int size = tu.getNoOfIngredientsInShoppingList();//should be the last element
-        onView(nthChildOf(nthChildOf(withId(R.id.listview), size),1)).check(matches(withText("Squid")));
+        onView(nthChildOf(nthChildOf(withId(R.id.listview), size-1),1)).check(matches(withText("Squid")));
         SystemClock.sleep(1500);
-        onView(nthChildOf(nthChildOf(withId(R.id.listview), size),3)).perform(click());
+        onView(nthChildOf(nthChildOf(withId(R.id.listview), size-1),3)).perform(click());
         SystemClock.sleep(1500);
     }
 
-    //goddam https://stackoverflow.com/questions/38566886/espresso-how-to-get-the-children-of-a-view-by-index
+    //Reference https://stackoverflow.com/questions/38566886/espresso-how-to-get-the-children-of-a-view-by-index
     public static Matcher<View> nthChildOf(final Matcher<View> parentMatcher, final int childPosition) {
         return new TypeSafeMatcher<View>() {
             @Override
@@ -122,7 +121,6 @@ public class ShoppingListTest {
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
         onView(withId(R.id.nav_shopping_cart)).perform(click());
         onView(withId(R.id.des_title)).check(matches(withText("Shopping List")));
-        //SystemClock.sleep(1500);
     }
 
     @Test
@@ -143,7 +141,6 @@ public class ShoppingListTest {
                     @Override
                     public void perform(UiController uiController, View view) {
                         View button = view.findViewById(R.id.btn_view);
-
                         button.performClick();
                     }
                 })
@@ -162,7 +159,6 @@ public class ShoppingListTest {
         SystemClock.sleep(1500);
         onView(nthChildOf(nthChildOf(withId(R.id.listview), size-1),3)).perform(click());
         SystemClock.sleep(1500);
-
     }
 
 

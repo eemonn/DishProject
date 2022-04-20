@@ -78,10 +78,9 @@ public class RecipeTest {
         top = tu.topRecipe();
     }
 
-
-
     @Test//tests feature and displaying it and nav bar
     public void testAddRecipe(){
+        tu.deleteRecipe("turkey");
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
         onView(withId(R.id.nav_add_recipe)).perform(click());
         onView(withId(R.id.add_recipe_name)).perform(typeText("Turkey"));
@@ -89,7 +88,6 @@ public class RecipeTest {
         onView(withId(R.id.button_add_ingredient)).perform(click());
         onView(withId(R.id.edit_ingredient_name)).perform(typeText("turkey bird"));
         onView(withId(R.id.edit_ingredient_weight)).perform(typeText("360"));
-        //onView(nthChildOf(nthChildOf(withId(R.id.layout_list), 0),1)).check(matches(withText("hi")));
         closeSoftKeyboard();
         onView(withText("Add")).perform(click());
         SystemClock.sleep(1500);
@@ -97,11 +95,9 @@ public class RecipeTest {
         onView(withId(R.id.search_src_text)).perform(typeText("turkey")).perform(pressKey(KeyEvent.KEYCODE_ENTER));
         onView(withId(R.id.des_title)).check(matches(withText("turkey")));
         tu.deleteRecipe("turkey");
-
-
-
     }
 
+    //Reference https://stackoverflow.com/questions/38566886/espresso-how-to-get-the-children-of-a-view-by-index
     public static Matcher<View> nthChildOf(final Matcher<View> parentMatcher, final int childPosition) {
         return new TypeSafeMatcher<View>() {
             @Override
@@ -125,7 +121,6 @@ public class RecipeTest {
     public void testFavourite(){
         boolean isFav = top.getFav();//burger is not fav
         clickFirstButton();//get to burger page
-
         onView(withId(R.id.switch1)).perform(new ViewAction() {
             @Override
             public Matcher<View> getConstraints() {
@@ -169,7 +164,6 @@ public class RecipeTest {
                     @Override
                     public void perform(UiController uiController, View view) {
                         View button = view.findViewById(R.id.btn_view);
-
                         button.performClick();
                     }
                 })
@@ -180,16 +174,7 @@ public class RecipeTest {
         } else {
             onView(withId(R.id.switch1)).check(matches((isChecked())));
         }
-        //SystemClock.sleep(2500);
-        //checking if Added
-
-
-
-
-
-
         //Reset - make sure you get right positon
-
         onView(withId(R.id.switch1)).perform(new ViewAction() {
             @Override
             public Matcher<View> getConstraints() {

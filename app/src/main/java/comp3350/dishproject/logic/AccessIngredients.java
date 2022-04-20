@@ -4,7 +4,6 @@ import java.util.List;
 
 import comp3350.dishproject.application.Services;
 import comp3350.dishproject.objects.Ingredient;
-import comp3350.dishproject.objects.Recipe;
 import comp3350.dishproject.persistence.IngredientPersistence;
 
 public class AccessIngredients {

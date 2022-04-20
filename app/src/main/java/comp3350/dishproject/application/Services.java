@@ -73,6 +73,12 @@ public class Services {
         }
         return stepsPersistence;
     }
+
+     /*
+   Input: no input
+   Output: returns a object of type shopping cart persistence
+   Description: Allows access to the shopping cart persistence class/interface
+    */
     public static synchronized ShoppingCartPersistence getShoppingListPersistence() {
         if(shoppingListPersistence == null) {
             if(useRealDatabase) {
@@ -83,15 +89,16 @@ public class Services {
         }
         return shoppingListPersistence;
     }
+
+     /*
+   Input: no input
+   Output: void
+   Description: Resets each instance to null, used in testing to make sure we clean the database
+    */
     public static synchronized void clean() {
         recipePersistence = null;
         ingredientPersistence = null;
         stepsPersistence = null;
         shoppingListPersistence=null;
     }
-    // for noman
-
-    //add method
-
-
 }

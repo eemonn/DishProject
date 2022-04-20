@@ -1,8 +1,5 @@
 package comp3350.dishproject.logic;
 
-import android.util.Log;
-
-import java.util.List;
 import java.util.Random;
 
 import comp3350.dishproject.objects.Ingredient;
@@ -12,7 +9,7 @@ import comp3350.dishproject.objects.Recipe;
 
 public class AddRecipe {
 
-    private static AccessRecipes ar = new AccessRecipes();
+    private static AccessRecipes ar;
     private static AccessIngredients ai;
     private static AccessSteps as;
     
@@ -22,6 +19,7 @@ public class AddRecipe {
     Description: attempts to add a dish to the system
      */
     public static boolean createRecipe(String recipeName, String cookingInstructions, String[] ingredientNames, Double[] ingredientWeights) throws Exception {
+        ar = new AccessRecipes();
         //Checking dish name
         if(!ar.findRecipeID(recipeName).equals("No ID")) {
             throw new Exception("Name Already in System");

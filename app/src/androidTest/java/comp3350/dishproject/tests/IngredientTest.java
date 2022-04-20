@@ -84,8 +84,6 @@ public class IngredientTest {
                                 })
                 );
         SystemClock.sleep(1000);
-        //List<Ingredient> li = tu.getIngredients(top.getRecipeID());
-        //String [] ingredientStrings = tu.getIngredientListName(li);
         String[] ingredientStrings = tu.getStrings(top);
         for(int i=0;i<ingredientStrings.length;i++){
             onData(anything()).inAdapterView(withId(R.id.listView_data)).atPosition(i).
@@ -122,6 +120,5 @@ public class IngredientTest {
         String[] ingredientStrings = tu.getUpdatedIngredients(top,4);
         onData(anything()).inAdapterView(withId(R.id.listView_data)).atPosition(0).
                 check(matches(withText(ingredientStrings[0])));
-
     }
 }

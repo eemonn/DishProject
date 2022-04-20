@@ -59,7 +59,7 @@ public class Ingredient {
     name and id
      */
     public boolean isEqual(Ingredient i) {
-        return this.name.equals(i.name) && this.getRecipeID().equals(i.getRecipeID());
+        return this.name.equals(i.name);
     }
 
     /*

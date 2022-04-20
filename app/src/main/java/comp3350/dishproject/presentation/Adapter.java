@@ -18,8 +18,8 @@ import comp3350.dishproject.R;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.myViewHolder> {
 
-    private Context mContext;
-    private List<HomeCard> mData;
+    private final Context mContext;
+    private final List<HomeCard> mData;
 
     /*
     Input: Takes in a context and a list of home cards
@@ -54,7 +54,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.myViewHolder> {
     public void onBindViewHolder(@NonNull myViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
         //If favorited, show the favorite photo
-        if(mData.get(position).getFav() == true)
+        if(mData.get(position).getFav())
         {
             holder.fav_img.setImageResource(R.drawable.fav2);
         }

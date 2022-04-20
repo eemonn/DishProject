@@ -23,15 +23,31 @@ public class AccessShoppingCart {
         this.shoppingListPersistence = shoppingListPersistence;
     }
 
-    public boolean addToList(Ingredient ingredientName)
+
+    /*
+    Input: Takes in an ingredient object
+    Output: returns a boolean, true if successful add to list
+    Description: Adds a specified ingredient to the shopping list
+     */
+    public boolean addToList(Ingredient ingredient)
     {
-        return shoppingListPersistence.addToList(ingredientName);
+        return shoppingListPersistence.addToList(ingredient);
     }
 
+    /*
+    Input: takes in a string of the Ingredient name
+    Output: boolean, true if successful delete
+    Description: Deletes an ingredient from the shopping list
+     */
     public boolean deleteFromList(String ingredientName){
         return shoppingListPersistence.deleteFromList(ingredientName);
     }
 
+    /*
+    Input: no input
+    Output: returns a List of ingredients objects in the shopping cart
+    Description: returns a List of ingredients in the shopping cart
+     */
     public List<Ingredient> getEntireList(){
         return shoppingListPersistence.getEntireList();
     }

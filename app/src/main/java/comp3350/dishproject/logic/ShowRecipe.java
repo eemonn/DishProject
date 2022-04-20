@@ -8,9 +8,9 @@ import comp3350.dishproject.objects.Recipe;
 public class ShowRecipe {
     private final Recipe recipe;
     private final String recipeID;
-    List<Ingredient> ingredientsOfRecipe;
-    AccessRecipes Ar;
-    AccessIngredients Ai;
+    private List<Ingredient> ingredientsOfRecipe;
+    private AccessRecipes Ar;
+    private AccessIngredients Ai;
 
     /*
     Input: a recipe object
