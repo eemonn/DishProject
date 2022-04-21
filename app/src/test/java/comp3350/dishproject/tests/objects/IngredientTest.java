@@ -17,7 +17,7 @@ public class IngredientTest {
 
     @Before
     public void setUp() {
-        r = new Recipe("Fruit", "100",5,false);
+        r = new Recipe("Fruit", "100",5,false, "How do you cook a fruit");
         ingredient=new Ingredient("Apple",  1, 200.0,180.0,r.getRecipeID());
     }
 

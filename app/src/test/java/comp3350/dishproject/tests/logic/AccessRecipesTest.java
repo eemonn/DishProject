@@ -43,8 +43,8 @@ public class AccessRecipesTest {
 
     @Test
     public void testInsertRecipe() {
-        Recipe r = new Recipe("Apple","123",5,false);
-        Recipe badRecipe = new Recipe("burger","100",3,false);
+        Recipe r = new Recipe("Apple","123",5,false,"Bake it");
+        Recipe badRecipe = new Recipe("burger","100",3,false,"Burger on Bun");
 
         Assert.assertTrue("Add should be good",ar.insertRecipe(r));
 
@@ -81,5 +81,27 @@ public class AccessRecipesTest {
         boolean newFav = true;
         ar.changeFav(newFav,recipeID);
         Assert.assertTrue("Burger should now be fav",ar.getRecipe(recipeID).getFav());
+    }
+
+    @Test
+    public void testGetDirections() {
+        String recipeID = "100";//Burger in the system
+        String directions = ar.getDirections(recipeID);
+        Assert.assertTrue("Length greater than 0", directions.length() >= 1);
+        Assert.assertNotEquals("Not No directions", "No Directions", directions);
+    }
+
+    @Test
+    public void testBadGetDirections() {
+        String badRecipeID = "1242355";//not in the system
+        String badDirections = ar.getDirections(badRecipeID);
+        Assert.assertEquals("No directions found","No Directions",badDirections);
+    }
+
+    @Test
+    public void testUpdateDirections() {
+        String recipeID = "100";//Burger in the system
+        ar.updateDirections(recipeID,"Boil the meat(eww)");
+        Assert.assertEquals("directions should be updated","Boil the meat(eww)",ar.getDirections(recipeID));
     }
 }

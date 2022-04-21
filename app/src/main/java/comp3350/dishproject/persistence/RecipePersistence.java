@@ -13,4 +13,6 @@ public interface RecipePersistence {
     boolean deleteRecipe(String recipeID);
     boolean changeRating(double rating,String recipeID);
     boolean changeFav(boolean fav,String recipeID);
+    String getDirections(String recipeID);
+    boolean updateDirections(String recipeID, String newDirections);
 }

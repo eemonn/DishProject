@@ -15,7 +15,6 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import comp3350.dishproject.R;
-import comp3350.dishproject.logic.AccessShoppingCart;
 
 public class ShoppingCartAdapter extends ArrayAdapter<String> {
     private final ArrayList<String> list;

@@ -24,28 +24,27 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
 import comp3350.dishproject.R;
+import comp3350.dishproject.logic.AccessIngredients;
 import comp3350.dishproject.logic.AccessRecipes;
 import comp3350.dishproject.logic.AccessShoppingCart;
-import comp3350.dishproject.logic.AccessSteps;
-import comp3350.dishproject.logic.ShowRecipe;
 import comp3350.dishproject.objects.Ingredient;
 import comp3350.dishproject.objects.Recipe;
-import comp3350.dishproject.objects.Steps;
 
 public class ViewRecipe extends AppCompatActivity {
     private RatingBar rating;
     private Switch sw;
     private TextView ratingText;
-    private ShowRecipe showRecipe;
     private ListView listViewData;
     private ArrayAdapter<String> adapter;
     private Recipe recipe;
-    private Steps step;
     private AccessRecipes ar;
-    private AccessSteps as;
+    private AccessIngredients ai;
     private AccessShoppingCart sc;
     private Toast t;
+    private List<Ingredient> ingredientList;
 
 
     //Android Specific Creator
@@ -60,7 +59,7 @@ public class ViewRecipe extends AppCompatActivity {
 
         //Setting up logic layer access
         ar = new AccessRecipes();
-        as = new AccessSteps();
+        ai = new AccessIngredients();
         sc= new AccessShoppingCart();
 
         //Setting up the recipe object for which the page is being seen
@@ -68,8 +67,7 @@ public class ViewRecipe extends AppCompatActivity {
             dish = getIntent().getStringExtra("search");
             String recipeID = ar.findRecipeID(dish);
             recipe = ar.getRecipe(recipeID);
-            step = new Steps(as.getDirections(recipeID),recipe.getRecipeID());
-            showRecipe = new ShowRecipe(recipe);
+            ingredientList = ai.getIngredients(recipeID);
         }
 
         //Inits
@@ -168,8 +166,8 @@ public class ViewRecipe extends AppCompatActivity {
         sw.setChecked(recipe.getFav());
         ratingText = (TextView) findViewById(R.id.des_text);
         TextView directionText = (TextView) findViewById(R.id.direction_text);
-        ratingText.setText(showRecipe.showTitleDescription());
-        directionText.setText(step.toString());
+        ratingText.setText(recipe.showTitleDescription(ingredientList));
+        directionText.setText(recipe.toString());
         descriptionTextbox.setText(recipe.getName());
     }
 
@@ -183,7 +181,7 @@ public class ViewRecipe extends AppCompatActivity {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 ar.changeRating(rating,recipe.getRecipeID());
-                ratingText.setText(showRecipe.showTitleDescription());
+                ratingText.setText(recipe.showTitleDescription(ingredientList));
 
             }
         });
@@ -210,7 +208,7 @@ public class ViewRecipe extends AppCompatActivity {
     public void setDropDownMenu() {
         Spinner dropdown = findViewById(R.id.spinner);
         //create a list of items for the spinner.
-        String[] items = new String[]{"1", "2", "3", "4", "5", "6"};
+        String[] items = new String[]{"1", "2", "3", "4", "5", "6"};//this has to be hardcoded
         //create an adapter to describe how the items are displayed, adapters are used in several
         // places in android.
         //There are multiple variations of this, but this is the basic variant.
@@ -236,7 +234,7 @@ public class ViewRecipe extends AppCompatActivity {
     Description: Update the quantity of ingredients as the user selects
      */
     public void updateIngredient(int num) {
-        showRecipe.updateIngredients(num);
+        recipe.updateIngredients(num,ingredientList);
     }
 
     /*
@@ -245,7 +243,7 @@ public class ViewRecipe extends AppCompatActivity {
     Description: Update list viewer
      */
     public void updateListViewer(){
-        String [] arrayOfIngredients =showRecipe.getIngredientListName().clone();
+        String [] arrayOfIngredients =recipe.getIngredientListName(ingredientList).clone();
         listViewData=findViewById(R.id.listView_data);
         adapter=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice,arrayOfIngredients){
             @Override

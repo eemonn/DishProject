@@ -24,7 +24,6 @@ import comp3350.dishproject.R;
 import comp3350.dishproject.logic.AccessIngredients;
 import comp3350.dishproject.logic.AccessRecipes;
 import comp3350.dishproject.logic.AccessShoppingCart;
-import comp3350.dishproject.logic.AccessSteps;
 import comp3350.dishproject.objects.Recipe;
 import comp3350.dishproject.persistence.utils.DBHelper;
 
@@ -41,7 +40,6 @@ public class MainActivity extends AppCompatActivity  {
     private String[] dishes;
     private List<HomeCard> mlist;
     private AccessRecipes ar;
-    private AccessSteps as;
     private AccessIngredients ai;
     private AccessShoppingCart asc;
     private Adapter adapter;
@@ -60,7 +58,6 @@ public class MainActivity extends AppCompatActivity  {
 
         //Setting up our database singleton classes
         ar = new AccessRecipes();
-        as = new AccessSteps();
         ai = new AccessIngredients();
         asc = new AccessShoppingCart();
 

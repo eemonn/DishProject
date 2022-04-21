@@ -88,6 +88,7 @@ public class RecipeTest {
         onView(withId(R.id.button_add_ingredient)).perform(click());
         onView(withId(R.id.edit_ingredient_name)).perform(typeText("turkey bird"));
         onView(withId(R.id.edit_ingredient_weight)).perform(typeText("360"));
+        onView(withId(R.id.edit_ingredient_cal)).perform(typeText("452"));
         closeSoftKeyboard();
         onView(withText("Add")).perform(click());
         SystemClock.sleep(1500);

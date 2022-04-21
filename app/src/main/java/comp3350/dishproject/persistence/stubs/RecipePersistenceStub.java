@@ -17,11 +17,11 @@ public class RecipePersistenceStub implements RecipePersistence {
     */
     public RecipePersistenceStub() {
         this.recipes = new ArrayList<>();
-        recipes.add(new Recipe("burger","100",5,false));
-        recipes.add(new Recipe("pizza","200",4,false));
-        recipes.add(new Recipe("tacos","300",3,false));
-        recipes.add(new Recipe("pancake","400",1,false));
-        recipes.add(new Recipe("fish","500",1.5,false));
+        recipes.add(new Recipe("burger","100",5,false,"Cheese on top of beef and put that between buns"));
+        recipes.add(new Recipe("pizza","200",4,false,"Sauce and Cheese on dough and cook"));
+        recipes.add(new Recipe("tacos","300",3,false,"Beef and cheese into shell"));
+        recipes.add(new Recipe("pancake","400",1,false,"Cook batter and put syrup and butter on top"));
+        recipes.add(new Recipe("fish","500",1.5,false,"Put salt on fish and cook"));
     }
 
     /*
@@ -47,7 +47,7 @@ public class RecipePersistenceStub implements RecipePersistence {
                 return r;
             }
         }
-        return new Recipe("Null","1",1,false);
+        return new Recipe("Null","1",1,false,"");
     }
 
     /*
@@ -129,6 +129,29 @@ public class RecipePersistenceStub implements RecipePersistence {
             Recipe r = recipes.get(i);
             if (r.getRecipeID().equalsIgnoreCase(recipeID)) {
                 r.setFav(fav);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public String getDirections(final String recipeID) {
+        for(int i=0;i<recipes.size();i++) {
+            Recipe r = recipes.get(i);
+            if(r.getRecipeID().equals(recipeID)) {
+                return r.getSteps();
+            }
+        }
+        return "No Directions";
+    }
+
+    @Override
+    public boolean updateDirections(final String recipeID, String newDirections) {
+        for(int i=0;i<recipes.size();i++) {
+            Recipe r = recipes.get(i);
+            if(r.getRecipeID().equals(recipeID)) {
+                r.setSteps(newDirections);
                 return true;
             }
         }

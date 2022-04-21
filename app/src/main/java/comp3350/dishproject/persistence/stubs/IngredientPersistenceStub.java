@@ -20,11 +20,11 @@ public class IngredientPersistenceStub implements IngredientPersistence {
         this.recipes = new ArrayList<>();
         this.recipeIDs = new ArrayList<>();
 
-        final Recipe burger = new Recipe("Burger", "100",5,false);
-        final Recipe pizza = new Recipe("Pizza", "200",4,false);
-        final Recipe taco = new Recipe("Taco", "300",3,false);
-        final Recipe pancake = new Recipe("Pancake", "400",1,false);
-        final Recipe fish = new Recipe("Fish", "500",1.5,false);
+        final Recipe burger = new Recipe("burger","100",5,false,"Cheese on top of beef and put that between buns");
+        final Recipe pizza = new Recipe("pizza","200",4,false,"Sauce and Cheese on dough and cook");
+        final Recipe taco = new Recipe("tacos","300",3,false,"Beef and cheese into shell");
+        final Recipe pancake = new Recipe("pancake","400",1,false,"Cook batter and put syrup and butter on top");
+        final Recipe fish = new Recipe("fish","500",1.5,false,"Put salt on fish and cook");
         recipes.add(burger);
         recipeIDs.add(burger.getRecipeID());
         recipes.add(pizza);

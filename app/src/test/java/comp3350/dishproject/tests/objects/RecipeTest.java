@@ -11,7 +11,7 @@ public class RecipeTest {
 
     @Before
     public void setUp() {
-        recipe=new Recipe("Pizza","1025",5,false);
+        recipe=new Recipe("Pizza","1025",5,false,"Sauce and Cheese on dough and cook");
 
     }
 
@@ -50,5 +50,16 @@ public class RecipeTest {
     public void testSetName(){
         recipe.setName("Burger");
         Assert.assertEquals("Recipe Name should be Burger now", "Burger", recipe.getName());
+    }
+
+    @Test
+    public void testGetDirections() {
+        Assert.assertEquals("Directions should be the same", "Sauce and Cheese on dough and cook", recipe.getSteps());
+    }
+
+    @Test
+    public void testSetDirections() {
+        recipe.setSteps("Now boil it");
+        Assert.assertEquals("Directions should now be now boil it","Now boil it", recipe.getSteps());
     }
 }

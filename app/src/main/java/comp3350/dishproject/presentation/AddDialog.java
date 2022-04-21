@@ -76,6 +76,7 @@ public class AddDialog extends AppCompatDialogFragment {
         String cookingInstructions = "";
         String ingredientNames[] = new String[layoutList.getChildCount()];
         Double ingredientWeights[] = new Double[layoutList.getChildCount()];
+        Double ingredientCals[] = new Double[layoutList.getChildCount()];
         boolean hasFailed = false;
 
         EditText recipeNameEdit = view.findViewById(R.id.add_recipe_name);
@@ -93,19 +94,28 @@ public class AddDialog extends AppCompatDialogFragment {
             View ingredientView = layoutList.getChildAt(i);
             EditText ingredientName = ingredientView.findViewById(R.id.edit_ingredient_name);
             EditText ingredientWeight = ingredientView.findViewById(R.id.edit_ingredient_weight);
+            EditText cal = ingredientView.findViewById(R.id.edit_ingredient_cal);
 
             //Store the ingredient name and weight in variables
             ingredientNames[i] = ingredientName.getText().toString();
+            //Try adding weights
             try {
                 ingredientWeights[i] = Double.parseDouble(ingredientWeight.getText().toString());
             } catch(NumberFormatException nfe ) {
                 hasFailed = true;
                 Messages.warning(view.getContext(),"Bad input to weight field, make it a number");
             }
+            //Try adding calories
+            try {
+                ingredientCals[i] = Double.parseDouble(cal.getText().toString());
+            } catch(NumberFormatException nfe ) {
+                hasFailed = true;
+                Messages.warning(view.getContext(),"Bad input to Calorie field, make it a number");
+            }
         }
         if(!hasFailed) {
             try {
-                AddRecipe.createRecipe(recipeName.toLowerCase(), cookingInstructions, ingredientNames, ingredientWeights);
+                AddRecipe.createRecipe(recipeName.toLowerCase(), cookingInstructions, ingredientNames, ingredientWeights, ingredientCals);
 
                 //Reload the main activity showing the new card
                 mainActivityCopy.finish();
@@ -125,6 +135,7 @@ public class AddDialog extends AppCompatDialogFragment {
         View ingredientView = getLayoutInflater().inflate(R.layout.row_add_recipe, null, false);
         EditText ingredientName = ingredientView.findViewById(R.id.edit_ingredient_name);
         EditText ingredientWeight = ingredientView.findViewById(R.id.edit_ingredient_weight);
+        EditText cal = ingredientView.findViewById(R.id.edit_ingredient_cal);
         ImageView imageClose = ingredientView.findViewById(R.id.image_remove);
 
         imageClose.setOnClickListener(new View.OnClickListener() {

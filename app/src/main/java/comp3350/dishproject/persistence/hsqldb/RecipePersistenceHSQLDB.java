@@ -29,8 +29,9 @@ public class RecipePersistenceHSQLDB implements RecipePersistence {
         final String recipeName = rs.getString("NAME");
         final double rating = rs.getDouble("RATING");
         final boolean fav = rs.getBoolean("FAV");
+        final String steps = rs.getString("STEPS");
 
-        return new Recipe(recipeName, recipeID,rating,fav);
+        return new Recipe(recipeName, recipeID,rating,fav,steps);
     }
 
 
@@ -98,7 +99,7 @@ public class RecipePersistenceHSQLDB implements RecipePersistence {
         } catch (final SQLException e) {
             throw new PersistenceException(e);
         }
-        return new Recipe("Null","1",1,false);
+        return new Recipe("Null","1",1,false,"");
     }
 
     /*
@@ -137,11 +138,12 @@ public class RecipePersistenceHSQLDB implements RecipePersistence {
         try (final Connection c = connection()) {
             loadRecipesIDs();
             if(!recipeIDs.contains(newRecipe.getRecipeID())) {
-                final PreparedStatement st = c.prepareStatement("INSERT INTO RECIPES VALUES(?, ?, ?, ?)");
+                final PreparedStatement st = c.prepareStatement("INSERT INTO RECIPES VALUES(?, ?, ?, ?,?)");
                 st.setString(1, newRecipe.getRecipeID());
                 st.setString(2, newRecipe.getName());
                 st.setDouble(3, 5);//rating default 5
                 st.setBoolean(4,false);//default is false
+                st.setString(5,newRecipe.getSteps());
                 st.executeUpdate();
                 st.close();
             } else {
@@ -193,9 +195,6 @@ public class RecipePersistenceHSQLDB implements RecipePersistence {
                 final PreparedStatement st = c.prepareStatement("DELETE FROM INGREDIENTS WHERE RECIPEID = ?");
                 st.setString(1, recipeID);
                 st.executeUpdate();
-                final PreparedStatement sm = c.prepareStatement("DELETE FROM DIRECTIONS WHERE RECIPEID = ?");
-                sm.setString(1, recipeID);
-                sm.executeUpdate();
             } else {
                 return  false;
             }
@@ -225,5 +224,45 @@ public class RecipePersistenceHSQLDB implements RecipePersistence {
         } catch (final SQLException e) {
             throw new PersistenceException(e);
         }
+    }
+
+    /*
+    Input: takes in a string of the recipe ID and a string of new directions
+    Output: boolean
+    Description: updates a recipes directions
+     */
+    @Override
+    public boolean updateDirections(final String recipeID, String newDirections) {
+        try (final Connection c = connection()) {
+            loadRecipesIDs();
+            if(recipeIDs.contains(recipeID)) {
+                final PreparedStatement st = c.prepareStatement("UPDATE RECIPES SET STEPS = ? WHERE RECIPEID = ?");
+                st.setString(1, newDirections);
+                st.setString(2, recipeID);
+                st.executeUpdate();
+            } else {
+                return false;
+            }
+        } catch (final SQLException e) {
+            throw new PersistenceException(e);
+        }
+        return true;
+    }
+
+    @Override
+    public String getDirections(final String recipeID) {
+        try (final Connection c = connection()) {
+            final PreparedStatement st = c.prepareStatement("SELECT * FROM RECIPES WHERE RECIPES.recipeID=?");
+            st.setString(1, recipeID);
+            final ResultSet rs = st.executeQuery();
+            if(rs.next()) {
+                return fromResultSet(rs).getSteps();
+            }
+            rs.close();
+            st.close();
+        } catch (final SQLException e) {
+            throw new PersistenceException(e);
+        }
+        return "No Directions";
     }
 }

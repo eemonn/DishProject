@@ -90,4 +90,22 @@ public class AccessRecipes {
         return recipePersistence.changeFav(fav,recipeID);
     }
 
+    /*
+    Input: takes om string of recipe ID and gets its directions
+    Output: returns a string detailing the recipe instructions
+    Description: deletes a recipe object from the system
+     */
+    public String getDirections(final String recipeID) {
+        return recipePersistence.getDirections(recipeID);
+    }
+
+    /*
+    Input: takes om string of recipe ID and a string of new directions
+    Output: void
+    Description: updates a recipes directions
+     */
+    public boolean updateDirections(final String recipeID, String newDirections) {
+        return recipePersistence.updateDirections(recipeID,newDirections);
+    }
+
 }
