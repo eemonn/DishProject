@@ -25,7 +25,7 @@ public class AccessIngredientsTestIT {
     private AccessRecipes ar;
     private AccessIngredients ai;
     Recipe r;
-    String recipeID;
+    int recipeID;
 
 
     @Before
@@ -33,7 +33,7 @@ public class AccessIngredientsTestIT {
         tempDB = TestUtils.copyDB();
         ai = new AccessIngredients();
         ar = new AccessRecipes();
-        recipeID = "100";
+        recipeID = 100;
         r = ar.getRecipe(recipeID);
 
     }
@@ -46,7 +46,7 @@ public class AccessIngredientsTestIT {
 
     @Test
     public void testGetIngredients() {
-        String badRecipeID = "124235";
+        int badRecipeID = 124235;
 
         List<Ingredient> li = ai.getIngredients(recipeID);
         List<Ingredient> liBad = ai.getIngredients(badRecipeID);
@@ -71,7 +71,7 @@ public class AccessIngredientsTestIT {
     public void testBadAddIngredients() {
         int originalSize  = ai.getIngredients(recipeID).size();
         Ingredient i1 = new Ingredient("Mustard",1,23,123,r.getRecipeID());
-        String badRecipeID = "124235";
+        int badRecipeID = 124235;
         ai.addIngredients(i1,badRecipeID);
         int newSize  = ai.getIngredients(recipeID).size();
         Assert.assertFalse("Ingredient should of been added so size is still size",originalSize+1 == newSize);

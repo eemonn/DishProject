@@ -14,9 +14,9 @@ public class ShoppingCartPersistenceStub implements ShoppingCartPersistence {
      */
     public ShoppingCartPersistenceStub(){
         this.shoppingList=new ArrayList<>();
-        shoppingList.add(new Ingredient("Bun", 5,23,3, "100"));
-        shoppingList.add(new Ingredient("Beef",5,23,3,"100"));
-        shoppingList.add(new Ingredient("Cheese",5,23,3, "100"));
+        shoppingList.add(new Ingredient("Bun", 5,23,3, 100));
+        shoppingList.add(new Ingredient("Beef",5,23,3,100));
+        shoppingList.add(new Ingredient("Cheese",5,23,3, 100));
     }
 
     /*

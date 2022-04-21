@@ -7,12 +7,11 @@ import comp3350.dishproject.objects.Recipe;
 
 public interface RecipePersistence {
     List<Recipe> getAllRecipes();
-    Recipe getRecipe(final String recipeID);
-    String findRecipeID(final String recipeName);
+    Recipe getRecipe(final int recipeID);
+    int findRecipeID(final String recipeName);
     boolean insertRecipe(Recipe newRecipe);
-    boolean deleteRecipe(String recipeID);
-    boolean changeRating(double rating,String recipeID);
-    boolean changeFav(boolean fav,String recipeID);
-    String getDirections(String recipeID);
-    boolean updateDirections(String recipeID, String newDirections);
+    boolean deleteRecipe(int recipeID);
+    boolean changeRating(double rating,int recipeID);
+    boolean changeFav(boolean fav,int recipeID);
+    boolean updateDirections(int recipeID, String newDirections);
 }

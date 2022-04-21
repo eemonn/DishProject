@@ -89,7 +89,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
     Description: adds the name of the ingredient to the shoppinglist, duplication checking is done at persistence layer
     */
     public static void addItem(String item) {
-        sc.addToList(new Ingredient(item,5,6.6,7.0,"1001"));//These ingredients arnt tied to a recipe ID
+        sc.addToList(new Ingredient(item,0,0,0,0));//Adding dummy ingredient
         items.add(item);
         listView.setAdapter(adapter);
     }

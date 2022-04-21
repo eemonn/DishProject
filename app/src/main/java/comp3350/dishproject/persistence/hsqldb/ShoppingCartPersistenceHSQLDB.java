@@ -24,7 +24,7 @@ public class ShoppingCartPersistenceHSQLDB implements ShoppingCartPersistence {
         final int ingredientQuantity= rs.getInt("QUANTITY");
         final double ingredientWeight= rs.getDouble("WEIGHT");
         final double ingredientCalorie= rs.getDouble("CALORIE");
-        final String recipeID= rs.getString("RECIPEID");
+        final int recipeID= rs.getInt("RECIPEID");
         return new Ingredient(ingredientName,ingredientQuantity,ingredientWeight,ingredientCalorie,recipeID);
     }
 
@@ -46,7 +46,7 @@ public class ShoppingCartPersistenceHSQLDB implements ShoppingCartPersistence {
                 st.setInt(2, ingredient.getQuantity());
                 st.setDouble(3, ingredient.getWeight());
                 st.setDouble(4, ingredient.getCalorie());
-                st.setString(5, ingredient.getRecipeID());
+                st.setInt(5, ingredient.getRecipeID());
                 st.executeUpdate();
                 st.close();
                 return true;

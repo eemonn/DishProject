@@ -17,11 +17,11 @@ public class RecipePersistenceStub implements RecipePersistence {
     */
     public RecipePersistenceStub() {
         this.recipes = new ArrayList<>();
-        recipes.add(new Recipe("burger","100",5,false,"Cheese on top of beef and put that between buns"));
-        recipes.add(new Recipe("pizza","200",4,false,"Sauce and Cheese on dough and cook"));
-        recipes.add(new Recipe("tacos","300",3,false,"Beef and cheese into shell"));
-        recipes.add(new Recipe("pancake","400",1,false,"Cook batter and put syrup and butter on top"));
-        recipes.add(new Recipe("fish","500",1.5,false,"Put salt on fish and cook"));
+        recipes.add(new Recipe("burger",100,5,false,"Cheese on top of beef and put that between buns"));
+        recipes.add(new Recipe("pizza",200,4,false,"Sauce and Cheese on dough and cook"));
+        recipes.add(new Recipe("tacos",300,3,false,"Beef and cheese into shell"));
+        recipes.add(new Recipe("pancake",400,1,false,"Cook batter and put syrup and butter on top"));
+        recipes.add(new Recipe("fish",500,1.5,false,"Put salt on fish and cook"));
     }
 
     /*
@@ -40,14 +40,14 @@ public class RecipePersistenceStub implements RecipePersistence {
     Description: returns a recipe object with that given recipe ID
      */
     @Override
-    public Recipe getRecipe(String recipeID) {
+    public Recipe getRecipe(int recipeID) {
         for(int i=0;i<recipes.size();i++) {
             Recipe r = recipes.get(i);
-            if(r.getRecipeID().equals(recipeID)){
+            if(r.getRecipeID() == (recipeID)){
                 return r;
             }
         }
-        return new Recipe("Null","1",1,false,"");
+        return new Recipe("Null",1,1,false,"");
     }
 
     /*
@@ -56,14 +56,14 @@ public class RecipePersistenceStub implements RecipePersistence {
     Description: returns a string of a recipe ID for a given recipe dish name
      */
     @Override
-    public String findRecipeID(final String recipeName) {
+    public int findRecipeID(final String recipeName) {
         for (int i = 0; i < recipes.size(); i++) {
             Recipe r = recipes.get(i);
             if (r.getName().equalsIgnoreCase(recipeName)) {
                 return r.getRecipeID();
             }
         }
-        return "No ID";
+        return -1;
     }
 
 
@@ -76,7 +76,7 @@ public class RecipePersistenceStub implements RecipePersistence {
     public boolean insertRecipe(Recipe newRecipe) {
         for (int i = 0; i < recipes.size(); i++) {
             Recipe r = recipes.get(i);
-            if (r.getRecipeID().equalsIgnoreCase(newRecipe.getRecipeID()) || r.getName().equals(newRecipe.getName())) {
+            if (r.getRecipeID() == (newRecipe.getRecipeID()) || r.getName().equals(newRecipe.getName())) {
                 return false;
             }
         }
@@ -90,10 +90,10 @@ public class RecipePersistenceStub implements RecipePersistence {
     Description: deletes a given recipe object by id
      */
     @Override
-    public boolean deleteRecipe(String recipeID) {
+    public boolean deleteRecipe(int recipeID) {
         for (int i = 0; i < recipes.size(); i++) {
             Recipe r = recipes.get(i);
-            if (r.getRecipeID().equals(recipeID)) {
+            if (r.getRecipeID() == (recipeID)) {
                 recipes.remove(r);
                 return true;
             }
@@ -107,10 +107,10 @@ public class RecipePersistenceStub implements RecipePersistence {
     Description: changes a recipes rating
      */
     @Override
-    public boolean changeRating(double rating,String recipeID){
+    public boolean changeRating(double rating,int recipeID){
         for (int i = 0; i < recipes.size(); i++) {
             Recipe r = recipes.get(i);
-            if (r.getRecipeID().equalsIgnoreCase(recipeID)) {
+            if (r.getRecipeID() == (recipeID)) {
                 r.setRating(rating);
                 return true;
             }
@@ -124,10 +124,10 @@ public class RecipePersistenceStub implements RecipePersistence {
     Description: changes a recipes rating
      */
     @Override
-    public boolean changeFav(boolean fav,String recipeID){
+    public boolean changeFav(boolean fav,int recipeID){
         for (int i = 0; i < recipes.size(); i++) {
             Recipe r = recipes.get(i);
-            if (r.getRecipeID().equalsIgnoreCase(recipeID)) {
+            if (r.getRecipeID() == (recipeID)) {
                 r.setFav(fav);
                 return true;
             }
@@ -135,22 +135,13 @@ public class RecipePersistenceStub implements RecipePersistence {
         return false;
     }
 
-    @Override
-    public String getDirections(final String recipeID) {
-        for(int i=0;i<recipes.size();i++) {
-            Recipe r = recipes.get(i);
-            if(r.getRecipeID().equals(recipeID)) {
-                return r.getSteps();
-            }
-        }
-        return "No Directions";
-    }
+
 
     @Override
-    public boolean updateDirections(final String recipeID, String newDirections) {
+    public boolean updateDirections(final int recipeID, String newDirections) {
         for(int i=0;i<recipes.size();i++) {
             Recipe r = recipes.get(i);
-            if(r.getRecipeID().equals(recipeID)) {
+            if(r.getRecipeID() == (recipeID)) {
                 r.setSteps(newDirections);
                 return true;
             }

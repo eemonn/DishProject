@@ -19,20 +19,20 @@ public class AddRecipe {
      */
     public static boolean createRecipe(String recipeName, String cookingInstructions, String[] ingredientNames, Double[] ingredientWeights, Double [] ingredientCals) throws Exception {
         ar = new AccessRecipes();
-        //Checking dish name
-        if(!ar.findRecipeID(recipeName).equals("No ID")) {
+
+        //Checking dish name, we want this to be
+        if(ar.findRecipeID(recipeName) !=-1) {
             throw new Exception("Name Already in System");
         }
 
         //creating and validating Recipe ID
         Random rand = new Random();
         int maxID = 1000;
-        int n = rand.nextInt(maxID);
-        String recipeID = Integer.toString(n);
+        int recipeID = rand.nextInt(maxID);
 
         while(!ar.getRecipe(recipeID).getName().equals("Null")) { //keep finding random numbers
-            n = rand.nextInt(maxID);
-            recipeID = Integer.toString(n);
+            recipeID = rand.nextInt(maxID);
+
         }
 
         //Creates recipe object

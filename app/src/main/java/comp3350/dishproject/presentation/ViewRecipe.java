@@ -65,7 +65,7 @@ public class ViewRecipe extends AppCompatActivity {
         //Setting up the recipe object for which the page is being seen
         if(extras !=null) {
             dish = getIntent().getStringExtra("search");
-            String recipeID = ar.findRecipeID(dish);
+            int recipeID = ar.findRecipeID(dish);
             recipe = ar.getRecipe(recipeID);
             ingredientList = ai.getIngredients(recipeID);
         }
@@ -114,7 +114,7 @@ public class ViewRecipe extends AppCompatActivity {
         String[] info = s.split("Am");
         String[] ingredientsInfo= info[1].split(" ");
         ingredient=new Ingredient(info[0],Integer.parseInt(ingredientsInfo[1]),Double.parseDouble(ingredientsInfo[5]),
-                Double.parseDouble(ingredientsInfo[3]),"1");
+                Double.parseDouble(ingredientsInfo[3]),0);
         return ingredient;
 
     }

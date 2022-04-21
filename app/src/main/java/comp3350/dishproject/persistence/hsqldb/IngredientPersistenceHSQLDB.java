@@ -17,7 +17,7 @@ import comp3350.dishproject.persistence.IngredientPersistence;
 public class IngredientPersistenceHSQLDB implements IngredientPersistence {
 
     private final String dbPath;
-    private final List<String> recipeIDs;
+    private final List<Integer> recipeIDs;
 
     public IngredientPersistenceHSQLDB(final String dbPath) {
         this.dbPath = dbPath;
@@ -34,7 +34,7 @@ public class IngredientPersistenceHSQLDB implements IngredientPersistence {
         final int ingredientQuantity= rs.getInt("QUANTITY");
         final double ingredientWeight= rs.getDouble("WEIGHT");
         final double ingredientCalorie= rs.getDouble("CALORIE");
-        final String recipeID= rs.getString("RECIPEID");
+        final int recipeID= rs.getInt("RECIPEID");
         return new Ingredient(ingredientName,ingredientQuantity,ingredientWeight,ingredientCalorie,recipeID);
     }
 
@@ -43,7 +43,7 @@ public class IngredientPersistenceHSQLDB implements IngredientPersistence {
             final Statement st = c.createStatement();
             final ResultSet rs = st.executeQuery("SELECT * FROM RECIPES");
             while (rs.next()) {
-                String recipeID = rs.getString("RECIPEID");
+                int recipeID = rs.getInt("RECIPEID");
                 recipeIDs.add(recipeID);
             }
             rs.close();
@@ -59,12 +59,12 @@ public class IngredientPersistenceHSQLDB implements IngredientPersistence {
     Description: returns a list of ingredients for a given recipe
     */
     @Override
-    public List<Ingredient> getIngredients(final String recipeID) {
+    public List<Ingredient> getIngredients(final int recipeID) {
         final List<Ingredient> ingredients= new ArrayList<>();
 
         try(final Connection c=connection()){
             final PreparedStatement st = c.prepareStatement("SELECT * FROM INGREDIENTS WHERE INGREDIENTS.recipeID=?");
-            st.setString(1, recipeID);
+            st.setInt(1, recipeID);
 
             final ResultSet rs = st.executeQuery();
             while(rs.next()){
@@ -85,7 +85,7 @@ public class IngredientPersistenceHSQLDB implements IngredientPersistence {
     Description: Adds ingredients for a given recipeID
     */
     @Override
-    public boolean addIngredients(Ingredient i, final String recipeID) {
+    public boolean addIngredients(Ingredient i, final int recipeID) {
         try (final Connection c = connection()) {
             loadRecipesIDs();
             if(recipeIDs.contains(recipeID)) {
@@ -94,7 +94,7 @@ public class IngredientPersistenceHSQLDB implements IngredientPersistence {
                 st.setInt(2, i.getQuantity());
                 st.setDouble(3, i.getWeight());
                 st.setDouble(4, i.getCalorie());
-                st.setString(5, i.getRecipeID());
+                st.setInt(5, i.getRecipeID());
 
                 st.executeUpdate();
                 st.close();

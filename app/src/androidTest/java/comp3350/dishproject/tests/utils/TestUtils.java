@@ -20,7 +20,7 @@ public class TestUtils {
          asc = new AccessShoppingCart();
     }
 
-    public List<Ingredient> getIngredients(String recipeID) {
+    public List<Ingredient> getIngredients(int recipeID) {
         return ai.getIngredients(recipeID);
     }
 
@@ -72,7 +72,7 @@ public class TestUtils {
 
     public void deleteRecipe(String recipeName)
     {
-        String id = ar.findRecipeID(recipeName);
+        int id = ar.findRecipeID(recipeName);
         ar.deleteRecipe(id);
     }
 

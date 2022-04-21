@@ -31,14 +31,14 @@ public class AccessShoppingCartTestIT {
 
     @Test
     public void testAddtoList(){
-        Ingredient ingredient=new Ingredient("Tomato",5,23,3, "100");
+        Ingredient ingredient=new Ingredient("Tomato",5,23,3, 100);
         int scSize=sc.getEntireList().size();
         sc.addToList(ingredient);
         Assert.assertEquals(sc.getEntireList().size(),scSize+1); // one more added
     }
     @Test
     public void testDeleteFromList(){
-        Ingredient ingredient=new Ingredient("Tomato",5,23,3, "100");
+        Ingredient ingredient=new Ingredient("Tomato",5,23,3, 100);
         sc.addToList(ingredient);
         int scSize=sc.getEntireList().size();
         sc.deleteFromList("Tomato");
@@ -47,12 +47,12 @@ public class AccessShoppingCartTestIT {
     @Test
     public void testGetEntireList(){
         int scSize=sc.getEntireList().size();
-        Ingredient ingredient1=new Ingredient("Tomato",5,23,3, "100");
+        Ingredient ingredient1=new Ingredient("Tomato",5,23,3, 100);
         sc.addToList(ingredient1);
         scSize++;
         Assert.assertEquals(sc.getEntireList().size(),scSize); // one more added
 
-        Ingredient ingredient2=new Ingredient("Lettuce",5,23,3, "100");
+        Ingredient ingredient2=new Ingredient("Lettuce",5,23,3, 100);
         sc.addToList(ingredient2);
         scSize++;
         Assert.assertEquals(sc.getEntireList().size(),scSize); // two more added

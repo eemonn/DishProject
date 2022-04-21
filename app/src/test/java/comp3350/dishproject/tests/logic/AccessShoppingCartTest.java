@@ -32,7 +32,7 @@ public class AccessShoppingCartTest {
 
     @Test
     public void testAddtoList(){
-        Ingredient ingredient=new Ingredient("Tomato",5,23,3, "100");
+        Ingredient ingredient=new Ingredient("Tomato",5,23,3, 100);
         final ArrayList<Ingredient> ingredients=new ArrayList<>();
         ingredients.add(ingredient); // one more added
         when(shoppingCart.getEntireList()).thenReturn(ingredients);
@@ -44,8 +44,8 @@ public class AccessShoppingCartTest {
 
     @Test
     public void testDeleteFromList(){
-        Ingredient ingredient=new Ingredient("Tomato",5,23,3, "100");
-        Ingredient ingredient2=new Ingredient("Lettuce",5,23,3, "100");
+        Ingredient ingredient=new Ingredient("Tomato",5,23,3, 100);
+        Ingredient ingredient2=new Ingredient("Lettuce",5,23,3, 100);
         final ArrayList<Ingredient> ingredients=new ArrayList<>();
         ingredients.add(ingredient); // one more added
         ingredients.add(ingredient2);
@@ -60,8 +60,8 @@ public class AccessShoppingCartTest {
 
     @Test
     public void testGetEntireList(){
-        Ingredient ingredient=new Ingredient("Tomato",5,23,3, "100");
-        Ingredient ingredient2=new Ingredient("Lettuce",5,23,3, "100");
+        Ingredient ingredient=new Ingredient("Tomato",5,23,3, 100);
+        Ingredient ingredient2=new Ingredient("Lettuce",5,23,3, 100);
         final ArrayList<Ingredient> ingredients=new ArrayList<>();
         ingredients.add(ingredient); // one more added
         ingredients.add(ingredient2);

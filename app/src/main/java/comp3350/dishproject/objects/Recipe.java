@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class Recipe {
-    private String name,recipeID;
+    private String name;
+    private int recipeID;
     private double rating;
     private boolean isFav;
     private String steps;
@@ -12,7 +13,7 @@ public class Recipe {
     /*
     Description: Constructor if we have all three parameters
     */
-    public Recipe(String name, String recipeID,double rating, boolean isFav, String steps) {
+    public Recipe(String name, int recipeID,double rating, boolean isFav, String steps) {
         this.name = name;
         this.recipeID = recipeID;
         this.rating = rating;
@@ -25,13 +26,13 @@ public class Recipe {
         return this.rating;
     }
     public String getName(){ return name;}
-    public String getRecipeID(){return recipeID;}
+    public int getRecipeID(){return recipeID;}
     public boolean getFav(){return this.isFav;}
     public String getSteps(){return this.steps;}
 
     //Setters
     public void setName(String newName) {this.name = newName;}
-    public void setRecipeID(String newRecipeID) {this.recipeID = newRecipeID;}
+    public void setRecipeID(int newRecipeID) {this.recipeID = newRecipeID;}
     public void setRating(double rating){this.rating =rating;}
     public void setFav(boolean fav){this.isFav = fav;}
     public void setSteps(String newSteps){this.steps = newSteps;}

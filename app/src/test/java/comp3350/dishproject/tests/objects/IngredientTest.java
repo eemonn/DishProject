@@ -17,7 +17,7 @@ public class IngredientTest {
 
     @Before
     public void setUp() {
-        r = new Recipe("Fruit", "100",5,false, "How do you cook a fruit");
+        r = new Recipe("Fruit", 100,5,false, "How do you cook a fruit");
         ingredient=new Ingredient("Apple",  1, 200.0,180.0,r.getRecipeID());
     }
 
@@ -86,7 +86,7 @@ public class IngredientTest {
 
     @Test
     public void testRecipeID() {
-        Assert.assertEquals("Recipe Id must be 100",ingredient.getRecipeID(),"100");
+        Assert.assertEquals("Recipe Id must be 100",ingredient.getRecipeID(),100);
     }
 
 }
