@@ -19,7 +19,7 @@ In its current iteration, the presentation layer contains 4 classes of HomeCard,
 ---
 - `RecipePersistence` is the interface that handles the updating, removal, validation, adding, and loading of a specific recipe using the domain object `Recipe`.
 - `IngredientPersistence` is the interface that handles loading, validation, and updating of certain ingredients for a given recipe using the domain object `Ingredient`.
--`ShoppingListPersistence` is the interface that handles loading and updating of ingredients on the shopping list.
+- `ShoppingListPersistence` is the interface that handles loading and updating of ingredients on the shopping list.
 - There are 3 HSQLDB files which implement the methods specified in the interfaces named `ShoppingListPersistenceHSQLDB`, `RecipePersistenceHSQLDB`, and `IngredientsPersistenceHSQLDB`
 - There are 3 Stub files which implement the methods specified in the interface named `ShoppingListPersistenceStub`, `RecipePersistenceStub`, and `IngredientsPersistenceStub`
 - `Services`,` Main`, and `DBHelper` are all additional classes that aid with using and operating the HSQLDB database
