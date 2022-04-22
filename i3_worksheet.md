@@ -55,4 +55,4 @@ evidence of the estimates/actuals from tasks.
 
 We can see from our velocity chat that we have good estimation on iteration 1 and iteration 3. Estimated time and time needed for actual work do not differ that much. on the contrary, in  iteration 2 our estimted time goes a bit up compared to time spent for the work. This is becuase  when we moved from iteration 1 to iteration 2 it seemed at first that we migh need some  more time for iteration 2 as a few technical debts arose in iteration 1. So for  removing those techincal debts as well as implementing new features for itreation 2  we deemed higher time. But proper synchronization in team members and hard work from team members reduced the time a lot. Hence we able to finish our work way before the estimation time. We used our iteration 2 experience in next iteration thus had a good estimation between estimated and spent time.
 
-![Velocity chart](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/blob/main/website/ProjectVelocity.png)
+[Velocity chart](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/blob/main/website/ProjectVelocity.png)
