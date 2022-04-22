@@ -6,6 +6,7 @@ import androidx.test.espresso.ViewAction;
 import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.swipeDown;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -50,16 +51,19 @@ public class ShoppingListTest {
 
     @Test
     public void testAddAndDeleteIngredient(){
+        tu.clearShoppingList();
+        SystemClock.sleep(1000);
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
         onView(withId(R.id.nav_shopping_cart)).perform(click());
         onView(withId(R.id.input)).perform(typeText("Squid"));
         onView(withId(R.id.weight_enter)).perform(typeText("52"));
         onView(withId(R.id.add)).perform(click());
         int size = tu.getNoOfIngredientsInShoppingList();//should be the last element
-        onView(nthChildOf(nthChildOf(withId(R.id.listview), size-1),1)).check(matches(withText("Squid")));
+        onView(nthChildOf(nthChildOf(withId(R.id.listview), 0),1)).check(matches(withText("Squid")));
         SystemClock.sleep(1500);
-        onView(nthChildOf(nthChildOf(withId(R.id.listview), size-1),3)).perform(click());
+        onView(nthChildOf(nthChildOf(withId(R.id.listview), 0),3)).perform(click());
         SystemClock.sleep(1500);
+        tu.resetShoppingList();
     }
 
     //Reference https://stackoverflow.com/questions/38566886/espresso-how-to-get-the-children-of-a-view-by-index
@@ -92,6 +96,8 @@ public class ShoppingListTest {
 
     @Test
     public void addingMissingIngredients(){
+        tu.clearShoppingList();
+        SystemClock.sleep(500);
         //opens top recipes
         onView(withId(R.id.rv_list)).perform(RecyclerViewActions.actionOnItemAtPosition(0,
                 new ViewAction() {
@@ -114,18 +120,19 @@ public class ShoppingListTest {
         );
 
         //we have to assume at least one ingredient
+        SystemClock.sleep(500);
         onData(anything()).inAdapterView(withId(R.id.listView_data)).atPosition(0).perform(click());
+        SystemClock.sleep(500);
         onView(withId(R.id.item_done)).perform(click());
         Espresso.pressBack();
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
         onView(withId(R.id.nav_shopping_cart)).perform(click());
-        int size = tu.getNoOfIngredientsInShoppingList();//should be the last element
-        System.out.println(size);
         String firstIngredientName = tu.getIngredients(top.getRecipeID()).get(0).getName();
-        onView(nthChildOf(nthChildOf(withId(R.id.listview), size-1),1)).check(matches(withText(firstIngredientName + " ")));
+        onView(nthChildOf(nthChildOf(withId(R.id.listview), 0),1)).check(matches(withText(firstIngredientName + " ")));
         SystemClock.sleep(1500);
-        onView(nthChildOf(nthChildOf(withId(R.id.listview), size-1),3)).perform(click());
+        onView(nthChildOf(nthChildOf(withId(R.id.listview), 0),3)).perform(click());
         SystemClock.sleep(1500);
+        tu.resetShoppingList();
     }
 
 

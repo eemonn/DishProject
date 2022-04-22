@@ -13,6 +13,7 @@ public class TestUtils {
     private AccessRecipes ar;
     private AccessIngredients ai;
     private AccessShoppingCart asc;
+    private List<Ingredient> shoppingIngredients;
 
     public TestUtils(){
          ar = new AccessRecipes();
@@ -74,6 +75,21 @@ public class TestUtils {
     {
         int id = ar.findRecipeID(recipeName);
         ar.deleteRecipe(id);
+    }
+
+    public void clearShoppingList(){
+        shoppingIngredients = asc.getEntireList();
+        for(int i=0;i<shoppingIngredients.size();i++) {
+            Ingredient ing = shoppingIngredients.get(i);
+            asc.deleteFromList(ing.getName());
+        }
+    }
+
+    public void resetShoppingList(){
+        for(int i=0;i<shoppingIngredients.size();i++) {
+            Ingredient ing = shoppingIngredients.get(i);
+            asc.addToList(ing);
+        }
     }
 
 }
