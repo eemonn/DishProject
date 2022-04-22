@@ -24,7 +24,7 @@ public class ShoppingCartPersistenceHSQLDB implements ShoppingCartPersistence {
         final int ingredientQuantity= rs.getInt("QUANTITY");
         final double ingredientWeight= rs.getDouble("WEIGHT");
         final double ingredientCalorie= rs.getDouble("CALORIE");
-        final int recipeID= rs.getInt("RECIPEID");
+        final int recipeID = rs.getInt("RECIPEID");
         return new Ingredient(ingredientName,ingredientQuantity,ingredientWeight,ingredientCalorie,recipeID);
     }
 
@@ -36,7 +36,7 @@ public class ShoppingCartPersistenceHSQLDB implements ShoppingCartPersistence {
     /*
     Input: Takes in an ingredient objects
     Output: returns boolean, true if add successful
-    Description: Attempts to add an ingredient to the shopping list(no duplicates by name)
+    Description: Attempts to add an ingredient to the shopping list
     */
     @Override
     public boolean addToList(Ingredient ingredient) {

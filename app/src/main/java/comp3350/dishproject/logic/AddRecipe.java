@@ -20,9 +20,10 @@ public class AddRecipe {
     public static boolean createRecipe(String recipeName, String cookingInstructions, String[] ingredientNames, Double[] ingredientWeights, Double [] ingredientCals) throws Exception {
         ar = new AccessRecipes();
 
-        //Checking dish name, we want this to be
+        //Checking if the dish name is in the system
+        //findrecipeID returns -1 if dish not in system
         if(ar.findRecipeID(recipeName) !=-1) {
-            throw new Exception("Name Already in System");
+            throw new Exception("Dish with name: " + recipeName +  " Already in System");
         }
 
         //creating and validating Recipe ID
@@ -32,15 +33,14 @@ public class AddRecipe {
 
         while(!ar.getRecipe(recipeID).getName().equals("Null")) { //keep finding random numbers
             recipeID = rand.nextInt(maxID);
-
         }
 
         //Creates recipe object
-        Recipe r = new Recipe(recipeName,recipeID,5,false,"");
-        boolean isAdded = ar.insertRecipe(r);//already validated the id and name, so now exception needed here
+        Recipe r = new Recipe(recipeName,recipeID,5,false,"");//initally starts off with 5 star rating
+        boolean isAdded = ar.insertRecipe(r);//already validated the id and name, so no exception needed here
 
         //Add ingredients
-        if(isAdded) {
+        if(isAdded) {//if recipe successfully added into the system
             ai = new AccessIngredients();
             for (int i = 0; i < ingredientNames.length; i++) {
                 Ingredient ingredient = new Ingredient(ingredientNames[i], 1, ingredientWeights[i], ingredientCals[i], r.getRecipeID());

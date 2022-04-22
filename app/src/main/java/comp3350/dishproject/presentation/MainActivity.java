@@ -162,7 +162,6 @@ public class MainActivity extends AppCompatActivity  {
                     openDialog();
                 }
                 if(id == R.id.nav_shopping_cart){
-                    //
                     Intent intent = new Intent(MainActivity.this, ShoppingCartActivity.class);
                     startActivity(intent);
                 }
@@ -236,7 +235,7 @@ public class MainActivity extends AppCompatActivity  {
             public boolean onQueryTextSubmit(String enteredString) {
 
 
-                if (ar.getRecipe(ar.findRecipeID(enteredString.toLowerCase())) != null) {
+                if (!ar.getRecipe(ar.findRecipeID(enteredString.toLowerCase())).getName().equals("Null")) {
                     String dishName = enteredString.toLowerCase();
                     searchView.clearFocus();
                     Intent intent = new Intent(MainActivity.this, ViewRecipe.class);

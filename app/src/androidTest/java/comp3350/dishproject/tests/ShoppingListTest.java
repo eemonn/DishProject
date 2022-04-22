@@ -1,68 +1,34 @@
 package comp3350.dishproject.tests;
 
-
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.UiController;
 import androidx.test.espresso.ViewAction;
 import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.pressKey;
-import static androidx.test.espresso.action.ViewActions.scrollTo;
-import static androidx.test.espresso.action.ViewActions.swipeLeft;
-import static androidx.test.espresso.matcher.ViewMatchers.isChecked;
-import static androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.Espresso.closeSoftKeyboard;
 import static androidx.test.espresso.Espresso.onData;
-import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.Espresso.pressBack;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withParent;
-import static androidx.test.espresso.matcher.ViewMatchers.withResourceName;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static androidx.test.espresso.matcher.ViewMatchers.hasSibling;
-import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 
 
-import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
-
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.Matchers.hasEntry;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.Matchers.anything;
 import android.os.SystemClock;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
-import android.widget.RatingBar;
-import android.widget.Switch;
-import android.widget.TextView;
-
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.List;
-
-import comp3350.dishproject.objects.Ingredient;
 import comp3350.dishproject.objects.Recipe;
 import comp3350.dishproject.presentation.MainActivity;
 import comp3350.dishproject.tests.utils.TestUtils;
@@ -87,6 +53,7 @@ public class ShoppingListTest {
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
         onView(withId(R.id.nav_shopping_cart)).perform(click());
         onView(withId(R.id.input)).perform(typeText("Squid"));
+        onView(withId(R.id.weight_enter)).perform(typeText("52"));
         onView(withId(R.id.add)).perform(click());
         int size = tu.getNoOfIngredientsInShoppingList();//should be the last element
         onView(nthChildOf(nthChildOf(withId(R.id.listview), size-1),1)).check(matches(withText("Squid")));

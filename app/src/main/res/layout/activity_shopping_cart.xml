@@ -16,11 +16,10 @@
         />
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="120sp"
         android:id="@+id/header"
-        android:layout_below="@+id/des_title"
-        >
+        android:layout_width="match_parent"
+        android:layout_height="154dp"
+        android:layout_below="@+id/des_title">
 
         <TextView
             android:id="@+id/enter_title_des"
@@ -31,14 +30,15 @@
             android:textColor="#6C25EA"
             android:textSize="30sp"
             android:textStyle="bold" />
+
         <EditText
+            android:id="@+id/input"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="11"
-            android:hint="Ingredient ex. Banana"
-            android:id="@+id/input"
             android:layout_below="@+id/enter_title_des"
             android:layout_marginTop="10sp"
+            android:ems="11"
+            android:hint="Ingredient ex. Banana"
 
             />
 
@@ -48,8 +48,8 @@
             android:layout_height="40sp"
             android:layout_below="@+id/enter_title_des"
             android:layout_centerVertical="true"
-            android:layout_marginStart="7dp"
-            android:layout_marginTop="7sp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="40dp"
             android:layout_marginEnd="7sp"
             android:layout_marginBottom="7sp"
 
@@ -59,15 +59,25 @@
     </RelativeLayout>
 
     <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/header"
-        android:background="#F1FEFF"
+        android:layout_marginTop="1dp"
 
 
-        />
+        android:background="#F1FEFF" />
 
+    <EditText
+        android:id="@+id/weight_enter"
+        android:layout_width="231dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="169dp"
+        android:ems="10"
+        android:hint="Weight"
+        android:inputType="number" />
 
 
 </RelativeLayout>

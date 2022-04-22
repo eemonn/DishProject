@@ -1,7 +1,5 @@
 package comp3350.dishproject.persistence.hsqldb;
 
-import android.util.Log;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -39,6 +37,11 @@ public class RecipePersistenceHSQLDB implements RecipePersistence {
         return DriverManager.getConnection("jdbc:hsqldb:file:" + dbPath + ";shutdown=true", "SA", "");
     }
 
+    /*
+    Input: no input
+    Output: void
+    Description: loads all given recipe ids into local list
+    */
     private void loadRecipesIDs(){
         try(final Connection c=connection()){
             final Statement st = c.createStatement();
@@ -78,7 +81,7 @@ public class RecipePersistenceHSQLDB implements RecipePersistence {
     }
 
     /*
-    Input: takes in a string of the recipe ID
+    Input: takes in a int of the recipe ID
     Output: returns a recipe object
     Description: returns a recipe object with that given recipe ID
      */
@@ -99,13 +102,13 @@ public class RecipePersistenceHSQLDB implements RecipePersistence {
         } catch (final SQLException e) {
             throw new PersistenceException(e);
         }
-        return new Recipe("Null",1,1,false,"");
+        return new Recipe("Null",0,0,false,"");
     }
 
     /*
     Input: takes in a string of the recipe name
-    Output: returns a string of recipe id
-    Description: returns a string of a recipe ID for a given recipe dish name
+    Output: returns a int of recipe id
+    Description: returns a int of a recipe ID for a given recipe dish name
      */
     @Override
     public int findRecipeID(final String recipeName){
@@ -205,7 +208,7 @@ public class RecipePersistenceHSQLDB implements RecipePersistence {
     }
 
     /*
-    Input: takes in double rating
+    Input: takes in double rating and int of recipe ID
     Output: boolean
     Description: changes a recipes rating
      */
@@ -227,7 +230,7 @@ public class RecipePersistenceHSQLDB implements RecipePersistence {
     }
 
     /*
-    Input: takes in a string of the recipe ID and a string of new directions
+    Input: takes in a int of the recipe ID and a string of new directions
     Output: boolean
     Description: updates a recipes directions
      */

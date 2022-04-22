@@ -11,7 +11,6 @@ import java.util.List;
 
 
 import comp3350.dishproject.objects.Ingredient;
-import comp3350.dishproject.objects.Recipe;
 import comp3350.dishproject.persistence.IngredientPersistence;
 
 public class IngredientPersistenceHSQLDB implements IngredientPersistence {
@@ -34,10 +33,15 @@ public class IngredientPersistenceHSQLDB implements IngredientPersistence {
         final int ingredientQuantity= rs.getInt("QUANTITY");
         final double ingredientWeight= rs.getDouble("WEIGHT");
         final double ingredientCalorie= rs.getDouble("CALORIE");
-        final int recipeID= rs.getInt("RECIPEID");
+        final int recipeID = rs.getInt("RECIPEID");
         return new Ingredient(ingredientName,ingredientQuantity,ingredientWeight,ingredientCalorie,recipeID);
     }
 
+    /*
+    Input: no input
+    Output: void
+    Description: loads all given recipe ids into local list
+    */
     private void loadRecipesIDs(){
         try(final Connection c=connection()){
             final Statement st = c.createStatement();
@@ -54,7 +58,7 @@ public class IngredientPersistenceHSQLDB implements IngredientPersistence {
     }
 
     /*
-    Input: String of recipe ID
+    Input: int of recipe ID
     Output: returns a list of ingredients
     Description: returns a list of ingredients for a given recipe
     */
@@ -80,7 +84,7 @@ public class IngredientPersistenceHSQLDB implements IngredientPersistence {
     }
 
     /*
-    Input: takes in a ingredient object and string recipe ID
+    Input: takes in a ingredient object and int recipe ID
     Output: boolean
     Description: Adds ingredients for a given recipeID
     */

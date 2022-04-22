@@ -1,7 +1,5 @@
 package comp3350.dishproject.persistence.stubs;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -136,7 +134,11 @@ public class RecipePersistenceStub implements RecipePersistence {
     }
 
 
-
+    /*
+     Input: takes in int recipe id and string of new directions for a recipe
+     Output: boolean, true update successful
+     Description: changes a recipes steps
+      */
     @Override
     public boolean updateDirections(final int recipeID, String newDirections) {
         for(int i=0;i<recipes.size();i++) {

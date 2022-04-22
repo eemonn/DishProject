@@ -29,6 +29,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
     private static Context context;
     private static Toast t;
     private EditText insert;
+    private EditText weight;
     private ImageView imageView;
     private static AccessShoppingCart sc;
 
@@ -43,6 +44,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
         listView = findViewById(R.id.listview);
         context = getApplicationContext();
         insert = findViewById(R.id.input);
+        weight = findViewById(R.id.weight_enter);
         imageView = findViewById(R.id.add);
 
         //Persistent shopping cart
@@ -59,10 +61,19 @@ public class ShoppingCartActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String text = insert.getText().toString();
+                String weightOfIngredient = weight.getText().toString();
+
+
                 if (text.length() == 0) {
                     makeToast("Enter an ingredient.");
                 } else {
-                    addItem(text);
+                    if(weightOfIngredient.length()>0) {
+                        double weightField = Double.parseDouble(weightOfIngredient);
+                        addItem(text,weightField);
+                    } else {
+                        addItem(text, 0);
+                    }
+                    weight.setText("");
                     insert.setText("");
                     makeToast("Added " + text);
                 }
@@ -88,8 +99,8 @@ public class ShoppingCartActivity extends AppCompatActivity {
     Output: void function
     Description: adds the name of the ingredient to the shoppinglist, duplication checking is done at persistence layer
     */
-    public static void addItem(String item) {
-        sc.addToList(new Ingredient(item,0,0,0,0));//Adding dummy ingredient
+    public static void addItem(String item, double weight) {
+        sc.addToList(new Ingredient(item,0,weight,0,0));
         items.add(item);
         listView.setAdapter(adapter);
     }

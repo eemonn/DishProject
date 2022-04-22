@@ -115,11 +115,21 @@ public class Recipe {
         }
     }
 
+    /*
+   Input: no input
+   Output: returns string
+   Description: toString of recipe class
+    */
     @Override
     public String toString() {
-        return "Steps: " + steps;
+        return "Steps for "+ this.name+": " + steps;
     }
 
+    /*
+   Input: takes in object
+   Output: boolean, returns true if objects are the same
+   Description: equals method for recipe class
+    */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
