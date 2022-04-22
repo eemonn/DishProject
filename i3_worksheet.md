@@ -14,7 +14,7 @@ Fixing this technical debt allowed us a lot more opportunities to improve our ho
 What technical debt did you leave?
 ==================================
 
-We planned to remove an input field which asks user to provide the weight required for an ingredient. However, all the UI and Database layer is already done. This creates a dependency issue which requires fixing a lot of classes. Upon inspection, we decided to not further change it. Fixing this issue requires a lot of code refactoring which given the time iteration 3 is due is hard to resolve. This means we can try and implement it later. It is hard to modify the database classes quickly. This type of debt was reckless inadvertant as we ignored design to move quickly.
+We planned to remove an input field which asks user to provide the quantity required for an ingredient. However, all the UI and Database layer is already done. This creates a dependency issue which requires fixing a lot of classes. Upon inspection, we decided to not further change it. Fixing this issue requires a lot of code refactoring which given the time iteration 3 is due is hard to resolve. This means we can try and implement it later. It is hard to modify the database classes quickly. This type of debt was reckless inadvertant as we ignored design to move quickly.
 
 Discuss a Feature or User Story that was cut/re-prioritized
 ============================================
