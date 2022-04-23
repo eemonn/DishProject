@@ -23,6 +23,8 @@ When did you change the priority of a Feature or User Story? Why was it
 re-prioritized? Provide a link to the Feature or User Story. This can be from any
 iteration.
 
+Fortunately, we did not have to change the priority of a feature or user story and we were able to implement them as they were designed right from the beginning. We were able to complete each user stories and feature for each of the iteration we had set. 
+
 Acceptance test/end-to-end
 ==========================
 
