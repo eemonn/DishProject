@@ -6,6 +6,7 @@ The dish project system(DP system) is an application which will allow users to f
 ---
 - Build in Android Studio with Gradle
 - You can use latest version of Gradle and Android Plugin 
+- Use API 31
 
 ### Project Documents:
 ---
