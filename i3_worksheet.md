@@ -62,4 +62,4 @@ We can see from our velocity chart that we have good estimation on iteration 1 a
 
 [Good estimation for Iteration 3](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/issues/7)
 
-[Velocity chart](https://code.cs.umanitoba.ca/winter-2022-a02/group-4/dish-project/-/blob/main/website/ProjectVelocity.png)
+![diagram](ProjectVelocity.png)
