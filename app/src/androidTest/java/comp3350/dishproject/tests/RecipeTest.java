@@ -69,10 +69,11 @@ public class RecipeTest {
 
     @Test//tests feature and displaying it and nav bar
     public void testAddRecipe(){
-        tu.deleteRecipe("turkey");
+        String nameOfRecipe = "samplerecipe123group4absdufau";
+        tu.deleteRecipe(nameOfRecipe);
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
         onView(withId(R.id.nav_add_recipe)).perform(click());
-        onView(withId(R.id.add_recipe_name)).perform(typeText("Turkey"));
+        onView(withId(R.id.add_recipe_name)).perform(typeText(nameOfRecipe));
         onView(withId(R.id.add_recipe_directions)).perform(typeText("cook the bird"));
         onView(withId(R.id.button_add_ingredient)).perform(click());
         onView(withId(R.id.edit_ingredient_name)).perform(typeText("turkey bird"));
@@ -82,9 +83,9 @@ public class RecipeTest {
         onView(withText("Add")).perform(click());
         SystemClock.sleep(1500);
         onView(withId(R.id.action_search)).perform(click());
-        onView(withId(R.id.search_src_text)).perform(typeText("turkey")).perform(pressKey(KeyEvent.KEYCODE_ENTER));
-        onView(withId(R.id.des_title)).check(matches(withText("turkey")));
-        tu.deleteRecipe("turkey");
+        onView(withId(R.id.search_src_text)).perform(typeText(nameOfRecipe)).perform(pressKey(KeyEvent.KEYCODE_ENTER));
+        onView(withId(R.id.des_title)).check(matches(withText(nameOfRecipe)));
+        tu.deleteRecipe(nameOfRecipe);
     }
 
 
