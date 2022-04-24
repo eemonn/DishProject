@@ -60,9 +60,7 @@ public class ShoppingListTest {
         onView(withId(R.id.add)).perform(click());
         int size = tu.getNoOfIngredientsInShoppingList();//should be the last element
         onView(nthChildOf(nthChildOf(withId(R.id.listview), 0),1)).check(matches(withText("Squid")));
-        SystemClock.sleep(1500);
         onView(nthChildOf(nthChildOf(withId(R.id.listview), 0),3)).perform(click());
-        SystemClock.sleep(1500);
         tu.resetShoppingList();
     }
 
@@ -129,9 +127,7 @@ public class ShoppingListTest {
         onView(withId(R.id.nav_shopping_cart)).perform(click());
         String firstIngredientName = tu.getIngredients(top.getRecipeID()).get(0).getName();
         onView(nthChildOf(nthChildOf(withId(R.id.listview), 0),1)).check(matches(withText(firstIngredientName + " ")));
-        SystemClock.sleep(1500);
         onView(nthChildOf(nthChildOf(withId(R.id.listview), 0),3)).perform(click());
-        SystemClock.sleep(1500);
         tu.resetShoppingList();
     }
 
