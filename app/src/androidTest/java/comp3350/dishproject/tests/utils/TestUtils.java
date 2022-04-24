@@ -1,22 +1,10 @@
 package comp3350.dishproject.tests.utils;
-
-import android.view.View;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.test.espresso.matcher.BoundedMatcher;
-
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-
 import java.util.Collections;
 import java.util.List;
 
 import comp3350.dishproject.logic.AccessIngredients;
 import comp3350.dishproject.logic.AccessRecipes;
 import comp3350.dishproject.logic.AccessShoppingCart;
-import comp3350.dishproject.logic.AccessSteps;
-import comp3350.dishproject.logic.ShowRecipe;
 import comp3350.dishproject.objects.Ingredient;
 import comp3350.dishproject.objects.Recipe;
 
@@ -24,18 +12,16 @@ public class TestUtils {
 
     private AccessRecipes ar;
     private AccessIngredients ai;
-    private AccessSteps as;
-    private ShowRecipe sr;
     private AccessShoppingCart asc;
+    private List<Ingredient> shoppingIngredients;
 
     public TestUtils(){
          ar = new AccessRecipes();
          ai = new AccessIngredients();
-         as = new AccessSteps();
          asc = new AccessShoppingCart();
     }
 
-    public List<Ingredient> getIngredients(String recipeID) {
+    public List<Ingredient> getIngredients(int recipeID) {
         return ai.getIngredients(recipeID);
     }
 
@@ -45,27 +31,9 @@ public class TestUtils {
         return(mlist.get(0));
     }
 
-    public String [] getIngredientListName(List<Ingredient> ingredientsOfRecipe){
-        String []m = new String[10];
-        int size=0;
-
-        for(int i=0;i<ingredientsOfRecipe.size();i++){
-            Ingredient ingredient = ingredientsOfRecipe.get(i);
-            m[i]= ingredient.getName()+" Amount: "+
-                    ingredient.getQuantity()+" Calorie: "+
-                    ingredient.getCalorie()+" Weight: "+
-                    ingredient.getWeight()
-            ;
-            size++;
-        }
-        String [] mm=new String[size];
-        System.arraycopy(m, 0, mm, 0, size);
-        return mm;
-    }
-
     public String[] getStrings(Recipe r){
-        sr = new ShowRecipe(r);
-        return sr.getIngredientListName();
+        List<Ingredient> ingredientList = ai.getIngredients(r.getRecipeID());
+        return r.getIngredientListName(ingredientList);
     }
 
     public List<Recipe> getSortedRecipeList(){
@@ -75,17 +43,17 @@ public class TestUtils {
     }
 
     public String getDescriptionText(Recipe r){
-        sr = new ShowRecipe(r);
-        double totalCalories = sr.calculateCalories();
-        double totalWeight = sr.calculateWeight();
+        List<Ingredient> ingredientList = ai.getIngredients(r.getRecipeID());
+        double totalCalories = r.calculateCalories(ingredientList);
+        double totalWeight = r.calculateWeight(ingredientList);
         String description = "Calorie: " + totalCalories + "kcal "+ " Weight: " +  totalWeight + "g " + "Rating: ";
         return description;
     }
 
     public String[] getUpdatedIngredients(Recipe r, int scaleFactor){
-        sr = new ShowRecipe(r);
-        sr.updateIngredients(scaleFactor);
-        return sr.getIngredientListName();
+        List<Ingredient> ingredientList = ai.getIngredients(r.getRecipeID());
+        r.updateIngredients(scaleFactor,ingredientList);
+        return r.getIngredientListName(ingredientList);
     }
 
     public int getPositionOfSorted(String name){
@@ -105,8 +73,23 @@ public class TestUtils {
 
     public void deleteRecipe(String recipeName)
     {
-        String id = ar.findRecipeID(recipeName);
+        int id = ar.findRecipeID(recipeName);
         ar.deleteRecipe(id);
+    }
+
+    public void clearShoppingList(){
+        shoppingIngredients = asc.getEntireList();
+        for(int i=0;i<shoppingIngredients.size();i++) {
+            Ingredient ing = shoppingIngredients.get(i);
+            asc.deleteFromList(ing.getName());
+        }
+    }
+
+    public void resetShoppingList(){
+        for(int i=0;i<shoppingIngredients.size();i++) {
+            Ingredient ing = shoppingIngredients.get(i);
+            asc.addToList(ing);
+        }
     }
 
 }

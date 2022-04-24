@@ -17,6 +17,7 @@ public class AddRecipeTestIT {
     private String directions;
     private String[] ingredientNames;
     private Double[] ingredientWeights;
+    private Double[] ingredientCals;
     private File tempDB;
 
 
@@ -26,16 +27,17 @@ public class AddRecipeTestIT {
         directions = "Cook it in pot";
         ingredientNames = new String[]{"Noodles", "Sauce"};
         ingredientWeights = new Double[]{5.2,23.6};
+        ingredientCals = new Double[]{7.8,65.5};
     }
 
     @Test(expected = Exception.class)
     public void testAddRecipe() throws Exception {
         recipeName = "DeepFried Pizza";
-        boolean isSuccess = AddRecipe.createRecipe(recipeName,directions,ingredientNames,ingredientWeights);
+        boolean isSuccess = AddRecipe.createRecipe(recipeName,directions,ingredientNames,ingredientWeights,ingredientCals);
         Assert.assertTrue("Add should of happened",isSuccess);
 
         recipeName = "burger";
-        boolean isSuccessBad = AddRecipe.createRecipe(recipeName,directions,ingredientNames,ingredientWeights);
+        boolean isSuccessBad = AddRecipe.createRecipe(recipeName,directions,ingredientNames,ingredientWeights,ingredientCals);
     }
 
 

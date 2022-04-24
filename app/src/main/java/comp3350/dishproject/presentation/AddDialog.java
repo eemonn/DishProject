@@ -2,9 +2,7 @@ package comp3350.dishproject.presentation;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -20,10 +18,9 @@ import comp3350.dishproject.logic.AddRecipe;
 
 public class AddDialog extends AppCompatDialogFragment {
 
-    LinearLayout layoutList;
-    Button buttonAdd;
-
-    MainActivity mainActivityCopy;
+    private LinearLayout layoutList;
+    private Button buttonAdd;
+    private MainActivity mainActivityCopy;
 
     /*
     Input: instance State
@@ -64,12 +61,14 @@ public class AddDialog extends AppCompatDialogFragment {
                 addView();
             }
         });
-
-
-
         return builder.create();
     }
 
+    /*
+    Input: Takes in a view
+    Output: void
+    Description: Reads the data from the add recipe dialog boxes and sends it to logic layer
+     */
     private void readData(View view)
     {
         //Initialize Variables to hold data
@@ -77,6 +76,7 @@ public class AddDialog extends AppCompatDialogFragment {
         String cookingInstructions = "";
         String ingredientNames[] = new String[layoutList.getChildCount()];
         Double ingredientWeights[] = new Double[layoutList.getChildCount()];
+        Double ingredientCals[] = new Double[layoutList.getChildCount()];
         boolean hasFailed = false;
 
         EditText recipeNameEdit = view.findViewById(R.id.add_recipe_name);
@@ -94,19 +94,28 @@ public class AddDialog extends AppCompatDialogFragment {
             View ingredientView = layoutList.getChildAt(i);
             EditText ingredientName = ingredientView.findViewById(R.id.edit_ingredient_name);
             EditText ingredientWeight = ingredientView.findViewById(R.id.edit_ingredient_weight);
+            EditText cal = ingredientView.findViewById(R.id.edit_ingredient_cal);
 
             //Store the ingredient name and weight in variables
             ingredientNames[i] = ingredientName.getText().toString();
+            //Try adding weights
             try {
                 ingredientWeights[i] = Double.parseDouble(ingredientWeight.getText().toString());
             } catch(NumberFormatException nfe ) {
                 hasFailed = true;
                 Messages.warning(view.getContext(),"Bad input to weight field, make it a number");
             }
+            //Try adding calories
+            try {
+                ingredientCals[i] = Double.parseDouble(cal.getText().toString());
+            } catch(NumberFormatException nfe ) {
+                hasFailed = true;
+                Messages.warning(view.getContext(),"Bad input to Calorie field, make it a number");
+            }
         }
         if(!hasFailed) {
             try {
-                AddRecipe.createRecipe(recipeName.toLowerCase(), cookingInstructions, ingredientNames, ingredientWeights);
+                AddRecipe.createRecipe(recipeName.toLowerCase(), cookingInstructions, ingredientNames, ingredientWeights, ingredientCals);
 
                 //Reload the main activity showing the new card
                 mainActivityCopy.finish();
@@ -126,6 +135,7 @@ public class AddDialog extends AppCompatDialogFragment {
         View ingredientView = getLayoutInflater().inflate(R.layout.row_add_recipe, null, false);
         EditText ingredientName = ingredientView.findViewById(R.id.edit_ingredient_name);
         EditText ingredientWeight = ingredientView.findViewById(R.id.edit_ingredient_weight);
+        EditText cal = ingredientView.findViewById(R.id.edit_ingredient_cal);
         ImageView imageClose = ingredientView.findViewById(R.id.image_remove);
 
         imageClose.setOnClickListener(new View.OnClickListener() {

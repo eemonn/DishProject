@@ -6,6 +6,6 @@ import comp3350.dishproject.objects.Ingredient;
 
 
 public interface IngredientPersistence {
-    List<Ingredient> getIngredients(final String recipeID);
-    boolean addIngredients(Ingredient ingredient, final String recipeID);
+    List<Ingredient> getIngredients(final int recipeID);
+    boolean addIngredients(Ingredient ingredient, final int recipeID);
 }

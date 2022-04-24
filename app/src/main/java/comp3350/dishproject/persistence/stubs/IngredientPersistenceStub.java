@@ -10,7 +10,7 @@ import comp3350.dishproject.persistence.IngredientPersistence;
 public class IngredientPersistenceStub implements IngredientPersistence {
     List<List<Ingredient>> ingredients;
     List<Recipe> recipes;
-    List<String> recipeIDs;
+    List<Integer> recipeIDs;
 
     /*
     Description: Constructor
@@ -20,11 +20,11 @@ public class IngredientPersistenceStub implements IngredientPersistence {
         this.recipes = new ArrayList<>();
         this.recipeIDs = new ArrayList<>();
 
-        final Recipe burger = new Recipe("Burger", "100",5,false);
-        final Recipe pizza = new Recipe("Pizza", "200",4,false);
-        final Recipe taco = new Recipe("Taco", "300",3,false);
-        final Recipe pancake = new Recipe("Pancake", "400",1,false);
-        final Recipe fish = new Recipe("Fish", "500",1.5,false);
+        final Recipe burger = new Recipe("burger",100,5,false,"Cheese on top of beef and put that between buns");
+        final Recipe pizza = new Recipe("pizza",200,4,false,"Sauce and Cheese on dough and cook");
+        final Recipe taco = new Recipe("tacos",300,3,false,"Beef and cheese into shell");
+        final Recipe pancake = new Recipe("pancake",400,1,false,"Cook batter and put syrup and butter on top");
+        final Recipe fish = new Recipe("fish",500,1.5,false,"Put salt on fish and cook");
         recipes.add(burger);
         recipeIDs.add(burger.getRecipeID());
         recipes.add(pizza);
@@ -71,13 +71,13 @@ public class IngredientPersistenceStub implements IngredientPersistence {
     Output: returns a list of ingredients
     Description: returns a list of ingredients for a given recipe
     */
-    public List<Ingredient> getIngredients(final String recipeID) {
+    public List<Ingredient> getIngredients(final int recipeID) {
         List<Ingredient> specifiedIngredients = new ArrayList<>();
         for (int i = 0; i < ingredients.size(); i++) {
             List<Ingredient> in = ingredients.get(i);
             for (int j = 0; j < in.size(); j++) {
                 Ingredient ii = in.get(j);
-                if (ii.getRecipeID().equals(recipeID)) {
+                if (ii.getRecipeID() == (recipeID)) {
                     specifiedIngredients.add(ii);
                 }
             }
@@ -90,11 +90,11 @@ public class IngredientPersistenceStub implements IngredientPersistence {
     Output: boolean
     Description: Adds ingredients for a given recipeID
     */
-    public boolean addIngredients(Ingredient ing, final String recipeID) {
+    public boolean addIngredients(Ingredient ing, final int recipeID) {
         boolean previousIngredient = false;
         for (int i = 0; i < ingredients.size(); i++) {
             List<Ingredient> in = ingredients.get(i);
-            if (in.get(0).getRecipeID().equals(recipeID)) {
+            if (in.get(0).getRecipeID() == (recipeID)) {
                 in.add(ing);
                 previousIngredient = true;
             }

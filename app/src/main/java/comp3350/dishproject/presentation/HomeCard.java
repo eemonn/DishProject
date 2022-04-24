@@ -18,8 +18,8 @@ public class HomeCard {
         this.fav = fav;
     }
 
-    public boolean getFav(){return this.fav;}//shouldnt be setter
-
+    //Returns the favourite status of the homecard
+    public boolean getFav(){return this.fav;}
 
     /*
     Description: Getter for background image
@@ -27,7 +27,6 @@ public class HomeCard {
     public int getBackground() {
         return background;
     }
-
 
     /*
     Description: Setter for background image

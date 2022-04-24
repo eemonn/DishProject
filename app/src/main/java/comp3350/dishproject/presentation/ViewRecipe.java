@@ -24,28 +24,27 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
 import comp3350.dishproject.R;
+import comp3350.dishproject.logic.AccessIngredients;
 import comp3350.dishproject.logic.AccessRecipes;
 import comp3350.dishproject.logic.AccessShoppingCart;
-import comp3350.dishproject.logic.AccessSteps;
-import comp3350.dishproject.logic.ShowRecipe;
 import comp3350.dishproject.objects.Ingredient;
 import comp3350.dishproject.objects.Recipe;
-import comp3350.dishproject.objects.Steps;
 
 public class ViewRecipe extends AppCompatActivity {
     private RatingBar rating;
     private Switch sw;
     private TextView ratingText;
-    private ShowRecipe showRecipe;
-    ListView listViewData;
-    ArrayAdapter<String> adapter;
+    private ListView listViewData;
+    private ArrayAdapter<String> adapter;
     private Recipe recipe;
-    private Steps step;
-    AccessRecipes ar = new AccessRecipes();
-    AccessSteps as = new AccessSteps();
-    AccessShoppingCart sc= new AccessShoppingCart();
-    Toast t;
+    private AccessRecipes ar;
+    private AccessIngredients ai;
+    private AccessShoppingCart sc;
+    private Toast t;
+    private List<Ingredient> ingredientList;
 
 
     //Android Specific Creator
@@ -58,13 +57,17 @@ public class ViewRecipe extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         String dish = "";
 
+        //Setting up logic layer access
+        ar = new AccessRecipes();
+        ai = new AccessIngredients();
+        sc= new AccessShoppingCart();
+
         //Setting up the recipe object for which the page is being seen
         if(extras !=null) {
             dish = getIntent().getStringExtra("search");
-            String recipeID = ar.findRecipeID(dish);
+            int recipeID = ar.findRecipeID(dish);
             recipe = ar.getRecipe(recipeID);
-            step = new Steps(as.getDirections(recipeID),recipe.getRecipeID());
-            showRecipe = new ShowRecipe(recipe);
+            ingredientList = ai.getIngredients(recipeID);
         }
 
         //Inits
@@ -76,14 +79,14 @@ public class ViewRecipe extends AppCompatActivity {
         updateListViewer();
     }
 
-    //Android Specific Creator
+    //Android Specific Creator for menu bar
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.main_menu,menu);
         return true;
     }
 
-    //Android Specific Creator
+    //Android Specific Creator for item checked on menuitem
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
         int id=item.getItemId();
@@ -94,34 +97,36 @@ public class ViewRecipe extends AppCompatActivity {
                     String temp=(String) listViewData.getItemAtPosition(i);
                     itemSelected+=temp+"\n";
                     sc.addToList(makeIngredients(temp));
-
                 }
             }
             makeToast(itemSelected);
-            //Toast.makeText(this,itemSelected,Toast.LENGTH_LONG).show();
-            System.out.println(itemSelected);
         }
-
         return super.onOptionsItemSelected(item);
     }
-    //private helper function to create ingredients
+
+    /*
+    Input: Takes in a string containing information about a given ingredient
+    Output: returns an ingredient
+    Description: private helper used for converting information form the UI to ingredients
+   */
     private Ingredient makeIngredients(String s){
         Ingredient ingredient;
-
         String[] info = s.split("Am");
         String[] ingredientsInfo= info[1].split(" ");
         ingredient=new Ingredient(info[0],Integer.parseInt(ingredientsInfo[1]),Double.parseDouble(ingredientsInfo[5]),
-                Double.parseDouble(ingredientsInfo[3]),"1");
-
+                Double.parseDouble(ingredientsInfo[3]),0);
         return ingredient;
 
     }
+
+    /*
+    Input: Takes in a string to display
+    Output: void function
+    Description: Helper for displaying string message about adding to shopping cart
+   */
     public void makeToast(String s){
         if(t!=null) t.cancel();
         t=Toast.makeText(this.getApplicationContext(),s,Toast.LENGTH_LONG);
-        //ViewGroup group = (ViewGroup) t.getView();
-        //TextView messageTextView = (TextView) group.getChildAt(0);
-        //messageTextView.setTextSize(30);
         TextView tv=new TextView(this.getApplicationContext());
         tv.setBackgroundColor(Color.WHITE);
         tv.setPadding(10,10,10,10);
@@ -161,8 +166,8 @@ public class ViewRecipe extends AppCompatActivity {
         sw.setChecked(recipe.getFav());
         ratingText = (TextView) findViewById(R.id.des_text);
         TextView directionText = (TextView) findViewById(R.id.direction_text);
-        ratingText.setText(showRecipe.showTitleDescription());
-        directionText.setText(step.toString());
+        ratingText.setText(recipe.showTitleDescription(ingredientList));
+        directionText.setText(recipe.toString());
         descriptionTextbox.setText(recipe.getName());
     }
 
@@ -176,7 +181,7 @@ public class ViewRecipe extends AppCompatActivity {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 ar.changeRating(rating,recipe.getRecipeID());
-                ratingText.setText(showRecipe.showTitleDescription());
+                ratingText.setText(recipe.showTitleDescription(ingredientList));
 
             }
         });
@@ -203,7 +208,7 @@ public class ViewRecipe extends AppCompatActivity {
     public void setDropDownMenu() {
         Spinner dropdown = findViewById(R.id.spinner);
         //create a list of items for the spinner.
-        String[] items = new String[]{"1", "2", "3", "4", "5", "6"};
+        String[] items = new String[]{"1", "2", "3", "4", "5", "6"};//this has to be hardcoded
         //create an adapter to describe how the items are displayed, adapters are used in several
         // places in android.
         //There are multiple variations of this, but this is the basic variant.
@@ -229,7 +234,7 @@ public class ViewRecipe extends AppCompatActivity {
     Description: Update the quantity of ingredients as the user selects
      */
     public void updateIngredient(int num) {
-        showRecipe.updateIngredients(num);
+        recipe.updateIngredients(num,ingredientList);
     }
 
     /*
@@ -238,7 +243,7 @@ public class ViewRecipe extends AppCompatActivity {
     Description: Update list viewer
      */
     public void updateListViewer(){
-        String [] arrayOfIngredients =showRecipe.getIngredientListName().clone();
+        String [] arrayOfIngredients =recipe.getIngredientListName(ingredientList).clone();
         listViewData=findViewById(R.id.listView_data);
         adapter=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice,arrayOfIngredients){
             @Override
