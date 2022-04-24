@@ -29,10 +29,10 @@ public class AccessRecipesTest {
     @Test
     public void testFindRecipeID() {
         String recipeName = "burger";
-        Assert.assertEquals("ID's should be the same","100",ar.findRecipeID(recipeName));
+        Assert.assertEquals("ID's should be the same",100,ar.findRecipeID(recipeName));
 
         String badName = "Water";
-        Assert.assertEquals("There should be No Id","No ID",ar.findRecipeID(badName));
+        Assert.assertEquals("There should be No Id",-1,ar.findRecipeID(badName));
     }
 
     @Test
@@ -43,8 +43,8 @@ public class AccessRecipesTest {
 
     @Test
     public void testInsertRecipe() {
-        Recipe r = new Recipe("Apple","123",5);
-        Recipe badRecipe = new Recipe("burger","100",3);
+        Recipe r = new Recipe("Apple",123,5,false,"Bake it");
+        Recipe badRecipe = new Recipe("burger",100,3,false,"Burger on Bun");
 
         Assert.assertTrue("Add should be good",ar.insertRecipe(r));
 
@@ -53,8 +53,8 @@ public class AccessRecipesTest {
 
     @Test
     public void testGetRecipe() {
-        String recipeID = "100";//burger
-        String badRecipeID = "87138975";
+        int recipeID = 100;//burger
+        int badRecipeID = 87138975;
 
         Assert.assertNotNull("Should return a recipe",ar.getRecipe(recipeID));
         Assert.assertTrue("Should return a recipe with name Null",ar.getRecipe(badRecipeID).getName().equals("Null"));
@@ -62,16 +62,33 @@ public class AccessRecipesTest {
 
     @Test
     public void testDeleteRecipe(){
-        String recipeID = "100";//burger
-        ar.deleteRecipe("100");
+        int recipeID = 100;//burger
+        ar.deleteRecipe(100);
         Assert.assertTrue("Should return a recipe with name Null",ar.getRecipe(recipeID).getName().equals("Null"));
     }
 
     @Test
-    public void changeRating() {
-        String recipeID = "100";//burger
+    public void testChangeRating() {
+        int recipeID = 100;//burger
         double newRating = 3.4;
         ar.changeRating(newRating,recipeID);
         Assert.assertEquals("rating should be 3.4",3.4,ar.getRecipe(recipeID).getRating(),0.01);
+    }
+
+    @Test
+    public void testChangeFav() {
+        int recipeID = 100;//burger
+        boolean newFav = true;
+        ar.changeFav(newFav,recipeID);
+        Assert.assertTrue("Burger should now be fav",ar.getRecipe(recipeID).getFav());
+    }
+
+
+    @Test
+    public void testUpdateDirections() {
+        int recipeID = 100;//burger
+        ar.updateDirections(recipeID,"Boil the meat(eww)");
+        Recipe r = ar.getRecipe(recipeID);
+        Assert.assertEquals("directions should be updated","Boil the meat(eww)",r.getSteps());
     }
 }

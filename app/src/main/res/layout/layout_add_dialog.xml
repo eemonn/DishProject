@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:hint="Recipe Name"
         ></EditText>
+
     <Button
         android:id="@+id/button_add_ingredient"
         android:layout_width="wrap_content"

@@ -2,14 +2,14 @@ package comp3350.dishproject.objects;
 
 public class Ingredient {
     //Variables
-    private String name,recipeID;
+    private String name;
     private double weight,calorie, initCal, initWeight;
-    private int quantity, initQuantity;
+    private int quantity, initQuantity, recipeID;
 
     /*
     Description: Constructor
      */
-    public Ingredient(String name, int quantity, double weight, double calorie, String recipeID) {
+    public Ingredient(String name, int quantity, double weight, double calorie, int recipeID) {
         this.name = name;
         this.calorie = calorie;
         this.quantity = quantity;
@@ -36,7 +36,7 @@ public class Ingredient {
     public double getCalorie() {
         return this.calorie;
     }
-    public String getRecipeID(){return recipeID;}
+    public int getRecipeID(){return recipeID;}
     public double getWeight() {
         return weight;
     }
@@ -59,7 +59,7 @@ public class Ingredient {
     name and id
      */
     public boolean isEqual(Ingredient i) {
-        return this.name.equals(i.name) && this.getRecipeID().equals(i.getRecipeID());
+        return this.name.equals(i.name);
     }
 
     /*

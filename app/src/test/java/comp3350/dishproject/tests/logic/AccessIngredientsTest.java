@@ -21,7 +21,7 @@ public class AccessIngredientsTest {
     private AccessRecipes ar;
     private AccessIngredients ai;
     Recipe r;
-    String recipeID;
+    int recipeID;
 
 
     @Before
@@ -30,7 +30,7 @@ public class AccessIngredientsTest {
         recipePersistence = new RecipePersistenceStub();
         ai = new AccessIngredients(ingredientPersistence);
         ar = new AccessRecipes(recipePersistence);
-        recipeID = "100";
+        recipeID = 100;
         r = ar.getRecipe(recipeID);
 
     }
@@ -43,7 +43,7 @@ public class AccessIngredientsTest {
 
     @Test
     public void testGetIngredients() {
-        String badRecipeID = "124235";
+        int badRecipeID = 124235;
 
         List<Ingredient> li = ai.getIngredients(recipeID);
         List<Ingredient> liBad = ai.getIngredients(badRecipeID);

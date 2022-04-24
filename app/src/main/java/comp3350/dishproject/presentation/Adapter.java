@@ -18,8 +18,8 @@ import comp3350.dishproject.R;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.myViewHolder> {
 
-    private Context mContext;
-    private List<HomeCard> mData;
+    private final Context mContext;
+    private final List<HomeCard> mData;
 
     /*
     Input: Takes in a context and a list of home cards
@@ -52,8 +52,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.myViewHolder> {
     */
     @Override
     public void onBindViewHolder(@NonNull myViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        holder.background_img.setImageResource(mData.get(position).getBackground());
 
+        //If favorited, show the favorite photo
+        if(mData.get(position).getFav())
+        {
+            holder.fav_img.setImageResource(R.drawable.fav2);
+        }
+        holder.background_img.setImageResource(mData.get(position).getBackground());
         holder.tv_title.setText(mData.get(position).getRecipeName());
         holder.btn_view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,6 +85,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.myViewHolder> {
         ImageView background_img;
         TextView tv_title;
         Button btn_view;
+        ImageView fav_img;
 
         /*
           Input: Takes in a View object
@@ -88,6 +94,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.myViewHolder> {
         */
         public myViewHolder (View itemView) {
             super(itemView);
+            fav_img = itemView.findViewById(R.id.fav_img);
             background_img = itemView.findViewById(R.id.card_background);
             tv_title = itemView.findViewById(R.id.card_title);
             btn_view = itemView.findViewById(R.id.btn_view);

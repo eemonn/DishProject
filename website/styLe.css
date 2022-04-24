@@ -1,4 +1,3 @@
-
 .navbar {
     margin-bottom: 0;
 }
@@ -62,8 +61,58 @@ body, html {
 	min-height: 30px;
   }
 
-  footer{
+
+	
+	
+/*Css and Code referenced from https://www.w3schools.com/howto/howto_css_team.asp  */
+.column {
+  float: left;
+  width: 33.3%;
+  margin-bottom: 16px;
+  padding: 0 8px;
+}
+
+@media screen and (max-width: 650px) {
+  .column {
+    width: 100%;
+    display: block;
+  }
+}
+
+.pleft{
+  padding-left: 15px;
+  padding-bottom: 15px;
+  padding-right: 15px;
+  text-align: center;
+  }
+
+
+.card {
+	background-color:#ffcc80;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.container2 {
+  padding: 0 16px;
+}
+
+/* Clear floats */
+.container2::after, .row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.title {
+  color: grey;
+}
+
+
+ footer{
 	background-color: #107dac; 
+	
+
+
 	
     
 	

@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,10 +17,13 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import comp3350.dishproject.R;
+import comp3350.dishproject.logic.AccessIngredients;
 import comp3350.dishproject.logic.AccessRecipes;
+import comp3350.dishproject.logic.AccessShoppingCart;
 import comp3350.dishproject.objects.Recipe;
 import comp3350.dishproject.persistence.utils.DBHelper;
 
@@ -31,39 +33,47 @@ import androidx.annotation.NonNull;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
     private static final int SCROLLING_SPEED_FRICTION = 350;//modifies scrolling speed for search suggestion box
     private ListView listSearchSuggestions; //listview used for displaying the search suggestions(AKA autocomplete)
     private ArrayAdapter<String> searchSuggestions;//used for taking a string array of dishes and inserting them into the listview
     private String[] dishes;
+    private List<HomeCard> mlist;
+    private AccessRecipes ar;
+    private AccessIngredients ai;
+    private AccessShoppingCart asc;
+    private Adapter adapter;
 
     //for navigation bar
-    public DrawerLayout drawerLayout;
-    public ActionBarDrawerToggle actionBarDrawerToggle;
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle actionBarDrawerToggle;
+
 
     //Android Specific Creator
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        DBHelper.copyDatabaseToDevice(this);
+        DBHelper.copyDatabaseToDevice(this);//Database
+
+        //Setting up our database singleton classes
+        ar = new AccessRecipes();
+        ai = new AccessIngredients();
+        asc = new AccessShoppingCart();
 
         //Update the list of recipes at startup
         updateDishList();
-
         //Setup recycler view with the adapter (shows cards on main screen)
         RecyclerView recyclerView = findViewById(R.id.rv_list);
 
-        //Popular cards - these need to be hardcoded since their popular to everyone
-        List<HomeCard> mlist = new ArrayList<>();
-        mlist.add(new HomeCard(R.drawable.burger, "Burger"));
-        mlist.add(new HomeCard(R.drawable.pizza, "Pizza"));
-        mlist.add(new HomeCard(R.drawable.tacos, "Tacos"));
-        mlist.add(new HomeCard(R.drawable.pancake, "Pancake"));
-        mlist.add(new HomeCard(R.drawable.fish, "Fish"));
+
+        //Recipes Cards Init
+        mlist = new ArrayList<>();
+        turnRecipesIntoCards();
+        sortRecipeCards();
 
         //Adapter for Cards
-        Adapter adapter = new Adapter(this, mlist);
+        adapter = new Adapter(this, mlist);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager((new LinearLayoutManager(this)));
 
@@ -72,6 +82,53 @@ public class MainActivity extends AppCompatActivity {
         initializeNavigationBar();
         setNavigationOnClick();
 
+    }
+
+    /*
+    Input: No input
+    Output: void function
+    Description: Refreshes the page when we use the back button to return to home. Allows us to update home cards
+     */
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        //When BACK BUTTON is pressed, the activity on the stack is restarted
+        //Do what you want on the refresh procedure here
+        //Refresh the page if we use the back button to get back to it
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(getIntent());
+        overridePendingTransition(0, 0);
+
+    }
+
+    /*
+    Input: No input
+    Output: void function
+    Description: Takes all the recipes in the system and converts them to recipe cards
+     */
+    public void turnRecipesIntoCards(){
+        List<Recipe> recipeList = ar.getAllRecipes();
+        for(int i=0;i<recipeList.size();i++) {
+            Recipe recipe = recipeList.get(i);
+            String dish = recipe.getName().toLowerCase();
+            int resID = getResources().getIdentifier(dish, "drawable", getPackageName());//seeing if theres an image
+            if(resID != 0) {//meaing we have a picture
+                mlist.add(new HomeCard(resID, recipe.getName(),recipe.getFav()));
+            } else {//default picture
+                mlist.add(new HomeCard(R.drawable.cook, recipe.getName(),recipe.getFav()));
+            }
+        }
+    }
+
+    /*
+    Input: No input
+    Output: void function
+    Description: Sorts the recipe cards based on the favorite status, favorites come first
+     */
+    public void sortRecipeCards(){
+        //Sort with favorites on top
+        Collections.sort(mlist, (object1, object2) -> Boolean.compare(object2.getFav(), object1.getFav()));
     }
 
     /*
@@ -103,6 +160,10 @@ public class MainActivity extends AppCompatActivity {
                 int id = item.getItemId();
                 if(id == R.id.nav_add_recipe) {
                     openDialog();
+                }
+                if(id == R.id.nav_shopping_cart){
+                    Intent intent = new Intent(MainActivity.this, ShoppingCartActivity.class);
+                    startActivity(intent);
                 }
                 return true;
             }
@@ -140,7 +201,6 @@ public class MainActivity extends AppCompatActivity {
     Description: updates the local dish array with the latest adds(recipes) and formats it into string array
      */
     public void updateDishList() {
-        AccessRecipes ar = new AccessRecipes();
         List<Recipe> rr = ar.getAllRecipes();
         dishes = new String[rr.size()];
         for(int i=0;i<rr.size();i++) {
@@ -152,7 +212,9 @@ public class MainActivity extends AppCompatActivity {
     //Opens the dialog box for "Adding a new recipe"
     public void openDialog(){
         AddDialog addDialog = new AddDialog();
+        addDialog.initialize(this); //Send a reference of mainActivity so we can refresh page on close
         addDialog.show(getSupportFragmentManager(), "Add a recipe");
+
 
     }
     //Android Specific Creator
@@ -164,7 +226,6 @@ public class MainActivity extends AppCompatActivity {
         final SearchView searchView = (SearchView) menuItem.getActionView();//returns currently set action view
         searchView.setQueryHint("Search for Dish");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            AccessRecipes ar = new AccessRecipes();
             /*
             Input: Takes in a string s. This string will be the typed string once the user hits enter.
             Output: returns true if done successfully
@@ -174,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String enteredString) {
 
 
-                if (ar.getRecipe(ar.findRecipeID(enteredString.toLowerCase())) != null) {
+                if (!ar.getRecipe(ar.findRecipeID(enteredString.toLowerCase())).getName().equals("Null")) {
                     String dishName = enteredString.toLowerCase();
                     searchView.clearFocus();
                     Intent intent = new Intent(MainActivity.this, ViewRecipe.class);

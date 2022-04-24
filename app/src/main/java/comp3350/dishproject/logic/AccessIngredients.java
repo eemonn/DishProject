@@ -4,7 +4,6 @@ import java.util.List;
 
 import comp3350.dishproject.application.Services;
 import comp3350.dishproject.objects.Ingredient;
-import comp3350.dishproject.objects.Recipe;
 import comp3350.dishproject.persistence.IngredientPersistence;
 
 public class AccessIngredients {
@@ -25,20 +24,20 @@ public class AccessIngredients {
     }
 
     /*
-   Input: takes in a string of the recipe ID
+   Input: takes in a int of the recipe ID
    Output: returns a List of ingredients objects
    Description: returns a List of ingredients for a specific recipe
     */
-    public List<Ingredient> getIngredients(String recipeID) {
+    public List<Ingredient> getIngredients(int recipeID) {
         return ingredientPersistence.getIngredients(recipeID);
     }
 
     /*
-     Input: Takes in an ingredient object and String recipe ID
+     Input: Takes in an ingredient object and int recipe ID
      Output: void function
      Description: Allows the addition of an ingredient to a given recipe
       */
-    public boolean addIngredients(Ingredient ingredient, final String recipeID) {
+    public boolean addIngredients(Ingredient ingredient, final int recipeID) {
         return ingredientPersistence.addIngredients(ingredient, recipeID);
     }
 
